@@ -1,47 +1,37 @@
-module test
+module envelope
 
 contains
 
-subroutine foo (a)
+subroutine rkpr(comp, tc, pc, ohm, ac, b, del, k, Kij0, Kij1, Lij, n, To, Po, Do)
     implicit none
 
-    integer, intent(in) :: a
-    print*, "Hello from Fortran!"
-    print*, "a=",a
-end subroutine foo
+    real, dimension(n), intent(in) :: comp
+    real, dimension(n), intent(in) :: tc
+    real, dimension(n), intent(in) :: pc
+    real, dimension(n), intent(in) :: ohm
+    real, dimension(n), intent(in) :: ac
+    real, dimension(n), intent(in) :: b
+    real, dimension(n), intent(in) :: del
+    real, dimension(n), intent(in) :: k
+    real, dimension(n,n), intent(in) :: Kij0
+    real, dimension(n,n), intent(in) :: Kij1
+    real, dimension(n,n), intent(in) :: Lij
 
-function bar (a, len_a)
-    implicit none
+    integer, intent(in) :: n
 
-    real, dimension(len_a), intent(in) :: a
-    integer, intent(in) :: len_a
-
-    real, dimension(len_a) :: bar
+    real, dimension(n), intent(out) :: To
+    real, dimension(n), intent(out) :: Po
+    real, dimension(n), intent(out) :: Do
 
 
     integer :: i
-    real, dimension(len_a) :: b
 
-    do i=1,len_a
-        b(i) = 2.0*a(i)
+    do i=1,n
+        To(i) = 2.0 * tc(i)
+        Po(i) = 2.0 * pc(i)
+        Do(i) = 2.0 * ohm(i)
     end do
 
-    bar = b
-end function bar
+end subroutine rkpr
 
-subroutine sub (a, len_a, a_out)
-    implicit none
-
-    real, dimension(len_a), intent(in) :: a
-    integer, intent(in) :: len_a
-    real, dimension(len_a), intent(out) :: a_out
-
-    integer :: i
-
-    do i=1,len_a
-        a_out(i) = 2.0*a(i)
-    end do
-
-end subroutine sub
-
-end module test
+end module envelope
