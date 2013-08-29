@@ -3,6 +3,11 @@ from peewee import *
 db = SqliteDatabase('dev.db', **{})
 
 
+#  we could scrap data from nist's webbook.
+#  for example
+#  http://webbook.nist.gov/cgi/cbook.cgi?Name=isopentane&Units=SI&cTP=on
+
+
 class Compound(Model):
     name = CharField(unique=True)
     formula = CharField()
