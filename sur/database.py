@@ -1,7 +1,7 @@
 from peewee import *
+from . import data
 
-db = SqliteDatabase('dev.db', **{})
-
+db = SqliteDatabase(data('dev.db'), **{})
 
 #  we could scrap data from nist's webbook.
 #  for example
