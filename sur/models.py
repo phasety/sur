@@ -102,6 +102,10 @@ class Alias(models.Model):
     compound = models.ForeignKey('Compound')
     name = models.CharField(max_length=DEFAULT_MAX_LENGTH, unique=True)
 
+    def __unicode__(self):
+        return '%s (%s)' % (self.name, self.compound.name)
+
+
 
 class MixtureFraction(models.Model):
     mixture = models.ForeignKey('Mixture')
