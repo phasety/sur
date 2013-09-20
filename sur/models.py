@@ -5,6 +5,9 @@ from django.db import models
 from django.db.models import Q
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.core.exceptions import ValidationError
+
+import numpy as np
+
 from . import units
 
 DEFAULT_MAX_LENGTH = 255
@@ -15,6 +18,14 @@ DECIMAL_PLACES = 5
 class CompoundManager(models.Manager):
 
     def find(self, val, exact=False):
+        """
+        Given an string, looks for compounds matching
+        name, formula o aliases.
+
+        If ``exact`` is True, the
+        the filter try match the whole val (case insensitive).
+        Otherwise, match the as `starts with` (case insensitive).
+        """
 
         criteria = "iexact" if exact else "istartswith"
 
@@ -108,7 +119,7 @@ class Alias(models.Model):
 
 
 class MixtureFraction(models.Model):
-    mixture = models.ForeignKey('Mixture')
+    mixture = models.ForeignKey('Mixture', related_name='fractions')
     compound = models.ForeignKey('Compound')
     fraction = models.DecimalField(decimal_places=4,
                                    max_digits=MAX_DIGITS,
@@ -121,16 +132,37 @@ class MixtureFraction(models.Model):
 
     class Meta:
         unique_together = ("mixture", "compound")
+        ordering = ['compound__weight']
 
 
 class Mixture(models.Model):
     compounds = models.ManyToManyField(Compound, through='MixtureFraction')
 
 
+    @property
+    def z(self):
+        """
+        return the Z composition as a :class:`numpy.array` instance
+        in the same order than `self.compounds.all()`
+        """
+
+        return np.array([float(f.fraction) for f in self.fractions.all()])
+
+
 
     def add(self, compound, fraction):
+        """
+        Add a compound fraction to the mixture.
+
+        Compound could be a :class:`Compound` instance or
+        a string passed to :meth:`Compound.objects.find`
+        """
+
         if not self.id:
             self.save()
+        if isinstance(compound, basestring):
+            compound = Compound.objects.find(compound, exact=True).get()
+
         MixtureFraction.objects.create(mixture=self,
                                        compound=compound,
                                        fraction=fraction)
