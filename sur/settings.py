@@ -6,7 +6,7 @@ DATABASES = {
     'ENGINE': 'django.db.backends.sqlite3',
     'NAME': ':memory:' #data('dev.db'),
     },
-  'dev':
+  'disk':
     {
     'ENGINE': 'django.db.backends.sqlite3',
     'NAME': data('dev.db'),
