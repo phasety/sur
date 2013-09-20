@@ -138,7 +138,6 @@ class MixtureFraction(models.Model):
 class Mixture(models.Model):
     compounds = models.ManyToManyField(Compound, through='MixtureFraction')
 
-
     @property
     def z(self):
         """

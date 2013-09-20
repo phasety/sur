@@ -10,6 +10,16 @@ data = lambda a: os.path.join(DATA, a)
 
 
 def setup_db():
+    """
+    this is a hackish trick.
+
+    It setup the django enviroment throght setup_environ(settings)
+
+    Then populate the database with but, instead of fixtures,
+    it dumps db on disk ('disk')
+    to a memory one ('default'), and then syncs the missing tables on the latter.
+    """
+
     if ROOT not in sys.path:
         sys.path.append(ROOT)
 
@@ -30,6 +40,6 @@ def setup_db():
     # Use in memory and import from tempfile
     connection.cursor().executescript(tempfile.read())
 
-    call_command('syncdb')
+    call_command('syncdb', verbosity=0)
 
 setup_db()
