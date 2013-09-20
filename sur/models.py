@@ -142,20 +142,73 @@ class Mixture(models.Model):
     @property
     def z(self):
         """
-        return the Z composition as a :class:`numpy.array` instance
-        in the same order than `self.compounds.all()`
+        the :abbr:`Z (Composition array)` as a :class:`numpy.array` instance
+        in the same order than ``self.compounds.all()``
         """
-
         return np.array([float(f.fraction) for f in self.fractions.all()])
 
+    @property
+    def total_z(self):
+        """
+        Return the summatory of z fractions. Should sum 1.0 to be a valid mixture
+        """
+        return MixtureFraction.objects.filter(mixture=self).\
+                        aggregate(total=models.Sum('fraction'))['total'] or 0
 
 
-    def add(self, compound, fraction):
+    def _compounds_array_field(self, field, as_array=True):
+        """helper to construct an array-like from compound's field"""
+        values = [getattr(v, field) for v in self.compound.all()]
+        if as_array:
+            values = np.array(values)
+        return values
+
+
+    @property
+    def tc(self):
+        """
+        return the :abbr:`Tc (Critical temperature)` array.
+
+        It is the :abbr:`Tc` of each compound in the mixture as a
+        :class:`numpy.array` instance in the same order
+        than ``self.compounds.all()``
+        """
+        return self._compounds_array_field('tc')
+
+    @property
+    def pc(self):
+        """
+        return the :abbr:`Pc (Critical pressure)` array.
+
+        It is the :abbr:`Pc` of each compound in the mixture as a
+        :class:`numpy.array` instance in the same order
+        than ``self.compounds.all()``
+        """
+        return self._compounds_array_field('pc')
+
+    @property
+    def vc(self):
+        """
+        return the :abbr:`Vc (Critical volume)` array.
+
+        It is the :abbr:`Vc` of each compound in the mixture as a
+        :class:`numpy.array` instance in the same order
+        than ``self.compounds.all()``
+        """
+        return self._compounds_array_field('vc')
+
+
+
+    def add(self, compound, fraction=None):
         """
         Add a compound fraction to the mixture.
 
         Compound could be a :class:`Compound` instance or
         a string passed to :meth:`Compound.objects.find`
+
+
+        if fraction is None, it is set to the complement to reach
+        ``self.total_z == Decimal('1.0')``
         """
 
         if not self.id:
@@ -163,13 +216,20 @@ class Mixture(models.Model):
         if isinstance(compound, basestring):
             compound = Compound.objects.find(compound, exact=True).get()
 
+        if fraction:
+            future_total = Decimal(fraction) + self.total_z
+            if future_total > Decimal('1.0'):
+                raise ValueError('Add this fraction would exceed 1.0. Max fraction '
+                                 'allowed is %s' % (Decimal('1.0') - self.total_z))
+        else:
+            fraction = Decimal('1.0') - self.total_z
+
         MixtureFraction.objects.create(mixture=self,
                                        compound=compound,
                                        fraction=fraction)
 
     def clean(self):
-        total = MixtureFraction.objects.filter(mixture=self).\
-                        aggregate(total=models.Sum('fraction'))['total']
-        if total != Decimal('1.0'):
+
+        if self.total_z != Decimal('1.0'):
             raise ValidationError('The mixture fractions should sum 1.0')
 
