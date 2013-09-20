@@ -1,8 +1,11 @@
 from unittest import TestCase
+from decimal import Decimal
+
 import numpy as np
 from numpy.testing import assert_array_equal
 
-from sur.models import Compound, Mixture
+
+from sur.models import Compound, Mixture, MixtureFraction
 
 
 class TestMixture(TestCase):
@@ -49,3 +52,59 @@ class TestMixture(TestCase):
         assert_array_equal(self.m.vc, [self.methane.vc, self.co2.vc, self.ethane.vc])
 
 
+class TestMixtureAdd(TestCase):
+
+    def setUp(self):
+        MixtureFraction.objects.all().delete()
+        self.m = Mixture()
+        self.ethane = Compound.objects.get(name='ETHANE')
+        self.co2 = Compound.objects.get(name='CARBON DIOXIDE')
+
+    def test_simple_add(self):
+        assert MixtureFraction.objects.all().count() == 0
+        self.m.add(self.ethane, 0.1)
+        self.assertEqual(MixtureFraction.objects.count(), 1)
+        mf = MixtureFraction.objects.all().get()
+        self.assertEqual(mf.mixture, self.m)
+        self.assertEqual(mf.compound, self.ethane)
+        self.assertEqual(mf.fraction, Decimal('0.1'))
+
+    def test_add_by_name(self):
+        self.m.add('ethane', 0.1)
+        mf = MixtureFraction.objects.all().get()
+        self.assertEqual(mf.mixture, self.m)
+        self.assertEqual(mf.compound, self.ethane)
+        self.assertEqual(mf.fraction, Decimal('0.1'))
+
+    def test_add_by_formula(self):
+        self.m.add('co2', 0.1)
+        mf = MixtureFraction.objects.all().get()
+        self.assertEqual(mf.mixture, self.m)
+        self.assertEqual(mf.compound, self.co2)
+        self.assertEqual(mf.fraction, Decimal('0.1'))
+
+    def test_add_fraction_as_str(self):
+        self.m.add('ethane', '0.1')
+        mf = MixtureFraction.objects.all().get()
+        self.assertEqual(mf.mixture, self.m)
+        self.assertEqual(mf.compound, self.ethane)
+        self.assertEqual(mf.fraction, Decimal('0.1'))
+
+    def test_cant_add_greater_than_1(self):
+        with self.assertRaises(ValueError) as v:
+            self.m.add('ethane', '1.2')
+        self.assertEqual(v.exception.message, 'Add this fraction would exceed 1.0. '
+                                              'Max fraction allowed is 1.0')
+
+    def test_cant_add_greater_than_remaining(self):
+        self.m.add('ethane', '0.6')
+        with self.assertRaises(ValueError) as v:
+            self.m.add('ethane', '0.6')
+        self.assertEqual(v.exception.message, 'Add this fraction would exceed 1.0. '
+                                              'Max fraction allowed is 0.4000')
+
+    def test_add_without_fraction_add_remaining(self):
+        self.m.add('ethane', '0.6')
+        self.m.add('co2')
+        mf = MixtureFraction.objects.get(mixture=self.m, compound=self.co2)
+        self.assertEqual(mf.fraction, Decimal('0.4'))
