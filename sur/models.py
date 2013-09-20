@@ -2,6 +2,7 @@
 from decimal import Decimal
 
 from django.db import models
+from django.db.models import Q
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.core.exceptions import ValidationError
 from . import units
@@ -9,6 +10,22 @@ from . import units
 DEFAULT_MAX_LENGTH = 255
 MAX_DIGITS = 15
 DECIMAL_PLACES = 5
+
+
+class CompoundManager(models.Manager):
+
+    def find(self, val, exact=False):
+
+        criteria = "iexact" if exact else "istartswith"
+
+        lookup = lambda key: dict((("%s__%s" % (key, criteria), val),))
+
+        q_name = Q(**lookup('name'))
+        q_formula = Q(**lookup('formula'))
+        q_alias = Q(**lookup('alias__name'))
+
+        return self.filter(q_name | q_formula | q_alias).distinct()
+
 
 
 def t_unit():
@@ -30,6 +47,8 @@ def v_unit():
 
 
 class Compound(models.Model):
+    objects = CompoundManager()
+
     name = models.CharField(max_length=DEFAULT_MAX_LENGTH, unique=True)
     formula = models.CharField(max_length=DEFAULT_MAX_LENGTH)
     formula_extended = models.TextField(null=True, blank=True)
@@ -67,6 +86,9 @@ class Compound(models.Model):
 
     def __gt__(self, other):
         return self.weight > other.weight
+
+
+
 
     def save(self, *args, **kwargs):
         self.weight = self.calculate_weight()
