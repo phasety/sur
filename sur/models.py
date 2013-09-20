@@ -158,7 +158,7 @@ class Mixture(models.Model):
 
     def _compounds_array_field(self, field, as_array=True):
         """helper to construct an array-like from compound's field"""
-        values = [getattr(v, field) for v in self.compound.all()]
+        values = [getattr(v, field) for v in self.compounds.all()]
         if as_array:
             values = np.array(values)
         return values
@@ -197,6 +197,16 @@ class Mixture(models.Model):
         """
         return self._compounds_array_field('vc')
 
+    @property
+    def acentric_factor(self):
+        """
+        return the :abbr:`$\omega$ (acentric_factor)` array.
+
+        It is the :abbr:`$\omega$ of each compound in the mixture as a
+        :class:`numpy.array` instance in the same order
+        than ``self.compounds.all()``
+        """
+        return self._compounds_array_field('acentric_factor')
 
 
     def add(self, compound, fraction=None):
