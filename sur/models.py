@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
+from decimal import Decimal
 
-from django.template.defaultfilters import slugify
 from django.db import models
-
+from django.core.validators import MaxValueValidator, MinValueValidator
+from django.core.exceptions import ValidationError
 from . import units
 
 DEFAULT_MAX_LENGTH = 255
@@ -15,10 +16,12 @@ def t_unit():
                             choices=units.Temperature.CHOICES,
                             default=units.Temperature.KELVIN)
 
+
 def p_unit():
     return models.CharField(max_length=DEFAULT_MAX_LENGTH,
                             choices=units.Pressure.CHOICES,
                             default=units.Pressure.BAR)
+
 
 def v_unit():
     return models.CharField(max_length=DEFAULT_MAX_LENGTH,
@@ -66,9 +69,49 @@ class Compound(models.Model):
         return self.weight > other.weight
 
     def save(self, *args, **kwargs):
-        if not self.slug:
-            # Newly created object, so set slug
-            self.slug = slugify(self.name)
         self.weight = self.calculate_weight()
         super(Compound, self).save(*args, **kwargs)
+
+    class Meta:
+        ordering = ['weight']
+
+
+class Alias(models.Model):
+    compound = models.ForeignKey('Compound')
+    name = models.CharField(max_length=DEFAULT_MAX_LENGTH, unique=True)
+
+
+class MixtureFraction(models.Model):
+    mixture = models.ForeignKey('Mixture')
+    compound = models.ForeignKey('Compound')
+    fraction = models.DecimalField(decimal_places=4,
+                                   max_digits=MAX_DIGITS,
+                                   validators=[MinValueValidator(0.),
+                                               MaxValueValidator(1.)])
+
+    def save(self, *args, **kwargs):
+        self.full_clean()
+        super(MixtureFraction, self).save(*args, **kwargs)
+
+    class Meta:
+        unique_together = ("mixture", "compound")
+
+
+class Mixture(models.Model):
+    compounds = models.ManyToManyField(Compound, through='MixtureFraction')
+
+
+
+    def add(self, compound, fraction):
+        if not self.id:
+            self.save()
+        MixtureFraction.objects.create(mixture=self,
+                                       compound=compound,
+                                       fraction=fraction)
+
+    def clean(self):
+        total = MixtureFraction.objects.filter(mixture=self).\
+                        aggregate(total=models.Sum('fraction'))['total']
+        if total != Decimal('1.0'):
+            raise ValidationError('The mixture fractions should sum 1.0')
 
