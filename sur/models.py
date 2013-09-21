@@ -38,7 +38,6 @@ class CompoundManager(models.Manager):
         return self.filter(q_name | q_formula | q_alias).distinct()
 
 
-
 def t_unit():
     return models.CharField(max_length=DEFAULT_MAX_LENGTH,
                             choices=units.Temperature.CHOICES,
@@ -98,24 +97,25 @@ class Compound(models.Model):
     def __gt__(self, other):
         return self.weight > other.weight
 
-
-
-
     def save(self, *args, **kwargs):
         self.weight = self.calculate_weight()
         super(Compound, self).save(*args, **kwargs)
 
     class Meta:
-        ordering = ['weight']
+        ordering = ('mixturefraction__position',)
 
 
 class Alias(models.Model):
+    """
+    Some shortchuts to find Compounds.
+    Example: 'c5' -> Pentane
+    """
+
     compound = models.ForeignKey('Compound')
     name = models.CharField(max_length=DEFAULT_MAX_LENGTH, unique=True)
 
     def __unicode__(self):
         return '%s (%s)' % (self.name, self.compound.name)
-
 
 
 class MixtureFraction(models.Model):
@@ -125,14 +125,18 @@ class MixtureFraction(models.Model):
                                    max_digits=MAX_DIGITS,
                                    validators=[MinValueValidator(0.),
                                                MaxValueValidator(1.)])
+    position = models.PositiveIntegerField(editable=False)
 
     def save(self, *args, **kwargs):
+        if self.position is None:
+            self.position = MixtureFraction.objects.all().count()
         self.full_clean()
+
         super(MixtureFraction, self).save(*args, **kwargs)
 
     class Meta:
         unique_together = ("mixture", "compound")
-        ordering = ['compound__weight']
+        ordering = ('position',)
 
 
 class Mixture(models.Model):
@@ -149,11 +153,11 @@ class Mixture(models.Model):
     @property
     def total_z(self):
         """
-        Return the summatory of z fractions. Should sum 1.0 to be a valid mixture
+        Return the summatory of z fractions.
+        Should sum 1.0 to be a valid mixture
         """
         return MixtureFraction.objects.filter(mixture=self).\
-                        aggregate(total=models.Sum('fraction'))['total'] or 0
-
+            aggregate(total=models.Sum('fraction'))['total'] or 0
 
     def _compounds_array_field(self, field, as_array=True):
         """helper to construct an array-like from compound's field"""
@@ -161,7 +165,6 @@ class Mixture(models.Model):
         if as_array:
             values = np.array(values)
         return values
-
 
     @property
     def tc(self):
@@ -207,7 +210,6 @@ class Mixture(models.Model):
         """
         return self._compounds_array_field('acentric_factor')
 
-
     def add(self, compound, fraction=None):
         """
         Add a compound fraction to the mixture.
@@ -241,4 +243,3 @@ class Mixture(models.Model):
 
         if self.total_z != Decimal('1.0'):
             raise ValidationError('The mixture fractions should sum 1.0')
-
