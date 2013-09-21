@@ -75,9 +75,6 @@ class Compound(models.Model):
     d = models.FloatField(null=True, blank=True)
     weight = models.FloatField(editable=False, null=True, blank=True)
 
-    def get_absolute_url(self):
-        return '#'
-
     def __unicode__(self):
         return self.name
 
@@ -209,6 +206,12 @@ class Mixture(models.Model):
         than ``self.compounds.all()``
         """
         return self._compounds_array_field('acentric_factor')
+
+    def sort(self):
+        """Sort the mixture by compound's weight"""
+        for pos, f in enumerate(self.fractions.all().order_by('compound__weight')):
+            f.position = pos
+            f.save()
 
     def add(self, compound, fraction=None):
         """
