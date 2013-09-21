@@ -164,7 +164,37 @@ class TestInteraction(TestCase):
                                                         mixture=m)
         other_k.compounds.add(self.ethane)
         other_k.compounds.add(self.co2)
-        found1 = K0InteractionParameter.objects.find('RKPR', self.ethane)
+        found1 = K0InteractionParameter.objects.find('RKPR', self.ethane, mixture=m)
+        self.assertEqual(found1.count(), 2)
+
+    def test_per_mixture_compound_is_first(self):
+        m = Mixture()
+        m.add(self.methane, 0.2)
+        m.add(self.co2, 0.1)
+        other_k = K0InteractionParameter.objects.create(eos='RKPR',
+                                                        value=0.1,
+                                                        mixture=m)
+        other_k.compounds.add(self.ethane)
+        other_k.compounds.add(self.co2)
+        k0s = K0InteractionParameter.objects.find('RKPR', self.ethane, mixture=m)
+        self.assertEqual(k0s[0].mixture, m)
+        self.assertEqual(k0s[0].value, 0.1)
+        self.assertIsNone(k0s[1].mixture)
+        self.assertEqual(k0s[1].value, 0.4)
+
+    def test_same_custom_k_for_different_mixture_doesnt_interfer(self):
+        assert K0InteractionParameter.objects.filter(compounds=self.ethane,
+                                                     mixture__isnull=True).count() == 1
+        for i in range(2):
+            m = Mixture()
+            m.add(self.methane, 0.2)
+            m.add(self.co2, 0.1)
+            other_k = K0InteractionParameter.objects.create(eos='RKPR',
+                                                            value=0.1,
+                                                            mixture=m)
+            other_k.compounds.add(self.ethane)
+            other_k.compounds.add(self.co2)
+        found1 = K0InteractionParameter.objects.find('RKPR', self.ethane, mixture=m)
         self.assertEqual(found1.count(), 2)
 
     def test_cant_add_already_existent_per_mixture_k0(self):
@@ -185,3 +215,68 @@ class TestInteraction(TestCase):
             other_k.compounds.add(self.co2)
         self.assertIn('Already exists a parameter matching these condition',
                       e.exception.message)
+
+
+class TestK0(TestCase):
+
+    def setUp(self):
+
+        K0InteractionParameter.objects.all().delete()
+        self.m = Mixture()
+        self.ethane = Compound.objects.get(name='ETHANE')
+        self.methane = Compound.objects.get(name='METHANE')
+        self.co2 = Compound.objects.get(name='CARBON DIOXIDE')
+        self.m.add(self.ethane, 0.1)
+        self.m.add(self.co2, 0.3)
+        self.m.add(self.methane, 0.2)
+
+    def test_all_zeros_by_default(self):
+        assert_array_equal(self.m.k0('RKPR'), np.zeros((3, 3)))
+
+    def test_there_is_a_global_k(self):
+        k = K0InteractionParameter.objects.create(eos='RKPR',
+                                                  value=0.1)
+        k.compounds.add(self.ethane)
+        k.compounds.add(self.methane)
+
+        expected = np.zeros((3, 3))
+        expected[0, 2] = expected[2, 0] = k.value
+
+        assert_array_equal(self.m.k0('RKPR'), expected)
+
+    def test_there_is_a_global_k_a_mixture_override(self):
+        k = K0InteractionParameter.objects.create(eos='RKPR',
+                                                  value=0.1)
+        k.compounds.add(self.ethane)
+        k.compounds.add(self.methane)
+
+        k2 = K0InteractionParameter.objects.create(eos='RKPR',
+                                                   value=0.2,
+                                                   mixture=self.m)
+        k2.compounds.add(self.ethane)
+        k2.compounds.add(self.methane)
+
+        expected = np.zeros((3, 3))
+        expected[0, 2] = expected[2, 0] = k2.value
+
+        assert_array_equal(self.m.k0('RKPR'), expected)
+
+    def test_global_k_for_same_custom_for_other_interaction(self):
+        k = K0InteractionParameter.objects.create(eos='RKPR',
+                                                  value=0.1)
+        k.compounds.add(self.ethane)
+        k.compounds.add(self.methane)
+
+        k2 = K0InteractionParameter.objects.create(eos='RKPR',
+                                                   value=0.2,
+                                                   mixture=self.m)
+        k2.compounds.add(self.ethane)
+        k2.compounds.add(self.co2)
+
+        expected = np.zeros((3, 3))
+        expected[0, 1] = expected[1, 0] = k2.value
+        expected[0, 2] = expected[2, 0] = k.value
+
+        assert_array_equal(self.m.k0('RKPR'), expected)
+
+

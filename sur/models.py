@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from decimal import Decimal
+from itertools import combinations
 
 from django.db import models
 from django.db.models import Q
@@ -104,7 +105,7 @@ class Compound(models.Model):
         super(Compound, self).save(*args, **kwargs)
 
     class Meta:
-        ordering = ('mixturefraction__position',)
+        ordering = ('mixturefraction__position', 'weight')
 
 
 class Alias(models.Model):
@@ -122,18 +123,30 @@ class Alias(models.Model):
 
 class InteractionManager(models.Manager):
 
-    def find(self, eos, compound1, compound2=None):
+    def find(self, eos, compound1, compound2=None, mixture=None):
+        """
+        filter interactions for EOS and compounds
+        globally defined on specific for a mixture.
+        """
         comps = Compound.objects.find(compound1)
         qs = self.filter(eos=eos, compounds__in=comps)
         if compound2:
             comps = Compound.objects.find(compound2)
             qs = qs.filter(compounds__in=comps)
+
+        # only global or mixture
+        mix_q = Q(mixture__isnull=True)
+        if mixture:
+            mix_q |= Q(mixture=mixture)
+        qs = qs.filter(mix_q)
         return qs
 
 
 class AbstractInteractionParameter(models.Model):
     class Meta:
         abstract = True
+        ordering = ['-mixture']
+
     objects = InteractionManager()
 
     CHOICES = (('PR', 'PR'), ('SRK', 'SRK'), ('RKPR', 'RKPR'))
@@ -145,7 +158,7 @@ class AbstractInteractionParameter(models.Model):
 
 
 @receiver(m2m_changed)
-def verify_uniqueness(sender, **kwargs):
+def verify_parameter_uniquesness(sender, **kwargs):
     parameter = kwargs.get('instance', None)
     if not isinstance(parameter, AbstractInteractionParameter):
         return
@@ -156,10 +169,13 @@ def verify_uniqueness(sender, **kwargs):
         if parameter.compounds.all().count() == 2:
             raise IntegrityError('This interaction parameter has its compounds '
                                  'already defined')
-
-        if cls.objects.filter(compounds__in=parameter.compounds.all()).\
-            filter(compounds__id__in=compounds_set).\
-                filter(mixture__isnull=not bool(parameter.mixture)):
+        qs = cls.objects.filter(compounds__in=parameter.compounds.all()).\
+            filter(compounds__id__in=compounds_set)
+        if parameter.mixture:
+            qs = qs.filter(mixture=parameter.mixture)
+        else:
+            qs = qs.filter(mixture__isnull=True)
+        if qs.exists():
             raise IntegrityError('Already exists a parameter matching these condition')
 
 
@@ -266,6 +282,27 @@ class Mixture(models.Model):
         than ``self.compounds.all()``
         """
         return self._compounds_array_field('acentric_factor')
+
+    def k0(self, eos):
+        """
+        return the 2d square matrix of k0 interaction parameters
+        """
+        compounds = self.compounds.all()
+        n = compounds.count()
+        m = np.zeros((n, n))
+        for ((x, c1), (y, c2)) in combinations(enumerate(compounds), 2):
+            try:
+                k = K0InteractionParameter.objects.find(eos, c1, c2, self)[0].value
+                m[x, y] = k
+            except:
+                pass
+
+        # 0 1 2    0 0 0
+        # 0 0 0 -> 1 0 0
+        # 0 0 0    2 0 0
+
+        diagonal_mirrored = np.rot90(m[::-1], -1)
+        return m + diagonal_mirrored
 
     def sort(self):
         """Sort the mixture by compound's weight"""
