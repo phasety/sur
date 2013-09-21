@@ -5,6 +5,9 @@ from django.db import models
 from django.db.models import Q
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.core.exceptions import ValidationError
+from django.db.models.signals import m2m_changed
+from django.dispatch import receiver
+from django.db.utils import IntegrityError
 
 import numpy as np
 
@@ -139,6 +142,25 @@ class AbstractInteractionParameter(models.Model):
     eos = models.CharField(max_length=DEFAULT_MAX_LENGTH)
     value = models.FloatField()
     mixture = models.ForeignKey('Mixture', null=True)
+
+
+@receiver(m2m_changed)
+def verify_uniqueness(sender, **kwargs):
+    parameter = kwargs.get('instance', None)
+    if not isinstance(parameter, AbstractInteractionParameter):
+        return
+    cls = type(parameter)
+    compounds_set = kwargs.get('pk_set', None)
+    action = kwargs.get('action', None)
+    if action == 'pre_add':
+        if parameter.compounds.all().count() == 2:
+            raise IntegrityError('This interaction parameter has its compounds '
+                                 'already defined')
+
+        if cls.objects.filter(compounds__in=parameter.compounds.all()).\
+            filter(compounds__id__in=compounds_set).\
+                filter(mixture__isnull=not bool(parameter.mixture)):
+            raise IntegrityError('Already exists a parameter matching these condition')
 
 
 class K0InteractionParameter(AbstractInteractionParameter):

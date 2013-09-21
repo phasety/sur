@@ -6,6 +6,7 @@ from numpy.testing import assert_array_equal
 
 from sur.models import (Compound, Mixture, MixtureFraction,
                         K0InteractionParameter)
+from django.db.utils import IntegrityError
 
 
 class TestMixture(TestCase):
@@ -121,14 +122,66 @@ class TestInteraction(TestCase):
         K0InteractionParameter.objects.all().delete()
         self.k = K0InteractionParameter.objects.create(eos='RKPR', value=0.4)
         self.ethane = Compound.objects.get(name='ETHANE')
+        self.methane = Compound.objects.get(name='ETHANE')
         self.co2 = Compound.objects.get(name='CARBON DIOXIDE')
         self.k.compounds.add(self.ethane)
         self.k.compounds.add(self.co2)
 
-    def test_find_order_doesn_import(self):
+    def test_find_order_doesnt_import(self):
         found1 = K0InteractionParameter.objects.find('RKPR', self.ethane)[0]
         found2 = K0InteractionParameter.objects.find('RKPR', self.co2)[0]
         found3 = K0InteractionParameter.objects.find('RKPR', self.co2, self.ethane)[0]
         self.assertEqual(found1, found2)
         self.assertEqual(found1, found3)
 
+    def test_doesnt_accept_more_than_2_compounds(self):
+        with self.assertRaises(IntegrityError) as e:
+            self.k.compounds.add(self.ethane)
+        self.assertIn('This interaction parameter has its compounds',
+                      e.exception.message)
+
+    def test_can_add_another_k0_for_one_shared_compounds(self):
+        other_k = K0InteractionParameter.objects.create(eos='RKPR', value=0.1)
+        other_k.compounds.add(self.ethane)
+        other_k.compounds.add(self.methane)
+        found1 = K0InteractionParameter.objects.find('RKPR', self.ethane)
+        self.assertEqual(found1.count(), 2)
+
+    def test_cant_add_another_global_k0_for_both_shared_compounds(self):
+        other_k = K0InteractionParameter.objects.create(eos='RKPR', value=0.1)
+        other_k.compounds.add(self.ethane)
+        with self.assertRaises(IntegrityError) as e:
+            other_k.compounds.add(self.co2)
+        self.assertIn('Already exists a parameter matching these condition',
+                      e.exception.message)
+
+    def test_can_add_per_mixture_k0_for_existed_global_compounds(self):
+        m = Mixture()
+        m.add(self.methane, 0.2)
+        m.add(self.co2, 0.1)
+        other_k = K0InteractionParameter.objects.create(eos='RKPR',
+                                                        value=0.1,
+                                                        mixture=m)
+        other_k.compounds.add(self.ethane)
+        other_k.compounds.add(self.co2)
+        found1 = K0InteractionParameter.objects.find('RKPR', self.ethane)
+        self.assertEqual(found1.count(), 2)
+
+    def test_cant_add_already_existent_per_mixture_k0(self):
+        m = Mixture()
+        m.add(self.methane, 0.2)
+        m.add(self.co2, 0.1)
+        k = K0InteractionParameter.objects.create(eos='RKPR',
+                                                  value=0.1,
+                                                  mixture=m)
+        k.compounds.add(self.ethane)
+        k.compounds.add(self.co2)
+
+        other_k = K0InteractionParameter.objects.create(eos='RKPR',
+                                                        value=0.1,
+                                                        mixture=m)
+        other_k.compounds.add(self.ethane)
+        with self.assertRaises(IntegrityError) as e:
+            other_k.compounds.add(self.co2)
+        self.assertIn('Already exists a parameter matching these condition',
+                      e.exception.message)
