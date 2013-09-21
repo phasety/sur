@@ -4,8 +4,8 @@ from decimal import Decimal
 import numpy as np
 from numpy.testing import assert_array_equal
 
-
-from sur.models import Compound, Mixture, MixtureFraction
+from sur.models import (Compound, Mixture, MixtureFraction,
+                        K0InteractionParameter)
 
 
 class TestMixture(TestCase):
@@ -113,3 +113,22 @@ class TestMixtureAdd(TestCase):
         self.m.add('co2')
         mf = MixtureFraction.objects.get(mixture=self.m, compound=self.co2)
         self.assertEqual(mf.fraction, Decimal('0.4'))
+
+
+class TestInteraction(TestCase):
+
+    def setUp(self):
+        K0InteractionParameter.objects.all().delete()
+        self.k = K0InteractionParameter.objects.create(eos='RKPR', value=0.4)
+        self.ethane = Compound.objects.get(name='ETHANE')
+        self.co2 = Compound.objects.get(name='CARBON DIOXIDE')
+        self.k.compounds.add(self.ethane)
+        self.k.compounds.add(self.co2)
+
+    def test_find_order_doesn_import(self):
+        found1 = K0InteractionParameter.objects.find('RKPR', self.ethane)[0]
+        found2 = K0InteractionParameter.objects.find('RKPR', self.co2)[0]
+        found3 = K0InteractionParameter.objects.find('RKPR', self.co2, self.ethane)[0]
+        self.assertEqual(found1, found2)
+        self.assertEqual(found1, found3)
+

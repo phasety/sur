@@ -26,6 +26,8 @@ class CompoundManager(models.Manager):
         the filter try match the whole val (case insensitive).
         Otherwise, match the as `starts with` (case insensitive).
         """
+        if isinstance(val, self.model):
+            return self.filter(id=val.id)
 
         criteria = "iexact" if exact else "istartswith"
 
@@ -113,6 +115,42 @@ class Alias(models.Model):
 
     def __unicode__(self):
         return '%s (%s)' % (self.name, self.compound.name)
+
+
+class InteractionManager(models.Manager):
+
+    def find(self, eos, compound1, compound2=None):
+        comps = Compound.objects.find(compound1)
+        qs = self.filter(eos=eos, compounds__in=comps)
+        if compound2:
+            comps = Compound.objects.find(compound2)
+            qs = qs.filter(compounds__in=comps)
+        return qs
+
+
+class AbstractInteractionParameter(models.Model):
+    class Meta:
+        abstract = True
+    objects = InteractionManager()
+
+    CHOICES = (('PR', 'PR'), ('SRK', 'SRK'), ('RKPR', 'RKPR'))
+
+    compounds = models.ManyToManyField('Compound')
+    eos = models.CharField(max_length=DEFAULT_MAX_LENGTH)
+    value = models.FloatField()
+    mixture = models.ForeignKey('Mixture', null=True)
+
+
+class K0InteractionParameter(AbstractInteractionParameter):
+    pass
+
+
+class TstarInteractionParameter(AbstractInteractionParameter):
+    pass
+
+
+class LijInteractionParameter(AbstractInteractionParameter):
+    pass
 
 
 class MixtureFraction(models.Model):
