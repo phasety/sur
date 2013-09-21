@@ -298,10 +298,9 @@ class Mixture(models.Model):
                 pass
 
         # 0 1 2    0 0 0
-        # 0 0 0 -> 1 0 0
+        # 0 0 0 +  1 0 0
         # 0 0 0    2 0 0
-
-        diagonal_mirrored = np.rot90(m[::-1], -1)
+        diagonal_mirrored = np.rot90(np.flipud(m), -1)
         return m + diagonal_mirrored
 
     def sort(self):
