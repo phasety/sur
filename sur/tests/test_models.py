@@ -76,6 +76,15 @@ class TestMixtureMagicMeths(TestCase):
         self.methane = Compound.objects.get(name='METHANE')
         self.co2 = Compound.objects.get(name='CARBON DIOXIDE')
 
+    def test__len__is_zero(self):
+        assert self.m.fractions.count() == 0
+        self.assertEqual(len(self.m), 0)
+
+    def test__len__zero(self):
+        self.m.add(self.methane, 0.2)
+        assert self.m.fractions.count() == 1
+        self.assertEqual(len(self.m), 1)
+
     def test_simple_get_attr(self):
         self.m.add(self.methane, 0.2)
         self.assertEqual(self.m[self.methane], Decimal('0.2'))
