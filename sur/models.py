@@ -10,6 +10,7 @@ from django.db.models.signals import m2m_changed
 from django.dispatch import receiver
 from django.db.utils import IntegrityError
 
+from picklefield.fields import PickledObjectField
 import numpy as np
 
 from . import units
@@ -17,6 +18,7 @@ from . import units
 DEFAULT_MAX_LENGTH = 255
 MAX_DIGITS = 15
 DECIMAL_PLACES = 5
+EOS_CHOICES = (('PR', 'PR'), ('SRK', 'SRK'), ('RKPR', 'RKPR'))
 
 
 class CompoundManager(models.Manager):
@@ -149,10 +151,8 @@ class AbstractInteractionParameter(models.Model):
 
     objects = InteractionManager()
 
-    CHOICES = (('PR', 'PR'), ('SRK', 'SRK'), ('RKPR', 'RKPR'))
-
     compounds = models.ManyToManyField('Compound')
-    eos = models.CharField(max_length=DEFAULT_MAX_LENGTH)
+    eos = models.CharField(max_length=DEFAULT_MAX_LENGTH, choices=EOS_CHOICES)
     value = models.FloatField()
     mixture = models.ForeignKey('Mixture', null=True)
 
@@ -397,3 +397,23 @@ class Mixture(models.Model):
 
         if self.total_z != Decimal('1.0'):
             raise ValidationError('The mixture fractions should sum 1.0')
+
+
+class Envelope(models.Model):
+    mixture = models.OneToOneField('Envelope')
+    eos = models.CharField(max_length=DEFAULT_MAX_LENGTH, choices=EOS_CHOICES)
+
+    p = PickledObjectField(editable=False,
+                           help_text=u'Presure array of the envelope P-T')
+    t = PickledObjectField(editable=False,
+                           help_text=u'Temperature array of the envelope P-T')
+    p_cri = PickledObjectField(editable=False,
+                               help_text=u'Presure coordinates of critical points')
+    t_cri = PickledObjectField(editable=False,
+                               help_text=u'Temperature coordinates of critical points')
+
+    def save(self, *args, **kwargs):
+        if
+        self.p, self.t, self.p_cri, self.t_cri =
+
+
