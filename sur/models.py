@@ -234,8 +234,13 @@ class Mixture(models.Model):
         Return the summatory of z fractions.
         Should sum 1.0 to be a valid mixture
         """
-        return MixtureFraction.objects.filter(mixture=self).\
-            aggregate(total=models.Sum('fraction'))['total'] or 0
+        return self.fractions.aggregate(total=models.Sum('fraction'))['total'] or 0
+
+    def as_fractions(self):
+        """
+        return a list of [(compound, z_value)...]
+        """
+        return [(mf.compound, mf.fraction) for mf in self.fractions.all()]
 
     def _compounds_array_field(self, field, as_array=True):
         """helper to construct an array-like from compound's field"""
