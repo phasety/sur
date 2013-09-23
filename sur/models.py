@@ -166,7 +166,7 @@ def verify_parameter_uniquesness(sender, **kwargs):
     compounds_set = kwargs.get('pk_set', None)
     action = kwargs.get('action', None)
     if action == 'pre_add':
-        if parameter.compounds.all().count() == 2:
+        if parameter.compounds.count() == 2:
             raise IntegrityError('This interaction parameter has its compounds '
                                  'already defined')
         qs = cls.objects.filter(compounds__in=parameter.compounds.all()).\
@@ -213,13 +213,18 @@ class MixtureFraction(models.Model):
 
 
 class Mixture(models.Model):
-    compounds = models.ManyToManyField(Compound, through='MixtureFraction')
+    # use self.compounds
+    Compounds = models.ManyToManyField(Compound, through='MixtureFraction')
+
+    @property
+    def compounds(self):
+        return self.Compounds.all()
 
     @property
     def z(self):
         """
         the :abbr:`Z (Composition array)` as a :class:`numpy.array` instance
-        in the same order than ``self.compounds.all()``
+        in the same order than ``self.compounds``
         """
         return np.array([float(f.fraction) for f in self.fractions.all()])
 
@@ -234,7 +239,7 @@ class Mixture(models.Model):
 
     def _compounds_array_field(self, field, as_array=True):
         """helper to construct an array-like from compound's field"""
-        values = [getattr(v, field) for v in self.compounds.all()]
+        values = [getattr(v, field) for v in self.compounds]
         if as_array:
             values = np.array(values)
         return values
@@ -246,7 +251,7 @@ class Mixture(models.Model):
 
         It is the :abbr:`Tc` of each compound in the mixture as a
         :class:`numpy.array` instance in the same order
-        than ``self.compounds.all()``
+        than ``self.compounds``
         """
         return self._compounds_array_field('tc')
 
@@ -257,7 +262,7 @@ class Mixture(models.Model):
 
         It is the :abbr:`Pc` of each compound in the mixture as a
         :class:`numpy.array` instance in the same order
-        than ``self.compounds.all()``
+        than ``self.compounds``
         """
         return self._compounds_array_field('pc')
 
@@ -268,7 +273,7 @@ class Mixture(models.Model):
 
         It is the :abbr:`Vc` of each compound in the mixture as a
         :class:`numpy.array` instance in the same order
-        than ``self.compounds.all()``
+        than ``self.compounds``
         """
         return self._compounds_array_field('vc')
 
@@ -279,7 +284,7 @@ class Mixture(models.Model):
 
         It is the :abbr:`$\omega$ of each compound in the mixture as a
         :class:`numpy.array` instance in the same order
-        than ``self.compounds.all()``
+        than ``self.compounds``
         """
         return self._compounds_array_field('acentric_factor')
 
@@ -287,7 +292,7 @@ class Mixture(models.Model):
         """
         return the 2d square matrix of k0 interaction parameters
         """
-        compounds = self.compounds.all()
+        compounds = self.compounds
         n = compounds.count()
         m = np.zeros((n, n))
         for ((x, c1), (y, c2)) in combinations(enumerate(compounds), 2):
