@@ -39,15 +39,6 @@ class TestMixture(TestCase):
         self.m.add(self.co2, 0.3)
         assert_array_equal(self.m.z, np.array([0.1, 0.2, 0.3]))
 
-    def test_as_fractions(self):
-        self.m.add(self.ethane, 0.1)
-        self.m.add(self.methane, 0.2)
-        self.m.add(self.co2, 0.3)
-        expected = [(self.ethane, Decimal('0.1')),
-                    (self.methane, Decimal('0.2')),
-                    (self.co2, Decimal('0.3'))]
-        self.assertEqual(self.m.as_fractions(), expected)
-
     def test_field_tc(self):
         self.m.add(self.methane, 0.2)
         self.m.add(self.co2, 0.1)
