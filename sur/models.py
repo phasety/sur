@@ -238,9 +238,27 @@ class Mixture(models.Model):
 
     def as_fractions(self):
         """
-        return a list of [(compound, z_value)...]
+        return a list of [(compound, z_fraction)...]
         """
         return [(mf.compound, mf.fraction) for mf in self.fractions.all()]
+
+
+    def __len__(self):
+        return self.fractions.count()
+
+    def __getitem__(self, key):
+        if not isinstance(key, (Compound, basestring)):
+            raise TypeError('%s is an unknow key' % key)
+
+        try:
+            if isinstance(key, basestring):
+                key = Compound.objects.find(key, exact=True).get()
+            return self.fractions.get(compound=key).fraction
+        except (MixtureFraction.DoesNotExist, Compound.DoesNotExist):
+            raise KeyError('%s is not part of this mixture' % key)
+
+
+
 
     def _compounds_array_field(self, field, as_array=True):
         """helper to construct an array-like from compound's field"""

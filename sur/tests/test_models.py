@@ -67,6 +67,45 @@ class TestMixture(TestCase):
         assert_array_equal(self.m.vc, [self.methane.vc, self.co2.vc, self.ethane.vc])
 
 
+class TestMixtureMagicMeths(TestCase):
+
+    def setUp(self):
+        Mixture.objects.all().delete()
+        self.m = Mixture()
+        self.ethane = Compound.objects.get(name='ETHANE')
+        self.methane = Compound.objects.get(name='METHANE')
+        self.co2 = Compound.objects.get(name='CARBON DIOXIDE')
+
+    def test_simple_get_attr(self):
+        self.m.add(self.methane, 0.2)
+        self.assertEqual(self.m[self.methane], Decimal('0.2'))
+
+    def test_get_attr_using_str(self):
+        self.m.add(self.methane, 0.2)
+        self.assertEqual(self.m['methane'], Decimal('0.2'))
+
+    def test_get_attr_raises_type_exception_for_other_types(self):
+        self.m.add(self.methane, 0.2)
+        with self.assertRaises(TypeError):
+            self.m[1j]
+
+    def test_get_attr_raises_keyexception_for_unknow_key(self):
+        with self.assertRaises(KeyError):
+            self.m['methane']
+
+    def test_get_attr_raises_keyexception_for_unknow_keys(self):
+        with self.assertRaises(KeyError):
+            self.m['unknow_compound']
+
+    def test_get_attr_raises_keyexception_for_unknow_compound_keys(self):
+        with self.assertRaises(KeyError):
+            self.m[self.methane]
+
+
+
+
+
+
 class TestMixtureAdd(TestCase):
 
     def setUp(self):
