@@ -150,12 +150,20 @@ class TestMixtureMagicMeths(TestCase):
             del self.m['unknow_compound']
         self.assertIn('unknow compound', e.exception.message)
 
-    def test_del_attr_raises_keyexception_for_unknow_keys(self):
+    def test_del_attr_raises_keyexception_for_compound_not_in_the_mixture_keys(self):
         self.m[self.methane] = 0.2
         with self.assertRaises(KeyError) as e:
             del self.m['ethane']
         self.assertIn('is not part of this mixture', e.exception.message)
 
+    def test_iter(self):
+        self.m.add(self.ethane, 0.1)
+        self.m.add(self.methane, 0.2)
+        self.m.add(self.co2, 0.3)
+        expected = [(self.ethane, Decimal('0.1')),
+                    (self.methane, Decimal('0.2')),
+                    (self.co2, Decimal('0.3'))]
+        self.assertEqual([i for i in self.m], expected)
 
 
 

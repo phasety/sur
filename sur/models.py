@@ -236,11 +236,6 @@ class Mixture(models.Model):
         """
         return self.fractions.aggregate(total=models.Sum('fraction'))['total'] or 0
 
-    def as_fractions(self):
-        """
-        return a list of [(compound, z_fraction)...]
-        """
-        return [(mf.compound, mf.fraction) for mf in self.fractions.all()]
 
     def __len__(self):
         return self.fractions.count()
@@ -281,7 +276,14 @@ class Mixture(models.Model):
         except MixtureFraction.DoesNotExist:
             raise KeyError('%s is not part of this mixture' % key)
 
+    def __iter__(self):
+        """
+        return an iterator of (compound, z_fraction) tuples
+        """
+        return ((mf.compound, mf.fraction) for mf in self.fractions.all())
 
+    def as_fractions(self):
+        return list(self)
 
     def _compounds_array_field(self, field, as_array=True):
         """helper to construct an array-like from compound's field"""
