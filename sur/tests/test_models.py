@@ -99,18 +99,62 @@ class TestMixtureMagicMeths(TestCase):
             self.m[1j]
 
     def test_get_attr_raises_keyexception_for_unknow_key(self):
-        with self.assertRaises(KeyError):
+        with self.assertRaises(KeyError) as e:
             self.m['methane']
+        self.assertIn('is not part of this mixture', e.exception.message)
 
     def test_get_attr_raises_keyexception_for_unknow_keys(self):
-        with self.assertRaises(KeyError):
+        with self.assertRaises(KeyError) as e:
             self.m['unknow_compound']
+        self.assertIn('unknow compound', e.exception.message)
 
     def test_get_attr_raises_keyexception_for_unknow_compound_keys(self):
         with self.assertRaises(KeyError):
             self.m[self.methane]
 
+    def test_simple_set_attr(self):
+        self.m[self.methane] = 0.2
+        self.assertEqual(self.m[self.methane], Decimal('0.2'))
 
+    def test_simple_set_attr_as_str(self):
+        self.m[self.ethane] = '0.1'
+        self.assertEqual(self.m[self.ethane], Decimal('0.1'))
+
+    def test_set_attr_overrides_previous(self):
+        self.m.add(self.ethane, '0.1')
+        self.m[self.ethane] = '0.4'
+        self.assertEqual(self.m[self.ethane], Decimal('0.4'))
+
+    def test_set_attr_raises_keyexception_for_unknow_keys(self):
+        with self.assertRaises(KeyError):
+            self.m['unknow_compound'] = 0.4
+
+    def test_del_item(self):
+        self.m[self.methane] = 0.2
+        del self.m[self.methane]
+        self.assertEqual(len(self.m), 0)
+
+    def test_del_item_preserve_positions(self):
+        self.m[self.methane] = 0.1
+        self.m[self.ethane] = 0.2
+        self.m[self.co2] = 0.3
+        del self.m[self.ethane]
+        expected = [(self.methane, Decimal('0.1')),
+                    (self.co2, Decimal('0.3'))]
+        self.assertEqual(self.m.as_fractions(), expected)
+        del self.m[self.methane]
+        self.assertEqual(self.m.as_fractions(), [(self.co2, Decimal('0.3'))])
+
+    def test_del_attr_raises_keyexception_for_unknow_keys(self):
+        with self.assertRaises(KeyError) as e:
+            del self.m['unknow_compound']
+        self.assertIn('unknow compound', e.exception.message)
+
+    def test_del_attr_raises_keyexception_for_unknow_keys(self):
+        self.m[self.methane] = 0.2
+        with self.assertRaises(KeyError) as e:
+            del self.m['ethane']
+        self.assertIn('is not part of this mixture', e.exception.message)
 
 
 

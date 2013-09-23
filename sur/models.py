@@ -242,21 +242,44 @@ class Mixture(models.Model):
         """
         return [(mf.compound, mf.fraction) for mf in self.fractions.all()]
 
-
     def __len__(self):
         return self.fractions.count()
 
-    def __getitem__(self, key):
+    def __item_preprocess(self, key):
         if not isinstance(key, (Compound, basestring)):
-            raise TypeError('%s is an unknow key' % key)
+            raise TypeError('%s has a non valid key type' % key)
 
-        try:
-            if isinstance(key, basestring):
+        if isinstance(key, basestring):
+            try:
                 key = Compound.objects.find(key, exact=True).get()
+            except Compound.DoesNotExist:
+                raise KeyError('%s is an unknow compound' % key)
+        return key
+
+    def __getitem__(self, key):
+        key = self.__item_preprocess(key)
+        try:
             return self.fractions.get(compound=key).fraction
-        except (MixtureFraction.DoesNotExist, Compound.DoesNotExist):
+        except MixtureFraction.DoesNotExist:
             raise KeyError('%s is not part of this mixture' % key)
 
+    def __setitem__(self, key, value):
+        key = self.__item_preprocess(key)
+        try:
+            self.add(key, value)
+        except ValidationError:
+            # already exists
+            mf = self.fractions.get(compound=key)
+            mf.fraction = value
+            mf.save()
+
+    def __delitem__(self, key):
+        key = self.__item_preprocess(key)
+        try:
+            self.fractions.get(compound=key).delete()
+            self.sort(False)
+        except MixtureFraction.DoesNotExist:
+            raise KeyError('%s is not part of this mixture' % key)
 
 
 
@@ -331,9 +354,14 @@ class Mixture(models.Model):
         diagonal_mirrored = np.rot90(np.flipud(m), -1)
         return m + diagonal_mirrored
 
-    def sort(self):
-        """Sort the mixture by compound's weight"""
-        for pos, f in enumerate(self.fractions.all().order_by('compound__weight')):
+    def sort(self, by_weight=True):
+        """Sort the mixture by compound's weight or
+           by position
+        """
+        qs = self.fractions.all()
+        if by_weight:
+            qs = qs.order_by('compound__weight')
+        for pos, f in enumerate(qs):
             f.position = pos
             f.save()
 
