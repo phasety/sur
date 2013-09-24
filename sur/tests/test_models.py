@@ -116,6 +116,15 @@ class TestMixtureMagicMeths(TestCase):
         self.m[self.ethane] = '0.4'
         self.assertEqual(self.m[self.ethane], Decimal('0.4'))
 
+
+    def test_set_overrides_fail_is_sum_is_gt_1(self):
+        self.m[self.ethane] =  '0.4'
+
+        self.m[self.methane] = '0.5'
+        with self.assertRaises(ValueError):
+            self.m[self.methane] = '0.7'
+        assert_array_equal(self.m.z, [0.4, 0.5])
+
     def test_set_attr_raises_keyexception_for_unknow_keys(self):
         with self.assertRaises(KeyError):
             self.m['unknow_compound'] = 0.4
@@ -132,9 +141,9 @@ class TestMixtureMagicMeths(TestCase):
         del self.m[self.ethane]
         expected = [(self.methane, Decimal('0.1')),
                     (self.co2, Decimal('0.3'))]
-        self.assertEqual(self.m.as_fractions(), expected)
+        self.assertEqual(list(self.m), expected)
         del self.m[self.methane]
-        self.assertEqual(self.m.as_fractions(), [(self.co2, Decimal('0.3'))])
+        self.assertEqual(list(self.m), [(self.co2, Decimal('0.3'))])
 
     def test_del_attr_raises_keyexception_for_unknow_keys(self):
         with self.assertRaises(KeyError) as e:
