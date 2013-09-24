@@ -14,11 +14,12 @@ from picklefield.fields import PickledObjectField
 import numpy as np
 
 from . import units
+from . import eos
+
 
 DEFAULT_MAX_LENGTH = 255
 MAX_DIGITS = 15
 DECIMAL_PLACES = 5
-EOS_CHOICES = (('PR', 'PR'), ('SRK', 'SRK'), ('RKPR', 'RKPR'))
 
 
 class CompoundManager(models.Manager):
@@ -28,9 +29,9 @@ class CompoundManager(models.Manager):
         Given an string, looks for compounds matching
         name, formula o aliases.
 
-        If ``exact`` is True, the
-        the filter try match the whole val (case insensitive).
-        Otherwise, match the as `starts with` (case insensitive).
+        If ``exact`` is True, the filter try to match
+        the whole val (case insensitive).
+        Otherwise, match as `starts with` (case insensitive).
         """
         if isinstance(val, self.model):
             return self.filter(id=val.id)
@@ -81,7 +82,60 @@ class Compound(models.Model):
     b = models.FloatField(null=True, blank=True)
     c = models.FloatField(null=True, blank=True)
     d = models.FloatField(null=True, blank=True)
+    delta1 = models.FloatField(null=True, blank=True)
     weight = models.FloatField(editable=False, null=True, blank=True)
+
+    def __init__(self, *args, **kwargs):
+        self._eos_params = {}       # cache
+
+    def _eos_params(self, model, exclude=[]):
+        if isinstance(model, basestring):
+            try:
+                model = eos.NAMES[model.upper()]
+            except KeyError:
+                raise ValueError('Unknown %s model')
+        if model in exclude:
+            raise ValueError("This parameter can't be calculated for %s"
+                             % model.MODEL_NAME)
+
+        try:
+            # is it already calculated?
+            return self._eos_params[model.MODEL_NAME]
+        except KeyError:
+            if model == eos.RKPR:
+                if self.delta1:
+                    # delta1 defined. use it
+                    params = eos.RKPR.from_constants(self.tc, self.pc,
+                                                     self.acentric_factor,
+                                                     del1=self.delta1)[1]
+                else:
+                    # use a default zrat = 1.16
+                    Vcrat = 1.16
+                    params = eos.RKPR.from_constants(self.tc, self.pc,
+                                                     self.acentric_factor,
+                                                     vc=self.vc * Vcrat)[1]
+            else:
+                params = model.from_constants(self.tc, self.pc,
+                                              self.acentric_factor)[1]
+            self._eos_params[model.MODEL_NAME] = params
+            return params
+
+    def get_ac(self, model):
+        return self._eos_params(model)[0]
+
+    def get_b(self, model):
+        return self._eos_params(model)[1]
+
+    def get_delta1(self):
+        return self._eos_params('RKPR')[2]
+
+    def get_k(self):
+        return self._eos_params('RKPR')[3]
+
+    def get_m(self, model):
+        return self._eos_params(model, exclude=[eos.RKPR])[3]
+
+
 
     def __unicode__(self):
         return self.name
@@ -162,7 +216,7 @@ class AbstractInteractionParameter(models.Model):
     objects = InteractionManager()
 
     compounds = models.ManyToManyField('Compound')
-    eos = models.CharField(max_length=DEFAULT_MAX_LENGTH, choices=EOS_CHOICES)
+    eos = models.CharField(max_length=DEFAULT_MAX_LENGTH, choices=eos.CHOICES)
     value = models.FloatField()
     mixture = models.ForeignKey('Mixture', null=True)
 
@@ -257,7 +311,7 @@ class Mixture(models.Model):
             try:
                 key = Compound.objects.find(key, exact=True).get()
             except Compound.DoesNotExist:
-                raise KeyError('%s is an unknow compound' % key)
+                raise KeyError('%s is an unknown compound' % key)
         return key
 
     def __getitem__(self, key):
@@ -420,7 +474,7 @@ class Envelope(models.Model):
                                 (Kij_t_Lij_0, 'Kij (T) and Lij=0'))
 
     mixture = models.OneToOneField('Envelope')
-    eos = models.CharField(max_length=DEFAULT_MAX_LENGTH, choices=EOS_CHOICES)
+    eos = models.CharField(max_length=DEFAULT_MAX_LENGTH, choices=eos.CHOICES)
     mode = models.CharField(max_length=DEFAULT_MAX_LENGTH,
                             choices=INTERACTION_MODE_CHOICES)
 

@@ -3,8 +3,6 @@
 import numpy as np
 import _cubic
 
-__all__ = ['SRK', 'PR', 'RKPR']
-
 
 class CubicModel(object):
 
@@ -37,7 +35,7 @@ class CubicModel(object):
                 raise ValueError('pvdat should be a tuple (P, T)')
             p_pvdat, t_pvdat = pvdat
             inputs, params = _cubic.modelsparam(0, cls.MODEL_ID, constants,
-                                               p_pvdat, t_pvdat)
+                                                p_pvdat, t_pvdat)
         else:
             inputs, params = _cubic.modelsparam(0, cls.MODEL_ID, constants)
         params = params[:3]
@@ -85,9 +83,9 @@ class PR(CubicModel):
     MODEL_NAME = 'PR'
 
 
-class RKPR(object):
+class RKPR(CubicModel):
     """
-    Peng–Robinson equation of state
+    RKPR equation of state
     """
 
     MODEL_ID = 3
@@ -141,7 +139,7 @@ class RKPR(object):
                 raise ValueError('pvdat should be a tuple (P, T)')
             p_pvdat, t_pvdat = pvdat
             inputs, params = _cubic.modelsparam(mode, cls.MODEL_ID, constants,
-                                               p_pvdat, t_pvdat)
+                                                p_pvdat, t_pvdat)
         else:
             inputs, params = _cubic.modelsparam(mode, cls.MODEL_ID, constants)
         return inputs, params
@@ -168,3 +166,9 @@ class RKPR(object):
         parameters = np.array([ac, b, del1, rk])
         inputs, params = _cubic.modelsparam(1, cls.MODEL_ID, parameters)
         return inputs, params
+
+_models = ['SRK', 'PR', 'RKPR']
+CHOICES = ((k, k) for k in _models)
+NAMES = dict([(k, locals()[k]) for k in _models])
+
+__all__ = _models + ['CHOICES', 'NAMES']
