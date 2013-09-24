@@ -246,7 +246,6 @@ class Mixture(models.Model):
         """
         return self.fractions.aggregate(total=models.Sum('fraction'))['total'] or 0
 
-
     def __len__(self):
         return self.fractions.count()
 
@@ -410,12 +409,20 @@ class Mixture(models.Model):
 
 
 class Envelope(models.Model):
-    INTERACTION_MODE = ('')
+    Kij_constant_Lij_0 = 'Kij_constant_Lij_0'
+    Kij_constant_Lij_constant = 'Kij_constant_Lij_constant'
+    Kij_t_Lij_constant = 'Kij_t_Lij_constant'
+    Kij_t_Lij_0 = 'Kij_t_Lij_0'
+
+    INTERACTION_MODE_CHOICES = ((Kij_constant_Lij_0, 'Kij constant value and Lij=0'),
+                                (Kij_constant_Lij_constant, 'Kij and Lij constant'),
+                                (Kij_t_Lij_constant, 'Kij (T) and Lij constant'),
+                                (Kij_t_Lij_0, 'Kij (T) and Lij=0'))
 
     mixture = models.OneToOneField('Envelope')
     eos = models.CharField(max_length=DEFAULT_MAX_LENGTH, choices=EOS_CHOICES)
-    mode = models.CharField(max_length=DEFAULT_MAX_LENGTH, choices=INTERACTION_MODE)
-
+    mode = models.CharField(max_length=DEFAULT_MAX_LENGTH,
+                            choices=INTERACTION_MODE_CHOICES)
 
     p = PickledObjectField(editable=False,
                            help_text=u'Presure array of the envelope P-T')
@@ -425,7 +432,6 @@ class Envelope(models.Model):
                                help_text=u'Presure coordinates of critical points')
     t_cri = PickledObjectField(editable=False,
                                help_text=u'Temperature coordinates of critical points')
-
 
     def _calc(self):
 
@@ -465,10 +471,7 @@ class Envelope(models.Model):
         pass
 
 
-
     # def save(self, *args, **kwargs):
     #     if not self.id:
     #         env_results = envelope()
     #     self.p, self.t, self.p_cri, self.t_cri =
-
-
