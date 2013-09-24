@@ -400,8 +400,12 @@ class Mixture(models.Model):
 
 
 class Envelope(models.Model):
+    INTERACTION_MODE = ('')
+
     mixture = models.OneToOneField('Envelope')
     eos = models.CharField(max_length=DEFAULT_MAX_LENGTH, choices=EOS_CHOICES)
+    mode = models.CharField(max_length=DEFAULT_MAX_LENGTH, choices=INTERACTION_MODE)
+
 
     p = PickledObjectField(editable=False,
                            help_text=u'Presure array of the envelope P-T')
@@ -412,8 +416,49 @@ class Envelope(models.Model):
     t_cri = PickledObjectField(editable=False,
                                help_text=u'Temperature coordinates of critical points')
 
-    def save(self, *args, **kwargs):
-        if
-        self.p, self.t, self.p_cri, self.t_cri =
+
+    def _calc(self):
+
+        """
+        Low level wrapper for the Fortran implementation of the
+        envelope calculator for multicompounds systems.
+
+        Required arguments taken from the mixture instance:
+
+          z : input rank-1 array('f')
+          tc : input rank-1 array('f')
+          pc : input rank-1 array('f')
+          ohm : input rank-1 array('f')
+
+          ac : input rank-1 array('f')
+          b : input rank-1 array('f')
+          delta : input rank-1 array('f')
+          k : input rank-1 array('f')
+
+        Optional arguments:
+
+          k0 : input rank-2 array('f') with bounds (n,n)
+          tstar : input rank-2 array('f') with bounds (n,n)
+          lij : input rank-2 array('f') with bounds (n,n)
+
+        Return object:
+
+          A tuple (envelope_data, critical_points_data) where envelope_data is a tuple
+
+            (tenv, penv, denv) rank-1 arrays of the same size
+
+          and critical_points_data
+
+            (tcri, pcri, dcri) rank-1 arrays of the same size
+
+        """
+        pass
+
+
+
+    # def save(self, *args, **kwargs):
+    #     if not self.id:
+    #         env_results = envelope()
+    #     self.p, self.t, self.p_cri, self.t_cri =
 
 
