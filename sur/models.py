@@ -41,7 +41,7 @@ class CompoundManager(models.Manager):
 
         q_name = Q(**lookup('name'))
         q_formula = Q(**lookup('formula'))
-        q_alias = Q(**lookup('alias__name'))
+        q_alias = Q(**lookup('aliases__name'))
 
         return self.filter(q_name | q_formula | q_alias).distinct()
 
@@ -86,6 +86,11 @@ class Compound(models.Model):
     def __unicode__(self):
         return self.name
 
+    def create_alias(self, alias):
+        a = Alias(compound=self, name=alias)
+        a.save()
+        a.save(using='disk')
+
     def calculate_weight(self):
         """
         An aproximation to determine if a compound is heavier than
@@ -115,9 +120,9 @@ class Alias(models.Model):
     Some shortchuts to find Compounds.
     Example: 'c5' -> Pentane
     """
-
-    compound = models.ForeignKey('Compound')
-    name = models.CharField(max_length=DEFAULT_MAX_LENGTH, unique=True)
+    compound = models.ForeignKey('Compound', related_name="aliases")
+    name = models.CharField(max_length=DEFAULT_MAX_LENGTH,
+                            unique=True)
 
     def __unicode__(self):
         return '%s (%s)' % (self.name, self.compound.name)
