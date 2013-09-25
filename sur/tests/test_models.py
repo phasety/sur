@@ -89,17 +89,17 @@ class TestMixtureMagicMeths(TestCase):
         with self.assertRaises(TypeError):
             self.m[1j]
 
-    def test_get_attr_raises_keyexception_for_unknow_key(self):
+    def test_get_attr_raises_keyexception_for_unknown_key(self):
         with self.assertRaises(KeyError) as e:
             self.m['methane']
         self.assertIn('is not part of this mixture', e.exception.message)
 
-    def test_get_attr_raises_keyexception_for_unknow_keys(self):
+    def test_get_attr_raises_keyexception_for_unknown_keys(self):
         with self.assertRaises(KeyError) as e:
-            self.m['unknow_compound']
-        self.assertIn('unknow compound', e.exception.message)
+            self.m['unknown_compound']
+        self.assertIn('unknown compound', e.exception.message)
 
-    def test_get_attr_raises_keyexception_for_unknow_compound_keys(self):
+    def test_get_attr_raises_keyexception_for_unknown_compound_keys(self):
         with self.assertRaises(KeyError):
             self.m[self.methane]
 
@@ -125,9 +125,9 @@ class TestMixtureMagicMeths(TestCase):
             self.m[self.methane] = '0.7'
         assert_array_equal(self.m.z, [0.4, 0.5])
 
-    def test_set_attr_raises_keyexception_for_unknow_keys(self):
+    def test_set_attr_raises_keyexception_for_unknown_keys(self):
         with self.assertRaises(KeyError):
-            self.m['unknow_compound'] = 0.4
+            self.m['unknown_compound'] = 0.4
 
     def test_del_item(self):
         self.m[self.methane] = 0.2
@@ -145,10 +145,10 @@ class TestMixtureMagicMeths(TestCase):
         del self.m[self.methane]
         self.assertEqual(list(self.m), [(self.co2, Decimal('0.3'))])
 
-    def test_del_attr_raises_keyexception_for_unknow_keys(self):
+    def test_del_attr_raises_keyexception_for_unknown_keys(self):
         with self.assertRaises(KeyError) as e:
-            del self.m['unknow_compound']
-        self.assertIn('unknow compound', e.exception.message)
+            del self.m['unknown_compound']
+        self.assertIn('unknown compound', e.exception.message)
 
     def test_del_attr_raises_keyexception_for_compound_not_in_the_mixture_keys(self):
         self.m[self.methane] = 0.2

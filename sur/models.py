@@ -209,7 +209,7 @@ class InteractionManager(models.Manager):
                 raise ValueError('Unknown %s model' % model)
 
         comps = Compound.objects.find(compound1)
-        qs = self.filter(eos=eos, compounds__in=comps)
+        qs = self.filter(eos=model.MODEL_NAME, compounds__in=comps)
         if compound2:
             comps = Compound.objects.find(compound2)
             qs = qs.filter(compounds__in=comps)
@@ -230,7 +230,8 @@ class AbstractInteractionParameter(models.Model):
     objects = InteractionManager()
 
     compounds = models.ManyToManyField('Compound')
-    eos = models.CharField(max_length=DEFAULT_MAX_LENGTH, choices=eos.CHOICES)
+    eos = models.CharField(max_length=DEFAULT_MAX_LENGTH,
+                           choices=eos.CHOICES)
     value = models.FloatField()
     mixture = models.ForeignKey('Mixture', null=True)
 
