@@ -118,14 +118,14 @@ class TestMixtureMagicMeths(TestCase):
         self.assertEqual(self.m[self.ethane], Decimal('0.4'))
 
     def test_set_overrides_fail_is_sum_is_gt_1(self):
-        self.m[self.ethane] =  '0.4'
+        self.m[self.ethane] = '0.4'
         self.m[self.methane] = '0.5'
         with self.assertRaises(ValueError):
             self.m[self.methane] = '0.7'
         assert_array_equal(self.m.z, [0.4, 0.5])
 
     def test_set_overrides_not_fail_is_sum_is_lte_1(self):
-        self.m[self.ethane] =  '0.4'
+        self.m[self.ethane] = '0.4'
         self.m[self.methane] = '0.5'
         self.m[self.methane] = '0.3'
         assert_array_equal(self.m.z, [0.4, 0.3])
@@ -169,7 +169,6 @@ class TestMixtureMagicMeths(TestCase):
                     (self.methane, Decimal('0.2')),
                     (self.co2, Decimal('0.3'))]
         self.assertEqual([i for i in self.m], expected)
-
 
 
 class TestMixtureAdd(TestCase):
@@ -402,7 +401,6 @@ class TestEnvelope(TestCase):
         self.methane = Compound.objects.get(name='METHANE')
         self.co2 = Compound.objects.get(name='CARBON DIOXIDE')
 
-
     def test_envelope_requires_a_clean_mixture(self):
         self.m.add(self.ethane, 0.1)
         self.m.add(self.co2, 0.3)
@@ -428,3 +426,8 @@ class TestEnvelope(TestCase):
         self.assertIsInstance(env.t_cri, np.ndarray)
         self.assertIsInstance(env.d_cri, np.ndarray)
         self.assertTrue(env.p_cri.shape == env.t_cri.shape == env.d_cri.shape)
+
+    def test_get_default_envelope_is_the_same(self):
+        self.m.add(self.ethane, 1)
+        env = Envelope.objects.create(mixture=self.m)
+        self.assertEqual(env, self.m.get_envelope())

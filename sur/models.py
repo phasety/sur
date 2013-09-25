@@ -529,6 +529,26 @@ class Mixture(models.Model):
         if self.total_z != Decimal('1.0'):
             raise ValidationError('The mixture fractions should sum 1.0')
 
+    def get_envelope(self, eos='RKPR', kij='t_dep', lij='constants'):
+        """Get the envelope object for this mixture, calculated using
+        the `eos` (RKPR, SRK or PR) and the selected interaction parameters
+        mode.
+
+        kij: ``'t_dep'`` or ``'constants'``
+        lij: ``'zero'`, `0` or ``'constants'``
+        """
+        lij = 'zero' if lij in (0, '0') else lij
+        try:
+            mode = {('t_dep', 'zero'): Kij_constant_Lij_0,
+                    ('constants', 'constants'): Kij_constant_Lij_constant,
+                    ('t_dep', 'constants'): Kij_t_Lij_constant,
+                    ('t_dep', 'zero'): Kij_t_Lij_0}[(kij, lij)]
+        except KeyError:
+            raise ValueError('Not valid kij and/or lij')
+        return Envelope.objects.get_or_create(mixture=self,
+                                              eos=eos,
+                                              mode=mode)[0]
+
 
 Kij_constant_Lij_0 = 'Kij_constant_Lij_0'
 Kij_constant_Lij_constant = 'Kij_constant_Lij_constant'
@@ -542,13 +562,13 @@ INTERACTION_MODE_CHOICES = ((Kij_constant_Lij_0, 'Kij constant value and Lij=0')
 
 
 class Envelope(models.Model):
-    mixture = models.OneToOneField('Mixture')
+    mixture = models.ForeignKey('Mixture', related_name='envelopes')
     eos = models.CharField(max_length=DEFAULT_MAX_LENGTH,
                            choices=eos.CHOICES,
                            default=eos.RKPR.MODEL_NAME)
     mode = models.CharField(max_length=DEFAULT_MAX_LENGTH,
                             choices=INTERACTION_MODE_CHOICES,
-                            default=Kij_t_Lij_0)
+                            default=Kij_t_Lij_constant)
 
     p = PickledObjectField(editable=False,
                            help_text=u'Presure array of the envelope P-T')
@@ -563,6 +583,9 @@ class Envelope(models.Model):
                                help_text=u'Temperature coordinates of critical points')
     d_cri = PickledObjectField(editable=False,
                                help_text=u'Temperature array of the envelope P-T')
+
+    class Meta:
+        unique_together = (('mixture', 'eos', 'mode'),)
 
     def _calc(self):
         """
