@@ -74,17 +74,17 @@ class Compound(models.Model):
     formula = models.CharField(max_length=DEFAULT_MAX_LENGTH)
     formula_extended = models.TextField(null=True, blank=True)
     tc = models.FloatField(verbose_name='Critical Temperature')
-    tc_unit = t_unit()
+    #tc_unit = t_unit()
     pc = models.FloatField(verbose_name='Critical Pressure')
-    pc_unit = p_unit()
+    #pc_unit = p_unit()
     vc = models.FloatField(verbose_name='Critical Volume')
-    vc_unit = v_unit()
+    #vc_unit = v_unit()
     acentric_factor = models.FloatField(null=True, blank=True)
     a = models.FloatField(null=True, blank=True)
     b = models.FloatField(null=True, blank=True)
     c = models.FloatField(null=True, blank=True)
     d = models.FloatField(null=True, blank=True)
-    delta1 = models.FloatField(null=True, blank=True)
+    # delta1 = models.FloatField(null=True, blank=True)
     weight = models.FloatField(editable=False, null=True, blank=True)
 
     def __init__(self, *args, **kwargs):
@@ -175,10 +175,6 @@ class Compound(models.Model):
 
     def __gt__(self, other):
         return self.weight > other.weight
-
-    def save(self, *args, **kwargs):
-        self.weight = self.calculate_weight()
-        super(Compound, self).save(*args, **kwargs)
 
     class Meta:
         ordering = ('mixturefraction__position', 'weight')
@@ -529,18 +525,19 @@ class Mixture(models.Model):
             raise ValidationError('The mixture fractions should sum 1.0')
 
 
+Kij_constant_Lij_0 = 'Kij_constant_Lij_0'
+Kij_constant_Lij_constant = 'Kij_constant_Lij_constant'
+Kij_t_Lij_constant = 'Kij_t_Lij_constant'
+Kij_t_Lij_0 = 'Kij_t_Lij_0'
+
+INTERACTION_MODE_CHOICES = ((Kij_constant_Lij_0, 'Kij constant value and Lij=0'),
+                            (Kij_constant_Lij_constant, 'Kij and Lij constant'),
+                            (Kij_t_Lij_constant, 'Kij (T) and Lij constant'),
+                            (Kij_t_Lij_0, 'Kij (T) and Lij=0'))
+
+
 class Envelope(models.Model):
-    Kij_constant_Lij_0 = 'Kij_constant_Lij_0'
-    Kij_constant_Lij_constant = 'Kij_constant_Lij_constant'
-    Kij_t_Lij_constant = 'Kij_t_Lij_constant'
-    Kij_t_Lij_0 = 'Kij_t_Lij_0'
-
-    INTERACTION_MODE_CHOICES = ((Kij_constant_Lij_0, 'Kij constant value and Lij=0'),
-                                (Kij_constant_Lij_constant, 'Kij and Lij constant'),
-                                (Kij_t_Lij_constant, 'Kij (T) and Lij constant'),
-                                (Kij_t_Lij_0, 'Kij (T) and Lij=0'))
-
-    mixture = models.OneToOneField('Envelope')
+    mixture = models.OneToOneField('Mixture')
     eos = models.CharField(max_length=DEFAULT_MAX_LENGTH, choices=eos.CHOICES)
     mode = models.CharField(max_length=DEFAULT_MAX_LENGTH,
                             choices=INTERACTION_MODE_CHOICES)
@@ -593,7 +590,7 @@ class Envelope(models.Model):
             (tcri, pcri, dcri) rank-1 arrays of the same size
 
         """
-        m = self.mixture  # just for brevity
+        m = self.mixture  # just in sake of brevity
         envelope = partial(envelope, eos.NAME[self.eos], m.z, m.tc,
                            m.pc, m.ohm, m.get_ac(self.eos), m.get_b(self.eos))
 
@@ -619,3 +616,17 @@ class Envelope(models.Model):
         if not self.id:
             self._calc()
         super(Envelope, self).save(*args, **kwargs)
+
+
+class Flash(models.Model):
+    original_mixture = models.ForeignKey('Mixture', related_name='flashes')
+    t = models.FloatField(verbose_name='Temperature')
+    p = models.FloatField(verbose_name='Critical Pressure')
+
+    eos = models.CharField(max_length=DEFAULT_MAX_LENGTH, choices=eos.CHOICES)
+    mode = models.CharField(max_length=DEFAULT_MAX_LENGTH,
+                            choices=INTERACTION_MODE_CHOICES)
+    gas_mixture = models.ForeignKey('Mixture', editable=False,
+                                    related_name='flashes_as_gas')
+    liquid_mixture = models.ForeignKey('Mixture', editable=False,
+                                       related_name='flashes_as_liquid' )
