@@ -74,17 +74,17 @@ class Compound(models.Model):
     formula = models.CharField(max_length=DEFAULT_MAX_LENGTH)
     formula_extended = models.TextField(null=True, blank=True)
     tc = models.FloatField(verbose_name='Critical Temperature')
-    #tc_unit = t_unit()
+    tc_unit = t_unit()
     pc = models.FloatField(verbose_name='Critical Pressure')
-    #pc_unit = p_unit()
+    pc_unit = p_unit()
     vc = models.FloatField(verbose_name='Critical Volume')
-    #vc_unit = v_unit()
+    vc_unit = v_unit()
     acentric_factor = models.FloatField(null=True, blank=True)
     a = models.FloatField(null=True, blank=True)
     b = models.FloatField(null=True, blank=True)
     c = models.FloatField(null=True, blank=True)
     d = models.FloatField(null=True, blank=True)
-    # delta1 = models.FloatField(null=True, blank=True)
+    delta1 = models.FloatField(null=True, blank=True)
     weight = models.FloatField(editable=False, null=True, blank=True)
 
     def __init__(self, *args, **kwargs):
@@ -629,4 +629,4 @@ class Flash(models.Model):
     gas_mixture = models.ForeignKey('Mixture', editable=False,
                                     related_name='flashes_as_gas')
     liquid_mixture = models.ForeignKey('Mixture', editable=False,
-                                       related_name='flashes_as_liquid' )
+                                       related_name='flashes_as_liquid')

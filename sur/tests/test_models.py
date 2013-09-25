@@ -28,10 +28,10 @@ class TestMixture(TestCase):
         self.m.add(self.ethane, 0.1)
         self.m.add(self.co2, 0.3)
         self.m.add(self.methane, 0.2)
-        expected = [self.methane, self.co2, self.ethane]
+        expected = [self.methane, self.ethane, self.co2, ]
         self.m.sort()
         self.assertEqual(list(self.m.compounds), expected)
-        assert_array_equal(self.m.z, np.array([0.2, 0.3, 0.1]))
+        assert_array_equal(self.m.z, np.array([0.2, 0.1, 0.3]))
 
     def test_fraction_order_is_preserved(self):
         self.m.add(self.ethane, 0.1)
