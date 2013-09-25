@@ -197,11 +197,17 @@ class Alias(models.Model):
 
 class InteractionManager(models.Manager):
 
-    def find(self, eos, compound1, compound2=None, mixture=None):
+    def find(self, model, compound1, compound2=None, mixture=None):
         """
         filter interactions for EOS and compounds
         globally defined on specific for a mixture.
         """
+        if isinstance(model, basestring):
+            try:
+                model = eos.NAMES[model.upper()]
+            except KeyError:
+                raise ValueError('Unknown %s model' % model)
+
         comps = Compound.objects.find(compound1)
         qs = self.filter(eos=eos, compounds__in=comps)
         if compound2:
@@ -251,15 +257,23 @@ def verify_parameter_uniquesness(sender, **kwargs):
             raise IntegrityError('Already exists a parameter matching these condition')
 
 
+class KijInteractionParameter(AbstractInteractionParameter):
+    """Constanst for Kij in mode Kij constant"""
+    pass
+
+
 class K0InteractionParameter(AbstractInteractionParameter):
+    """Ko constanst for Kij as f(T) = K0*e^(-T/T*)"""
     pass
 
 
 class TstarInteractionParameter(AbstractInteractionParameter):
+    """T* constanst for Kij as f(T) = K0*e^(-T/T*)"""
     pass
 
 
 class LijInteractionParameter(AbstractInteractionParameter):
+    """Lij constanst"""
     pass
 
 
@@ -404,16 +418,16 @@ class Mixture(models.Model):
         """
         return self._compounds_array_field('acentric_factor')
 
-    def k0(self, eos):
+    def _get_interaction_matrix(self, eos_model, model_class):
         """
-        return the 2d square matrix of k0 interaction parameters
+        return the 2d square matrix of the Model interaction parameters
         """
         compounds = self.compounds
         n = compounds.count()
         m = np.zeros((n, n))
         for ((x, c1), (y, c2)) in combinations(enumerate(compounds), 2):
             try:
-                k = K0InteractionParameter.objects.find(eos, c1, c2, self)[0].value
+                k = model_class.objects.find(eos_model, c1, c2, self)[0].value
                 m[x, y] = k
             except:
                 pass
@@ -421,8 +435,21 @@ class Mixture(models.Model):
         # 0 1 2    0 0 0
         # 0 0 0 +  1 0 0
         # 0 0 0    2 0 0
+
         diagonal_mirrored = np.rot90(np.flipud(m), -1)
         return m + diagonal_mirrored
+
+    def k0(self, eos):
+        return self._get_interaction_matrix(eos, K0InteractionParameter)
+
+    def tstar(self, eos):
+        return self._get_interaction_matrix(eos, TstarInteractionParameter)
+
+    def kij(self, eos):
+        return self._get_interaction_matrix(eos, KijInteractionParameter)
+
+    def lij(self, eos):
+        return self._get_interaction_matrix(eos, LijInteractionParameter)
 
     def sort(self, by_weight=True):
         """Sort the mixture by compound's weight or
