@@ -5,8 +5,9 @@ import numpy as np
 from numpy.testing import assert_array_equal
 
 from sur.models import (Compound, Mixture, MixtureFraction,
-                        K0InteractionParameter)
+                        K0InteractionParameter, Envelope)
 from django.db.utils import IntegrityError
+from django.core.exceptions import ValidationError
 
 
 class TestMixture(TestCase):
@@ -116,7 +117,6 @@ class TestMixtureMagicMeths(TestCase):
         self.m[self.ethane] = '0.4'
         self.assertEqual(self.m[self.ethane], Decimal('0.4'))
 
-
     def test_set_overrides_fail_is_sum_is_gt_1(self):
         self.m[self.ethane] =  '0.4'
         self.m[self.methane] = '0.5'
@@ -219,7 +219,7 @@ class TestMixtureAdd(TestCase):
     def test_cant_add_greater_than_remaining(self):
         self.m.add('ethane', '0.6')
         with self.assertRaises(ValueError) as v:
-            self.m.add('ethane', '0.6')
+            self.m.add('methane', '0.6')
         self.assertEqual(v.exception.message, 'Add this fraction would exceed 1.0. '
                                               'Max fraction allowed is 0.4000')
 
@@ -394,3 +394,37 @@ class TestK0(TestCase):
         assert_array_equal(self.m.k0('RKPR'), expected)
 
 
+class TestEnvelope(TestCase):
+
+    def setUp(self):
+        self.m = Mixture()
+        self.ethane = Compound.objects.get(name='ETHANE')
+        self.methane = Compound.objects.get(name='METHANE')
+        self.co2 = Compound.objects.get(name='CARBON DIOXIDE')
+
+
+    def test_envelope_requires_a_clean_mixture(self):
+        self.m.add(self.ethane, 0.1)
+        self.m.add(self.co2, 0.3)
+        self.m.add(self.methane, 0.5)
+        assert self.m.total_z == Decimal('0.9')
+        with self.assertRaises(ValidationError):
+            Envelope.objects.create(mixture=self.m)
+
+        self.m[self.methane] = 0.6   # total_z = 1.0
+        assert self.m.clean() is None
+        # not raises
+        Envelope.objects.create(mixture=self.m)
+
+    def test_envelope_object_calc_env_on_save(self):
+        self.m.add(self.ethane, 1)
+        env = Envelope.objects.create(mixture=self.m)
+        self.assertIsInstance(env.p, np.ndarray)
+        self.assertIsInstance(env.t, np.ndarray)
+        self.assertIsInstance(env.d, np.ndarray)
+        self.assertTrue(env.p.shape == env.t.shape == env.d.shape)
+
+        self.assertIsInstance(env.p_cri, np.ndarray)
+        self.assertIsInstance(env.t_cri, np.ndarray)
+        self.assertIsInstance(env.d_cri, np.ndarray)
+        self.assertTrue(env.p_cri.shape == env.t_cri.shape == env.d_cri.shape)

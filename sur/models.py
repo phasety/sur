@@ -14,7 +14,7 @@ from django.db.utils import IntegrityError
 from picklefield.fields import PickledObjectField
 import numpy as np
 
-from envelope import envelope
+from envelope import envelope as envelope_routine
 from . import units
 from . import eos
 
@@ -543,9 +543,12 @@ INTERACTION_MODE_CHOICES = ((Kij_constant_Lij_0, 'Kij constant value and Lij=0')
 
 class Envelope(models.Model):
     mixture = models.OneToOneField('Mixture')
-    eos = models.CharField(max_length=DEFAULT_MAX_LENGTH, choices=eos.CHOICES)
+    eos = models.CharField(max_length=DEFAULT_MAX_LENGTH,
+                           choices=eos.CHOICES,
+                           default=eos.RKPR.MODEL_NAME)
     mode = models.CharField(max_length=DEFAULT_MAX_LENGTH,
-                            choices=INTERACTION_MODE_CHOICES)
+                            choices=INTERACTION_MODE_CHOICES,
+                            default=Kij_t_Lij_0)
 
     p = PickledObjectField(editable=False,
                            help_text=u'Presure array of the envelope P-T')
@@ -568,7 +571,7 @@ class Envelope(models.Model):
 
         Required arguments taken from the mixture instance:
 
-          z : input rank-1 array('f')
+          z : input rank-1 array('f') . should sum 1
           tc : input rank-1 array('f')
           pc : input rank-1 array('f')
           ohm : input rank-1 array('f')
@@ -596,26 +599,28 @@ class Envelope(models.Model):
 
         """
         m = self.mixture  # just in sake of brevity
-        envelope = partial(envelope, eos.NAME[self.eos], m.z, m.tc,
-                           m.pc, m.ohm, m.get_ac(self.eos), m.get_b(self.eos))
+        m.clean()
+        envelope = partial(envelope_routine, eos.NAMES[self.eos], m.z, m.tc,
+                           m.pc, m.acentric_factor,
+                           m.get_ac(self.eos), m.get_b(self.eos))
 
         if self.eos == eos.RKPR.MODEL_NAME:
             envelope = partial(envelope, k=m.get_k(), delta1=m.get_delta1())
         else:
             envelope = partial(envelope, m=m.get_m(self.eos))
 
-        if self.mode == Envelope.Kij_constant_Lij_0:
+        if self.mode == Kij_constant_Lij_0:
             env_result = envelope(kij=m.kij(self.eos))
-        elif self.mode == Envelope.Kij_constant_Lij_constant:
+        elif self.mode == Kij_constant_Lij_constant:
             env_result = envelope(kij=m.kij(self.eos), lij=m.lij(self.eos))
-        elif self.mode == Envelope.Kij_t_Lij_0:
+        elif self.mode == Kij_t_Lij_0:
             env_result = envelope(k0=m.k0(self.eos), tstar=m.tstar(self.eos))
-        elif self.mode == Envelope.Kij_t_Lij_constant:
+        elif self.mode == Kij_t_Lij_constant:
             env_result = envelope(k0=m.k0(self.eos), tstar=m.tstar(self.eos),
                                   lij=m.lij(self.eos))
 
         self.p, self.t, self.d = env_result[0]
-        self.p_cri, self.t_cro, self.d_cri = env_result[1]
+        self.p_cri, self.t_cri, self.d_cri = env_result[1]
 
     def save(self, *args, **kwargs):
         if not self.id:
