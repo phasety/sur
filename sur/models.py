@@ -492,7 +492,7 @@ class Mixture(models.Model):
 
     def add(self, compound, fraction=None):
         """
-        Add a compound fraction to the mixture.
+        Add compound fraction to the mixture.
 
         Compound could be a :class:`Compound` instance or
         a string passed to :meth:`Compound.objects.find`
@@ -507,13 +507,18 @@ class Mixture(models.Model):
         if isinstance(compound, basestring):
             compound = Compound.objects.find(compound, exact=True).get()
 
+        # already exists?
+        mf = MixtureFraction.objects.filter(mixture=self,
+                                            compound=compound)
+        actual_fraction = mf.get().fraction if mf.exists() else 0
+
         if fraction:
-            future_total = Decimal(fraction) + self.total_z
+            future_total = Decimal(fraction) + self.total_z - actual_fraction
             if future_total > Decimal('1.0'):
                 raise ValueError('Add this fraction would exceed 1.0. Max fraction '
                                  'allowed is %s' % (Decimal('1.0') - self.total_z))
         else:
-            fraction = Decimal('1.0') - self.total_z
+            fraction = Decimal('1.0') - self.total_z + actual_fraction
 
         MixtureFraction.objects.create(mixture=self,
                                        compound=compound,

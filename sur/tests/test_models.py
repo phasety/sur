@@ -119,11 +119,16 @@ class TestMixtureMagicMeths(TestCase):
 
     def test_set_overrides_fail_is_sum_is_gt_1(self):
         self.m[self.ethane] =  '0.4'
-
         self.m[self.methane] = '0.5'
         with self.assertRaises(ValueError):
             self.m[self.methane] = '0.7'
         assert_array_equal(self.m.z, [0.4, 0.5])
+
+    def test_set_overrides_not_fail_is_sum_is_lte_1(self):
+        self.m[self.ethane] =  '0.4'
+        self.m[self.methane] = '0.5'
+        self.m[self.methane] = '0.3'
+        assert_array_equal(self.m.z, [0.4, 0.3])
 
     def test_set_attr_raises_keyexception_for_unknown_keys(self):
         with self.assertRaises(KeyError):
