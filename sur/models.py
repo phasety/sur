@@ -89,12 +89,12 @@ class Compound(models.Model):
         self._eos_params = {}       # cache
         super(Compound, self).__init__(*args, **kwargs)
 
-    def _eos_params(self, model, exclude=[]):
+    def _get_eos_params(self, model, exclude=[]):
         if isinstance(model, basestring):
             try:
                 model = eos.NAMES[model.upper()]
             except KeyError:
-                raise ValueError('Unknown %s model')
+                raise ValueError('Unknown %s model' % model)
         if model in exclude:
             raise ValueError("This parameter can't be calculated for %s"
                              % model.MODEL_NAME)
@@ -122,21 +122,28 @@ class Compound(models.Model):
             return params
 
     def get_ac(self, model):
-        return self._eos_params(model)[0]
+        """Return the critical value for the attractive parameter
+           for PR, SRK or RKPR"""
+        return self._get_eos_params(model)[0]
 
     def get_b(self, model):
-        return self._eos_params(model)[1]
+        """Return the temperature dependence of the attractive parameter
+           for PR and the repulsive parameter in SRK and RKPR [l/mol]"""
+        return self._get_eos_params(model)[1]
 
     def get_delta1(self):
-        return self._eos_params('RKPR')[2]
+        """Return the RK-PR third parameter"""
+        return self._get_eos_params('RKPR')[2]
 
     def get_k(self):
-        return self._eos_params('RKPR')[3]
+        """Return the parameter for the temperature dependence
+           of the attractive parameter for the RKPR eos"""
+        return self._get_eos_params('RKPR')[3]
 
     def get_m(self, model):
-        return self._eos_params(model, exclude=[eos.RKPR])[3]
-
-
+        """Parameter for temperature dependence of the
+           attractive parameter for PR or SRK"""
+        return self._get_eos_params(model, exclude=[eos.RKPR])[3]
 
     def __unicode__(self):
         return self.name
