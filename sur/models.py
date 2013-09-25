@@ -368,9 +368,12 @@ class Mixture(models.Model):
         """
         return ((mf.compound, mf.fraction) for mf in self.fractions.all())
 
-    def _compounds_array_field(self, field, as_array=True):
-        """helper to construct an array-like from compound's field"""
-        values = [getattr(v, field) for v in self.compounds]
+    def _compounds_array_field(self, field_or_meth, as_array=True,
+                               call_args=()):
+        """helper to construct an array-like from compound's properties"""
+        values = [getattr(v, field_or_meth) for v in self.compounds]
+        if callable(values[0]):
+            values = [v(*call_args) for v in values]
         if as_array:
             values = np.array(values)
         return values
@@ -440,6 +443,7 @@ class Mixture(models.Model):
         diagonal_mirrored = np.rot90(np.flipud(m), -1)
         return m + diagonal_mirrored
 
+    # interaction matrices
     def k0(self, eos):
         return self._get_interaction_matrix(eos, K0InteractionParameter)
 
@@ -462,6 +466,31 @@ class Mixture(models.Model):
         for pos, f in enumerate(qs):
             f.position = pos
             f.save()
+
+    # model params vectors
+    def get_ac(self, model):
+        """Return the critical value for the attractive parameter
+           array for PR, SRK or RKPR"""
+        return self._compounds_array_field('get_ac', call_args=(model,))
+
+    def get_b(self, model):
+        """Return the temperature dependence of the attractive parameter
+           array for PR and the repulsive parameter in SRK and RKPR [l/mol]"""
+        return self._compounds_array_field('get_b', call_args=(model,))
+
+    def get_delta1(self):
+        """Return the RK-PR third parameter array"""
+        return self._compounds_array_field('get_delta1')
+
+    def get_k(self):
+        """Return the parameter for the temperature dependence
+           of the attractive parameter array for the RKPR eos"""
+        return self._compounds_array_field('get_k')
+
+    def get_m(self, model):
+        """Parameter for temperature dependence of the
+           attractive parameter for PR or SRK"""
+        return self._compounds_array_field('get_m', call_args=(model,))
 
     def add(self, compound, fraction=None):
         """
