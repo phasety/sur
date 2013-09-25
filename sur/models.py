@@ -87,6 +87,7 @@ class Compound(models.Model):
 
     def __init__(self, *args, **kwargs):
         self._eos_params = {}       # cache
+        super(Compound, self).__init__(*args, **kwargs)
 
     def _eos_params(self, model, exclude=[]):
         if isinstance(model, basestring):
