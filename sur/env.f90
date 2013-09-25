@@ -6,6 +6,8 @@ module sur
 
     contains
 
+
+
     subroutine envelope(nmodel, n, z, tc, pc, ohm, ac, b, k_or_m, delta1, Kij_or_K0, &
                         Tstar, Lij, n_points, Tv, Pv, Dv, n_cri, Tcri, Pcri, Dcri)
 
@@ -52,36 +54,28 @@ module sur
 
         !-----------------------------------------------------------
         ! Algorithm starts here :)
-        ! this is just dummy code
-
-        if (nmodel == RKPR) then
-            print *, 'hello RKPR!'
-        else if (nmodel == PR) then
-            print *, 'hi PR!'
-        else if (nmodel == SRK) then
-            print *, 'how u doing SRK!'
-        else
-            print *, 'unknow MODEL'
-            stop 9
-        end if
+        ! this is just a mockup code
 
 
-        do i=1,n
-            Tv(i) = 2.0 * tc(i)
-            Pv(i) = 2.0 * pc(i)
-            Dv(i) = 2.0 * ohm(i)
-        end do
+        real*8 :: t
+        real*8 :: p
+        real*8 :: d
 
-        n_points = n
+        open(unit=1, file='ISO.DAT')
 
-        do i=1,3
-            Tcri(i) = Tv(i)
-            Pcri(i) = Pv(i)
-            Dcri(i) = Dv(i)
-        end do
+        do i=1, 2260, 1
+           READ(1,*) t, p, d
+             Tv(i) = t
+             Pv(i) = p
+             Dv(i) = d
+        END DO
 
-        n_cri = 3
-
+        n_points = i
+        n_cri = 1
+        Tcri(1) = 260.22
+        Pcri(1) = 81.697
+        Dcri(1) = 10.543
+        close(unit=1)
 
         ! Algorithm ends here
         !-----------------------------------------------------------
