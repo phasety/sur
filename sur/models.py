@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from decimal import Decimal
 from itertools import combinations
+from functools import partial
 
 from django.db import models
 from django.db.models import Q
@@ -13,6 +14,7 @@ from django.db.utils import IntegrityError
 from picklefield.fields import PickledObjectField
 import numpy as np
 
+from envelope import envelope
 from . import units
 from . import eos
 
@@ -547,13 +549,17 @@ class Envelope(models.Model):
                            help_text=u'Presure array of the envelope P-T')
     t = PickledObjectField(editable=False,
                            help_text=u'Temperature array of the envelope P-T')
+    d = PickledObjectField(editable=False,
+                           help_text=u'Temperature array of the envelope P-T')
+
     p_cri = PickledObjectField(editable=False,
                                help_text=u'Presure coordinates of critical points')
     t_cri = PickledObjectField(editable=False,
                                help_text=u'Temperature coordinates of critical points')
+    d_cri = PickledObjectField(editable=False,
+                               help_text=u'Temperature array of the envelope P-T')
 
     def _calc(self):
-
         """
         Low level wrapper for the Fortran implementation of the
         envelope calculator for multicompounds systems.
@@ -587,10 +593,29 @@ class Envelope(models.Model):
             (tcri, pcri, dcri) rank-1 arrays of the same size
 
         """
-        pass
+        m = self.mixture  # just for brevity
+        envelope = partial(envelope, eos.NAME[self.eos], m.z, m.tc,
+                           m.pc, m.ohm, m.get_ac(self.eos), m.get_b(self.eos))
 
+        if self.eos == eos.RKPR.MODEL_NAME:
+            envelope = partial(envelope, k=m.get_k(), delta1=m.get_delta1())
+        else:
+            envelope = partial(envelope, m=m.get_m(self.eos))
 
-    # def save(self, *args, **kwargs):
-    #     if not self.id:
-    #         env_results = envelope()
-    #     self.p, self.t, self.p_cri, self.t_cri =
+        if self.mode == Envelope.Kij_constant_Lij_0:
+            env_result = envelope(kij=m.kij(self.eos))
+        elif self.mode == Envelope.Kij_constant_Lij_constant:
+            env_result = envelope(kij=m.kij(self.eos), lij=m.lij(self.eos))
+        elif self.mode == Envelope.Kij_t_Lij_0:
+            env_result = envelope(k0=m.k0(self.eos), tstar=m.tstar(self.eos))
+        elif self.mode == Envelope.Kij_t_Lij_constant:
+            env_result = envelope(k0=m.k0(self.eos), tstar=m.tstar(self.eos),
+                                  lij=m.lij(self.eos))
+
+        self.p, self.t, self.d = env_result[0]
+        self.p_cri, self.t_cro, self.d_cri = env_result[1]
+
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self._calc()
+        super(Envelope, self).save(*args, **kwargs)
