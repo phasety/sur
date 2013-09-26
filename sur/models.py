@@ -578,11 +578,11 @@ class Envelope(models.Model):
                            help_text=u'Temperature array of the envelope P-T')
 
     p_cri = PickledObjectField(editable=False,
-                               help_text=u'Presure coordinates of critical points')
+                               help_text=u'Presure coordenates of critical points')
     t_cri = PickledObjectField(editable=False,
-                               help_text=u'Temperature coordinates of critical points')
+                               help_text=u'Temperature coordenates of critical points')
     d_cri = PickledObjectField(editable=False,
-                               help_text=u'Temperature array of the envelope P-T')
+                               help_text=u'Density coordenates of critical points')
 
     class Meta:
         unique_together = (('mixture', 'eos', 'mode'),)
