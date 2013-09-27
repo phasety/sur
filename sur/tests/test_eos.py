@@ -1,4 +1,4 @@
-from sur.cubicparam import RKPR, PR
+from sur.eos import RKPR, PR
 from numpy.testing import assert_allclose
 from numpy import array
 

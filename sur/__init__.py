@@ -9,11 +9,11 @@ DATA = os.path.abspath(os.path.join(ROOT, '..', 'data'))
 data = lambda a: os.path.join(DATA, a)
 
 
-def setup_db():
+def setup_as_lib():
     """
     this is a hackish trick.
 
-    It setup the django enviroment throght setup_environ(settings)
+    It setup the django enviroment through setup_environ(settings)
 
     Then populates the database but, instead of fixtures,
     it dumps db on disk ('disk')
@@ -40,5 +40,3 @@ def setup_db():
     connections['default'].cursor().executescript(tempfile.read())
 
     call_command('syncdb', verbosity=0)
-
-setup_db()

@@ -4,9 +4,13 @@ from decimal import Decimal
 import numpy as np
 from numpy.testing import assert_array_equal
 
+import sur
+sur.setup_as_lib()
+
 from sur.models import (Compound, Mixture, MixtureFraction,
-                        K0InteractionParameter)
+                        K0InteractionParameter, Envelope)
 from django.db.utils import IntegrityError
+from django.core.exceptions import ValidationError
 
 
 class TestMixture(TestCase):
@@ -28,10 +32,10 @@ class TestMixture(TestCase):
         self.m.add(self.ethane, 0.1)
         self.m.add(self.co2, 0.3)
         self.m.add(self.methane, 0.2)
-        expected = [self.methane, self.co2, self.ethane]
+        expected = [self.methane, self.ethane, self.co2, ]
         self.m.sort()
         self.assertEqual(list(self.m.compounds), expected)
-        assert_array_equal(self.m.z, np.array([0.2, 0.3, 0.1]))
+        assert_array_equal(self.m.z, np.array([0.2, 0.1, 0.3]))
 
     def test_fraction_order_is_preserved(self):
         self.m.add(self.ethane, 0.1)
@@ -89,17 +93,17 @@ class TestMixtureMagicMeths(TestCase):
         with self.assertRaises(TypeError):
             self.m[1j]
 
-    def test_get_attr_raises_keyexception_for_unknow_key(self):
+    def test_get_attr_raises_keyexception_for_unknown_key(self):
         with self.assertRaises(KeyError) as e:
             self.m['methane']
         self.assertIn('is not part of this mixture', e.exception.message)
 
-    def test_get_attr_raises_keyexception_for_unknow_keys(self):
+    def test_get_attr_raises_keyexception_for_unknown_keys(self):
         with self.assertRaises(KeyError) as e:
-            self.m['unknow_compound']
-        self.assertIn('unknow compound', e.exception.message)
+            self.m['unknown_compound']
+        self.assertIn('unknown compound', e.exception.message)
 
-    def test_get_attr_raises_keyexception_for_unknow_compound_keys(self):
+    def test_get_attr_raises_keyexception_for_unknown_compound_keys(self):
         with self.assertRaises(KeyError):
             self.m[self.methane]
 
@@ -116,18 +120,22 @@ class TestMixtureMagicMeths(TestCase):
         self.m[self.ethane] = '0.4'
         self.assertEqual(self.m[self.ethane], Decimal('0.4'))
 
-
     def test_set_overrides_fail_is_sum_is_gt_1(self):
-        self.m[self.ethane] =  '0.4'
-
+        self.m[self.ethane] = '0.4'
         self.m[self.methane] = '0.5'
         with self.assertRaises(ValueError):
             self.m[self.methane] = '0.7'
         assert_array_equal(self.m.z, [0.4, 0.5])
 
-    def test_set_attr_raises_keyexception_for_unknow_keys(self):
+    def test_set_overrides_not_fail_is_sum_is_lte_1(self):
+        self.m[self.ethane] = '0.4'
+        self.m[self.methane] = '0.5'
+        self.m[self.methane] = '0.3'
+        assert_array_equal(self.m.z, [0.4, 0.3])
+
+    def test_set_attr_raises_keyexception_for_unknown_keys(self):
         with self.assertRaises(KeyError):
-            self.m['unknow_compound'] = 0.4
+            self.m['unknown_compound'] = 0.4
 
     def test_del_item(self):
         self.m[self.methane] = 0.2
@@ -145,10 +153,10 @@ class TestMixtureMagicMeths(TestCase):
         del self.m[self.methane]
         self.assertEqual(list(self.m), [(self.co2, Decimal('0.3'))])
 
-    def test_del_attr_raises_keyexception_for_unknow_keys(self):
+    def test_del_attr_raises_keyexception_for_unknown_keys(self):
         with self.assertRaises(KeyError) as e:
-            del self.m['unknow_compound']
-        self.assertIn('unknow compound', e.exception.message)
+            del self.m['unknown_compound']
+        self.assertIn('unknown compound', e.exception.message)
 
     def test_del_attr_raises_keyexception_for_compound_not_in_the_mixture_keys(self):
         self.m[self.methane] = 0.2
@@ -164,7 +172,6 @@ class TestMixtureMagicMeths(TestCase):
                     (self.methane, Decimal('0.2')),
                     (self.co2, Decimal('0.3'))]
         self.assertEqual([i for i in self.m], expected)
-
 
 
 class TestMixtureAdd(TestCase):
@@ -214,7 +221,7 @@ class TestMixtureAdd(TestCase):
     def test_cant_add_greater_than_remaining(self):
         self.m.add('ethane', '0.6')
         with self.assertRaises(ValueError) as v:
-            self.m.add('ethane', '0.6')
+            self.m.add('methane', '0.6')
         self.assertEqual(v.exception.message, 'Add this fraction would exceed 1.0. '
                                               'Max fraction allowed is 0.4000')
 
@@ -389,3 +396,41 @@ class TestK0(TestCase):
         assert_array_equal(self.m.k0('RKPR'), expected)
 
 
+class TestEnvelope(TestCase):
+
+    def setUp(self):
+        self.m = Mixture()
+        self.ethane = Compound.objects.get(name='ETHANE')
+        self.methane = Compound.objects.get(name='METHANE')
+        self.co2 = Compound.objects.get(name='CARBON DIOXIDE')
+
+    def test_envelope_requires_a_clean_mixture(self):
+        self.m.add(self.ethane, 0.1)
+        self.m.add(self.co2, 0.3)
+        self.m.add(self.methane, 0.5)
+        assert self.m.total_z == Decimal('0.9')
+        with self.assertRaises(ValidationError):
+            Envelope.objects.create(mixture=self.m)
+
+        self.m[self.methane] = 0.6   # total_z = 1.0
+        assert self.m.clean() is None
+        # not raises
+        Envelope.objects.create(mixture=self.m)
+
+    def test_envelope_object_calc_env_on_save(self):
+        self.m.add(self.ethane, 1)
+        env = Envelope.objects.create(mixture=self.m)
+        self.assertIsInstance(env.p, np.ndarray)
+        self.assertIsInstance(env.t, np.ndarray)
+        self.assertIsInstance(env.d, np.ndarray)
+        self.assertTrue(env.p.shape == env.t.shape == env.d.shape)
+
+        self.assertIsInstance(env.p_cri, np.ndarray)
+        self.assertIsInstance(env.t_cri, np.ndarray)
+        self.assertIsInstance(env.d_cri, np.ndarray)
+        self.assertTrue(env.p_cri.shape == env.t_cri.shape == env.d_cri.shape)
+
+    def test_get_default_envelope_is_the_same(self):
+        self.m.add(self.ethane, 1)
+        env = Envelope.objects.create(mixture=self.m)
+        self.assertEqual(env, self.m.get_envelope())

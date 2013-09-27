@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 from decimal import Decimal
 from itertools import combinations
+from functools import partial
 
 from django.db import models
 from django.db.models import Q
@@ -13,6 +14,7 @@ from django.db.utils import IntegrityError
 from picklefield.fields import PickledObjectField
 import numpy as np
 
+from envelope import envelope as envelope_routine
 from . import units
 from . import eos
 
@@ -87,13 +89,14 @@ class Compound(models.Model):
 
     def __init__(self, *args, **kwargs):
         self._eos_params = {}       # cache
+        super(Compound, self).__init__(*args, **kwargs)
 
-    def _eos_params(self, model, exclude=[]):
+    def _get_eos_params(self, model, exclude=[]):
         if isinstance(model, basestring):
             try:
                 model = eos.NAMES[model.upper()]
             except KeyError:
-                raise ValueError('Unknown %s model')
+                raise ValueError('Unknown %s model' % model)
         if model in exclude:
             raise ValueError("This parameter can't be calculated for %s"
                              % model.MODEL_NAME)
@@ -121,21 +124,28 @@ class Compound(models.Model):
             return params
 
     def get_ac(self, model):
-        return self._eos_params(model)[0]
+        """Return the critical value for the attractive parameter
+           for PR, SRK or RKPR"""
+        return self._get_eos_params(model)[0]
 
     def get_b(self, model):
-        return self._eos_params(model)[1]
+        """Return the temperature dependence of the attractive parameter
+           for PR and the repulsive parameter in SRK and RKPR [l/mol]"""
+        return self._get_eos_params(model)[1]
 
     def get_delta1(self):
-        return self._eos_params('RKPR')[2]
+        """Return the RK-PR third parameter"""
+        return self._get_eos_params('RKPR')[2]
 
     def get_k(self):
-        return self._eos_params('RKPR')[3]
+        """Return the parameter for the temperature dependence
+           of the attractive parameter for the RKPR eos"""
+        return self._get_eos_params('RKPR')[3]
 
     def get_m(self, model):
-        return self._eos_params(model, exclude=[eos.RKPR])[3]
-
-
+        """Parameter for temperature dependence of the
+           attractive parameter for PR or SRK"""
+        return self._get_eos_params(model, exclude=[eos.RKPR])[3]
 
     def __unicode__(self):
         return self.name
@@ -166,10 +176,6 @@ class Compound(models.Model):
     def __gt__(self, other):
         return self.weight > other.weight
 
-    def save(self, *args, **kwargs):
-        self.weight = self.calculate_weight()
-        super(Compound, self).save(*args, **kwargs)
-
     class Meta:
         ordering = ('mixturefraction__position', 'weight')
 
@@ -189,13 +195,19 @@ class Alias(models.Model):
 
 class InteractionManager(models.Manager):
 
-    def find(self, eos, compound1, compound2=None, mixture=None):
+    def find(self, model, compound1, compound2=None, mixture=None):
         """
         filter interactions for EOS and compounds
         globally defined on specific for a mixture.
         """
+        if isinstance(model, basestring):
+            try:
+                model = eos.NAMES[model.upper()]
+            except KeyError:
+                raise ValueError('Unknown %s model' % model)
+
         comps = Compound.objects.find(compound1)
-        qs = self.filter(eos=eos, compounds__in=comps)
+        qs = self.filter(eos=model.MODEL_NAME, compounds__in=comps)
         if compound2:
             comps = Compound.objects.find(compound2)
             qs = qs.filter(compounds__in=comps)
@@ -216,7 +228,8 @@ class AbstractInteractionParameter(models.Model):
     objects = InteractionManager()
 
     compounds = models.ManyToManyField('Compound')
-    eos = models.CharField(max_length=DEFAULT_MAX_LENGTH, choices=eos.CHOICES)
+    eos = models.CharField(max_length=DEFAULT_MAX_LENGTH,
+                           choices=eos.CHOICES)
     value = models.FloatField()
     mixture = models.ForeignKey('Mixture', null=True)
 
@@ -243,15 +256,23 @@ def verify_parameter_uniquesness(sender, **kwargs):
             raise IntegrityError('Already exists a parameter matching these condition')
 
 
+class KijInteractionParameter(AbstractInteractionParameter):
+    """Constanst for Kij in mode Kij constant"""
+    pass
+
+
 class K0InteractionParameter(AbstractInteractionParameter):
+    """Ko constanst for Kij as f(T) = K0*e^(-T/T*)"""
     pass
 
 
 class TstarInteractionParameter(AbstractInteractionParameter):
+    """T* constanst for Kij as f(T) = K0*e^(-T/T*)"""
     pass
 
 
 class LijInteractionParameter(AbstractInteractionParameter):
+    """Lij constanst"""
     pass
 
 
@@ -345,9 +366,12 @@ class Mixture(models.Model):
         """
         return ((mf.compound, mf.fraction) for mf in self.fractions.all())
 
-    def _compounds_array_field(self, field, as_array=True):
-        """helper to construct an array-like from compound's field"""
-        values = [getattr(v, field) for v in self.compounds]
+    def _compounds_array_field(self, field_or_meth, as_array=True,
+                               call_args=()):
+        """helper to construct an array-like from compound's properties"""
+        values = [getattr(v, field_or_meth) for v in self.compounds]
+        if callable(values[0]):
+            values = [v(*call_args) for v in values]
         if as_array:
             values = np.array(values)
         return values
@@ -396,16 +420,16 @@ class Mixture(models.Model):
         """
         return self._compounds_array_field('acentric_factor')
 
-    def k0(self, eos):
+    def _get_interaction_matrix(self, eos_model, model_class):
         """
-        return the 2d square matrix of k0 interaction parameters
+        return the 2d square matrix of the Model interaction parameters
         """
         compounds = self.compounds
         n = compounds.count()
         m = np.zeros((n, n))
         for ((x, c1), (y, c2)) in combinations(enumerate(compounds), 2):
             try:
-                k = K0InteractionParameter.objects.find(eos, c1, c2, self)[0].value
+                k = model_class.objects.find(eos_model, c1, c2, self)[0].value
                 m[x, y] = k
             except:
                 pass
@@ -413,8 +437,22 @@ class Mixture(models.Model):
         # 0 1 2    0 0 0
         # 0 0 0 +  1 0 0
         # 0 0 0    2 0 0
+
         diagonal_mirrored = np.rot90(np.flipud(m), -1)
         return m + diagonal_mirrored
+
+    # interaction matrices
+    def k0(self, eos):
+        return self._get_interaction_matrix(eos, K0InteractionParameter)
+
+    def tstar(self, eos):
+        return self._get_interaction_matrix(eos, TstarInteractionParameter)
+
+    def kij(self, eos):
+        return self._get_interaction_matrix(eos, KijInteractionParameter)
+
+    def lij(self, eos):
+        return self._get_interaction_matrix(eos, LijInteractionParameter)
 
     def sort(self, by_weight=True):
         """Sort the mixture by compound's weight or
@@ -427,9 +465,34 @@ class Mixture(models.Model):
             f.position = pos
             f.save()
 
+    # model params vectors
+    def get_ac(self, model):
+        """Return the critical value for the attractive parameter
+           array for PR, SRK or RKPR"""
+        return self._compounds_array_field('get_ac', call_args=(model,))
+
+    def get_b(self, model):
+        """Return the temperature dependence of the attractive parameter
+           array for PR and the repulsive parameter in SRK and RKPR [l/mol]"""
+        return self._compounds_array_field('get_b', call_args=(model,))
+
+    def get_delta1(self):
+        """Return the RK-PR third parameter array"""
+        return self._compounds_array_field('get_delta1')
+
+    def get_k(self):
+        """Return the parameter for the temperature dependence
+           of the attractive parameter array for the RKPR eos"""
+        return self._compounds_array_field('get_k')
+
+    def get_m(self, model):
+        """Parameter for temperature dependence of the
+           attractive parameter for PR or SRK"""
+        return self._compounds_array_field('get_m', call_args=(model,))
+
     def add(self, compound, fraction=None):
         """
-        Add a compound fraction to the mixture.
+        Add compound fraction to the mixture.
 
         Compound could be a :class:`Compound` instance or
         a string passed to :meth:`Compound.objects.find`
@@ -444,13 +507,18 @@ class Mixture(models.Model):
         if isinstance(compound, basestring):
             compound = Compound.objects.find(compound, exact=True).get()
 
+        # already exists?
+        mf = MixtureFraction.objects.filter(mixture=self,
+                                            compound=compound)
+        actual_fraction = mf.get().fraction if mf.exists() else 0
+
         if fraction:
-            future_total = Decimal(fraction) + self.total_z
+            future_total = Decimal(fraction) + self.total_z - actual_fraction
             if future_total > Decimal('1.0'):
                 raise ValueError('Add this fraction would exceed 1.0. Max fraction '
                                  'allowed is %s' % (Decimal('1.0') - self.total_z))
         else:
-            fraction = Decimal('1.0') - self.total_z
+            fraction = Decimal('1.0') - self.total_z + actual_fraction
 
         MixtureFraction.objects.create(mixture=self,
                                        compound=compound,
@@ -461,41 +529,72 @@ class Mixture(models.Model):
         if self.total_z != Decimal('1.0'):
             raise ValidationError('The mixture fractions should sum 1.0')
 
+    def get_envelope(self, eos='RKPR', kij='t_dep', lij='constants'):
+        """Get the envelope object for this mixture, calculated using
+        the `eos` (RKPR, SRK or PR) and the selected interaction parameters
+        mode.
+
+        kij: ``'t_dep'`` or ``'constants'``
+        lij: ``'zero'`, `0` or ``'constants'``
+        """
+        lij = 'zero' if lij in (0, '0') else lij
+        try:
+            mode = {('t_dep', 'zero'): Kij_constant_Lij_0,
+                    ('constants', 'constants'): Kij_constant_Lij_constant,
+                    ('t_dep', 'constants'): Kij_t_Lij_constant,
+                    ('t_dep', 'zero'): Kij_t_Lij_0}[(kij, lij)]
+        except KeyError:
+            raise ValueError('Not valid kij and/or lij')
+        return Envelope.objects.get_or_create(mixture=self,
+                                              eos=eos,
+                                              mode=mode)[0]
+
+
+Kij_constant_Lij_0 = 'Kij_constant_Lij_0'
+Kij_constant_Lij_constant = 'Kij_constant_Lij_constant'
+Kij_t_Lij_constant = 'Kij_t_Lij_constant'
+Kij_t_Lij_0 = 'Kij_t_Lij_0'
+
+INTERACTION_MODE_CHOICES = ((Kij_constant_Lij_0, 'Kij constant value and Lij=0'),
+                            (Kij_constant_Lij_constant, 'Kij and Lij constant'),
+                            (Kij_t_Lij_constant, 'Kij (T) and Lij constant'),
+                            (Kij_t_Lij_0, 'Kij (T) and Lij=0'))
+
 
 class Envelope(models.Model):
-    Kij_constant_Lij_0 = 'Kij_constant_Lij_0'
-    Kij_constant_Lij_constant = 'Kij_constant_Lij_constant'
-    Kij_t_Lij_constant = 'Kij_t_Lij_constant'
-    Kij_t_Lij_0 = 'Kij_t_Lij_0'
-
-    INTERACTION_MODE_CHOICES = ((Kij_constant_Lij_0, 'Kij constant value and Lij=0'),
-                                (Kij_constant_Lij_constant, 'Kij and Lij constant'),
-                                (Kij_t_Lij_constant, 'Kij (T) and Lij constant'),
-                                (Kij_t_Lij_0, 'Kij (T) and Lij=0'))
-
-    mixture = models.OneToOneField('Envelope')
-    eos = models.CharField(max_length=DEFAULT_MAX_LENGTH, choices=eos.CHOICES)
+    mixture = models.ForeignKey('Mixture', related_name='envelopes')
+    eos = models.CharField(max_length=DEFAULT_MAX_LENGTH,
+                           choices=eos.CHOICES,
+                           default=eos.RKPR.MODEL_NAME)
     mode = models.CharField(max_length=DEFAULT_MAX_LENGTH,
-                            choices=INTERACTION_MODE_CHOICES)
+                            choices=INTERACTION_MODE_CHOICES,
+                            default=Kij_t_Lij_constant)
 
     p = PickledObjectField(editable=False,
                            help_text=u'Presure array of the envelope P-T')
     t = PickledObjectField(editable=False,
                            help_text=u'Temperature array of the envelope P-T')
+    d = PickledObjectField(editable=False,
+                           help_text=u'Temperature array of the envelope P-T')
+
     p_cri = PickledObjectField(editable=False,
-                               help_text=u'Presure coordinates of critical points')
+                               help_text=u'Presure coordenates of critical points')
     t_cri = PickledObjectField(editable=False,
-                               help_text=u'Temperature coordinates of critical points')
+                               help_text=u'Temperature coordenates of critical points')
+    d_cri = PickledObjectField(editable=False,
+                               help_text=u'Density coordenates of critical points')
+
+    class Meta:
+        unique_together = (('mixture', 'eos', 'mode'),)
 
     def _calc(self):
-
         """
         Low level wrapper for the Fortran implementation of the
         envelope calculator for multicompounds systems.
 
         Required arguments taken from the mixture instance:
 
-          z : input rank-1 array('f')
+          z : input rank-1 array('f') . should sum 1
           tc : input rank-1 array('f')
           pc : input rank-1 array('f')
           ohm : input rank-1 array('f')
@@ -522,10 +621,45 @@ class Envelope(models.Model):
             (tcri, pcri, dcri) rank-1 arrays of the same size
 
         """
-        pass
+        m = self.mixture  # just in sake of brevity
+        m.clean()
+        envelope = partial(envelope_routine, eos.NAMES[self.eos], m.z, m.tc,
+                           m.pc, m.acentric_factor,
+                           m.get_ac(self.eos), m.get_b(self.eos))
+
+        if self.eos == eos.RKPR.MODEL_NAME:
+            envelope = partial(envelope, k=m.get_k(), delta1=m.get_delta1())
+        else:
+            envelope = partial(envelope, m=m.get_m(self.eos))
+
+        if self.mode == Kij_constant_Lij_0:
+            env_result = envelope(kij=m.kij(self.eos))
+        elif self.mode == Kij_constant_Lij_constant:
+            env_result = envelope(kij=m.kij(self.eos), lij=m.lij(self.eos))
+        elif self.mode == Kij_t_Lij_0:
+            env_result = envelope(k0=m.k0(self.eos), tstar=m.tstar(self.eos))
+        elif self.mode == Kij_t_Lij_constant:
+            env_result = envelope(k0=m.k0(self.eos), tstar=m.tstar(self.eos),
+                                  lij=m.lij(self.eos))
+
+        self.p, self.t, self.d = env_result[0]
+        self.p_cri, self.t_cri, self.d_cri = env_result[1]
+
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self._calc()
+        super(Envelope, self).save(*args, **kwargs)
 
 
-    # def save(self, *args, **kwargs):
-    #     if not self.id:
-    #         env_results = envelope()
-    #     self.p, self.t, self.p_cri, self.t_cri =
+class Flash(models.Model):
+    original_mixture = models.ForeignKey('Mixture', related_name='flashes')
+    t = models.FloatField(verbose_name='Temperature')
+    p = models.FloatField(verbose_name='Critical Pressure')
+
+    eos = models.CharField(max_length=DEFAULT_MAX_LENGTH, choices=eos.CHOICES)
+    mode = models.CharField(max_length=DEFAULT_MAX_LENGTH,
+                            choices=INTERACTION_MODE_CHOICES)
+    gas_mixture = models.ForeignKey('Mixture', editable=False,
+                                    related_name='flashes_as_gas')
+    liquid_mixture = models.ForeignKey('Mixture', editable=False,
+                                       related_name='flashes_as_liquid')
