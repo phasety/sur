@@ -15,7 +15,7 @@ def setup_db():
 
     It setup the django enviroment throght setup_environ(settings)
 
-    Then populate the database with but, instead of fixtures,
+    Then populates the database but, instead of fixtures,
     it dumps db on disk ('disk')
     to a memory one ('default'), and then syncs the missing tables on the latter.
     """
