@@ -4,6 +4,9 @@ from decimal import Decimal
 import numpy as np
 from numpy.testing import assert_array_equal
 
+import sur
+sur.setup_as_lib()
+
 from sur.models import (Compound, Mixture, MixtureFraction,
                         K0InteractionParameter, Envelope)
 from django.db.utils import IntegrityError
