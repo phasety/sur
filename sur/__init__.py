@@ -9,7 +9,7 @@ DATA = os.path.abspath(os.path.join(ROOT, '..', 'data'))
 data = lambda a: os.path.join(DATA, a)
 
 
-def setup_db():
+def setup_as_lib():
     """
     this is a hackish trick.
 
@@ -40,5 +40,3 @@ def setup_db():
     connections['default'].cursor().executescript(tempfile.read())
 
     call_command('syncdb', verbosity=0)
-
-setup_db()
