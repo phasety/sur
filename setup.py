@@ -19,7 +19,7 @@ LICENSE = 'Freeware'
 DOWNLOAD_URL = URL
 PACKAGE_NAME = 'sur'
 EXTRA_INFO  = dict(
-    install_requires=['numpy'],
+    install_requires=['django', 'django-picklefield', 'numpy', 'quantities'],
     classifiers=['Development Status :: 1 - Planning',
                  'Intended Audience :: Developers',
                  'Intended Audience :: Science/Research',
