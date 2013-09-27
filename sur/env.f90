@@ -1,13 +1,15 @@
 
-module envelope_sur
+module sur
 
     integer, parameter :: PR=1, SRK=2, RKPR=3
     save
 
     contains
 
-    subroutine envelope(nmodel, n, z, tc, pc, ohm, ac, b, del, k_o_m, K0, Tstar, Lij, &
-                    n_points, Tv, Pv, Dv, n_cri, Tcri, Pcri, Dcri)
+
+
+    subroutine envelope(nmodel, n, z, tc, pc, ohm, ac, b, k_or_m, delta1, Kij_or_K0, &
+                        Tstar, Lij, n_points, Tv, Pv, Dv, n_cri, Tcri, Pcri, Dcri)
 
         implicit none
 
@@ -23,11 +25,11 @@ module envelope_sur
         ! rkpr parameters
         real*8, dimension(n), intent(in) :: ac
         real*8, dimension(n), intent(in) :: b
-        real*8, dimension(n), intent(in) :: del
-        real*8, dimension(n), intent(in) :: k_o_m
+        real*8, dimension(n), intent(in) :: delta1  !only required for RKPR
+        real*8, dimension(n), intent(in) :: k_or_m
 
         ! interaction parameters matrices
-        real*8, dimension(n,n), intent(in) :: K0
+        real*8, dimension(n,n), intent(in) :: Kij_or_K0
         real*8, dimension(n,n), intent(in) :: Tstar
         real*8, dimension(n,n), intent(in) :: Lij
 
@@ -40,9 +42,9 @@ module envelope_sur
         integer, intent(out) :: n_points
 
         ! T, P and Density of critical points
-        real*8, dimension(10), intent(out) :: Tcri
-        real*8, dimension(10), intent(out) :: Pcri
-        real*8, dimension(10), intent(out) :: Dcri
+        real*8, dimension(4), intent(out) :: Tcri
+        real*8, dimension(4), intent(out) :: Pcri
+        real*8, dimension(4), intent(out) :: Dcri
 
         ! number of valid elements in Tcri, Pcri and Dcri arrays
         integer, intent(out) :: n_cri
@@ -52,39 +54,31 @@ module envelope_sur
 
         !-----------------------------------------------------------
         ! Algorithm starts here :)
-        ! this is just dummy code
-
-        if (nmodel == RKPR) then
-            print *, 'hello RKPR!'
-        else if (nmodel == PR) then
-            print *, 'hi PR!'
-        else if (nmodel == SRK) then
-            print *, 'how u doing SRK!'
-        else
-            print *, 'unknow MODEL'
-            stop 9
-        end if
+        ! this is just a mockup code
 
 
-        do i=1,n
-            Tv(i) = 2.0 * tc(i)
-            Pv(i) = 2.0 * pc(i)
-            Dv(i) = 2.0 * ohm(i)
-        end do
+        real*8 :: t
+        real*8 :: p
+        real*8 :: d
 
-        n_points = n
+        open(unit=1, file='ISO.DAT')
 
-        do i=1,3
-            Tcri(i) = Tv(i)
-            Pcri(i) = Pv(i)
-            Dcri(i) = Dv(i)
-        end do
+        do i=1, 2260, 1
+           READ(1,*) t, p, d
+             Tv(i) = t
+             Pv(i) = p
+             Dv(i) = d
+        END DO
 
-        n_cri = 3
-
+        n_points = i
+        n_cri = 1
+        Tcri(1) = 260.22
+        Pcri(1) = 81.697
+        Dcri(1) = 10.543
+        close(unit=1)
 
         ! Algorithm ends here
         !-----------------------------------------------------------
 
     end subroutine envelope
-end module envelope_sur
+end module sur

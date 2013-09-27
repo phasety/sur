@@ -1,11 +1,13 @@
 import _env
 import numpy as np
+from . import eos
 
 
-def rkpr(comp, tc, pc, ohm, ac, b, delta, k, k0=None, tstar=None, lij=None):
-
+def envelope(model, z, tc, pc, ohm, ac, b, m=None, k=None,
+             delta1=None, kij=None, k0=None, tstar=None, lij=None):
     """
-    Low level wrapper for the Fortran implementation of the RK-PR for multicompounds systems.
+    Low level wrapper for the Fortran implementation
+    of the RK-PR for multicompounds systems.
 
     Return envelope and critical point data arrays::
 
@@ -13,21 +15,19 @@ def rkpr(comp, tc, pc, ohm, ac, b, delta, k, k0=None, tstar=None, lij=None):
 
     Required arguments:
 
-      comp : input rank-1 array('f')
+
+      model: one of eos's Cubic classes
+      z : input rank-1 array('f')
       tc : input rank-1 array('f')
       pc : input rank-1 array('f')
       ohm : input rank-1 array('f')
 
       ac : input rank-1 array('f')
       b : input rank-1 array('f')
-      delta : input rank-1 array('f')
-      k : input rank-1 array('f')
+      k (RKPR) or m (SRK or PR): input rank-1 array('f')
+      delta1 (RKPR): input rank-1 array('f')
 
-    Optional arguments:
-
-      k0 : input rank-2 array('f') with bounds (n,n)
-      tstar : input rank-2 array('f') with bounds (n,n)
-      lij : input rank-2 array('f') with bounds (n,n)
+      kij or (k0 and tstar): input rank-2 array('f')
 
     Return object:
 
@@ -40,18 +40,26 @@ def rkpr(comp, tc, pc, ohm, ac, b, delta, k, k0=None, tstar=None, lij=None):
         (tcri, pcri, dcri) rank-1 arrays of the same size
 
     """
-    n = comp.size
-    if k0 is None:
-       k0 = np.zeros((n,n))
+    n = z.size
 
-    if tstar is None:
-       tstar = np.zeros((n,n))
+    if kij is not None and any((k0, tstar)):
+        raise ValueError('Only kij or (k0 and tstar) could be given')
+    elif kij is None and (k0 is None or tstar is None):
+        raise ValueError('At least kij or (k0 and tstar) could be given')
 
-    if lij is None:
-       lij = np.zeros((n,n))
+    if model == eos.RKPR and (k is None or delta1 is None or m is not None):
+        raise ValueError('RKPR requires just k and delta1 arrays')
+    elif model != eos.RKPR and (m is None or k is not None):
+        raise ValueError('%s require just m array (not k)' % model.MODEL_NAME)
 
-    fortran_out = _env.envelope.rkpr(comp, tc, pc, ohm, ac, b, delta, k, k0, tstar, lij)
-    tenv, penv, denv, n_out, tcri, pcri, dcri, n_cri = fortran_out
+    kij_or_k0 = kij if kij is not None else k0
+    lij = lij if lij is not None else np.zeros((n, n))
+    tstar = tstar if tstar is not None else np.zeros((n, n))
+    k_or_m = k if k is not None else m
 
-    return ((tenv[:n_out], penv[:n_out], denv[:n_out]),
+    delta1 = delta1 if delta1 is not None else np.zeros((n,))
+    fortran_out = _env.sur.envelope(model.MODEL_ID, z, tc, pc, ohm, ac, b, k_or_m,
+                                    delta1, kij_or_k0, tstar, lij)
+    n_points, tv, pv, dv, n_cri, tcri, pcri, dcri = fortran_out
+    return ((tv[:n_points], pv[:n_points], dv[:n_points]),
             (tcri[:n_cri], pcri[:n_cri], dcri[:n_cri]))
