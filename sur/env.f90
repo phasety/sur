@@ -13,16 +13,18 @@ module sur
 
         implicit none
 
-        ! number of compounds in the system
+        ! eos id and  number of compounds in the system
         integer, intent(in) :: nmodel, n
 
-        ! pure compound constants
+        ! composition of the system
         real*8, dimension(n), intent(in) :: z
+
+        ! pure compound constants
         real*8, dimension(n), intent(in) :: tc
         real*8, dimension(n), intent(in) :: pc
         real*8, dimension(n), intent(in) :: ohm
 
-        ! rkpr parameters
+        ! eos parameters
         real*8, dimension(n), intent(in) :: ac
         real*8, dimension(n), intent(in) :: b
         real*8, dimension(n), intent(in) :: delta1  !only required for RKPR
@@ -81,4 +83,57 @@ module sur
         !-----------------------------------------------------------
 
     end subroutine envelope
+
+
+    subroutine flash(nmodel, n, z, tc, pc, ohm, ac, b, k_or_m, delta1, &
+                     Kij_or_K0, Tstar, Lij, t, p, x, y, rho_x, rho_y, beta)
+
+        implicit none
+
+        ! eos id and  number of compounds in the system
+        integer, intent(in) :: nmodel, n
+
+        ! composition of the system
+        real*8, dimension(n), intent(in) :: z
+
+        ! pure compound constants
+        real*8, dimension(n), intent(in) :: tc
+        real*8, dimension(n), intent(in) :: pc
+        real*8, dimension(n), intent(in) :: ohm
+
+        ! eos parameters
+        real*8, dimension(n), intent(in) :: ac
+        real*8, dimension(n), intent(in) :: b
+        real*8, dimension(n), intent(in) :: delta1  !only required for RKPR
+        real*8, dimension(n), intent(in) :: k_or_m
+
+        ! interaction parameters matrices
+        real*8, dimension(n,n), intent(in) :: Kij_or_K0
+        real*8, dimension(n,n), intent(in) :: Tstar
+        real*8, dimension(n,n), intent(in) :: Lij
+
+        ! Temperature and Pressure for the flash
+        real*8, intent(in) :: t            ! density of liquid
+        real*8, intent(in) :: p            ! density of vapour
+
+        !
+        real*8, dimension(n), intent(out) :: x  ! composition of liquid
+        real*8, dimension(n), intent(out) :: y  ! composition of vapour
+        real*8, intent(out) :: rho_x            ! density of liquid
+        real*8, intent(out) :: rho_y            ! density of vapour
+        real*8, intent(out) :: beta             ! total fraction of vapour
+
+
+        !-----------------------------------------------------------
+        ! Put the magic since here
+
+        continue
+
+
+        ! until here
+        !-----------------------------------------------------------
+
+
+    end subroutine flash
+
 end module sur
