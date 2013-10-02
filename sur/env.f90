@@ -1,4 +1,3 @@
-
 module sur
 
     integer, parameter :: PR=1, SRK=2, RKPR=3
@@ -102,10 +101,10 @@ module sur
         real*8, dimension(n), intent(in) :: ohm
 
         ! eos parameters
-        real*8, dimension(n), intent(in) :: ac
-        real*8, dimension(n), intent(in) :: b
+        real*8, dimension(n), intent(in) :: ac  ! in bar*(L/mol)**2
+        real*8, dimension(n), intent(in) :: b   ! in L/mol
         real*8, dimension(n), intent(in) :: delta1  !only required for RKPR
-        real*8, dimension(n), intent(in) :: k_or_m
+        real*8, dimension(n), intent(in) :: k_or_m  ! k for RKPR ; m for SRK/PR
 
         ! interaction parameters matrices
         real*8, dimension(n,n), intent(in) :: Kij_or_K0
@@ -113,16 +112,15 @@ module sur
         real*8, dimension(n,n), intent(in) :: Lij
 
         ! Temperature and Pressure for the flash
-        real*8, intent(in) :: t            ! density of liquid
-        real*8, intent(in) :: p            ! density of vapour
+        real*8, intent(in) :: t            ! Temperature for the flash (K)
+        real*8, intent(in) :: p            ! Pressure for the flash (bar)
 
         !
-        real*8, dimension(n), intent(out) :: x  ! composition of liquid
-        real*8, dimension(n), intent(out) :: y  ! composition of vapour
-        real*8, intent(out) :: rho_x            ! density of liquid
-        real*8, intent(out) :: rho_y            ! density of vapour
-        real*8, intent(out) :: beta             ! total fraction of vapour
-
+        real*8, dimension(n), intent(out) :: x  ! composition of liquid (molar fractions)
+        real*8, dimension(n), intent(out) :: y  ! composition of vapour (molar fractions)
+        real*8, intent(out) :: rho_x            ! density of liquid (moles/L)
+        real*8, intent(out) :: rho_y            ! density of vapour (moles/L)
+        real*8, intent(out) :: beta             ! total fraction of vapour (molar base)
 
         !-----------------------------------------------------------
         ! Put the magic since here
