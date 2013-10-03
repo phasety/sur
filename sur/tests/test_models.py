@@ -8,7 +8,7 @@ import sur
 sur.setup_as_lib()
 
 from sur.models import (Compound, Mixture, MixtureFraction,
-                        K0InteractionParameter, Envelope)
+                        K0InteractionParameter, Envelope, Flash)
 from django.db.utils import IntegrityError
 from django.core.exceptions import ValidationError
 
@@ -211,6 +211,10 @@ class TestMixtureAdd(TestCase):
         self.assertEqual(mf.mixture, self.m)
         self.assertEqual(mf.compound, self.ethane)
         self.assertEqual(mf.fraction, Decimal('0.1'))
+
+    def test_add_many(self):
+        # to do
+        pass
 
     def test_cant_add_greater_than_1(self):
         with self.assertRaises(ValueError) as v:
@@ -422,15 +426,37 @@ class TestEnvelope(TestCase):
         env = Envelope.objects.create(mixture=self.m)
         self.assertIsInstance(env.p, np.ndarray)
         self.assertIsInstance(env.t, np.ndarray)
-        self.assertIsInstance(env.d, np.ndarray)
-        self.assertTrue(env.p.shape == env.t.shape == env.d.shape)
+        self.assertIsInstance(env.rho, np.ndarray)
+        self.assertTrue(env.p.shape == env.t.shape == env.rho.shape)
 
         self.assertIsInstance(env.p_cri, np.ndarray)
         self.assertIsInstance(env.t_cri, np.ndarray)
-        self.assertIsInstance(env.d_cri, np.ndarray)
-        self.assertTrue(env.p_cri.shape == env.t_cri.shape == env.d_cri.shape)
+        self.assertIsInstance(env.rho_cri, np.ndarray)
+        self.assertTrue(env.p_cri.shape == env.t_cri.shape == env.rho_cri.shape)
 
     def test_get_default_envelope_is_the_same(self):
         self.m.add(self.ethane, 1)
         env = Envelope.objects.create(mixture=self.m)
         self.assertEqual(env, self.m.get_envelope())
+
+
+class TestFlash(TestCase):
+
+    def setUp(self):
+        self.m = Mixture()
+        self.ethane = Compound.objects.get(name='ETHANE')
+        self.methane = Compound.objects.get(name='METHANE')
+        self.co2 = Compound.objects.get(name='CARBON DIOXIDE')
+
+    def test_flash_requires_a_clean_mixture(self):
+        self.m.add(self.ethane, 0.1)
+        self.m.add(self.co2, 0.3)
+        self.m.add(self.methane, 0.5)
+        assert self.m.total_z == Decimal('0.9')
+        with self.assertRaises(ValidationError):
+            self.m.get_flash(10., 20.)
+
+        self.m[self.methane] = 0.6   # total_z = 1.0
+        assert self.m.clean() is None
+        # not raises
+        self.m.get_flash(10., 20.)
