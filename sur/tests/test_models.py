@@ -8,7 +8,7 @@ import sur
 sur.setup_as_lib()
 
 from sur.models import (Compound, Mixture, MixtureFraction,
-                        K0InteractionParameter, Envelope, Flash)
+                        K0InteractionParameter, Envelope)
 from django.db.utils import IntegrityError
 from django.core.exceptions import ValidationError
 
@@ -181,6 +181,7 @@ class TestMixtureAdd(TestCase):
         self.m = Mixture()
         self.ethane = Compound.objects.get(name='ETHANE')
         self.co2 = Compound.objects.get(name='CARBON DIOXIDE')
+        self.methane = Compound.objects.get(name='METHANE')
 
     def test_simple_add(self):
         assert MixtureFraction.objects.all().count() == 0
@@ -212,9 +213,24 @@ class TestMixtureAdd(TestCase):
         self.assertEqual(mf.compound, self.ethane)
         self.assertEqual(mf.fraction, Decimal('0.1'))
 
-    def test_add_many(self):
-        # to do
-        pass
+    def test_add_many_iterables(self):
+        self.m.add_many([self.ethane, self.methane, self.co2], [0.1, 0.2, 0.3])
+        expected = [(self.ethane, Decimal('0.1')),
+                    (self.methane, Decimal('0.2')),
+                    (self.co2, Decimal('0.3'))]
+        self.assertEqual([i for i in self.m], expected)
+
+    def test_add_many_string(self):
+        self.m.add_many("ethane methane co2", "0.1 0.2 0.3")
+        expected = [(self.ethane, Decimal('0.1')),
+                    (self.methane, Decimal('0.2')),
+                    (self.co2, Decimal('0.3'))]
+        self.assertEqual([i for i in self.m], expected)
+
+    def test_add_many_must_have_same_size(self):
+        with self.assertRaises(ValueError):
+            self.m.add_many("ethane methane", "0.1 0.2 0.3")
+
 
     def test_cant_add_greater_than_1(self):
         with self.assertRaises(ValueError) as v:

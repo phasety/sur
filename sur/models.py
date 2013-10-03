@@ -495,6 +495,19 @@ class Mixture(models.Model):
         return self._compounds_array_field('get_m', call_args=(model,))
 
     def add_many(self, compounds, fractions):
+        """shortcut to add many compounds to the mixture at once.
+
+            compounds and fractions could be iterables or strings.
+        """
+        if isinstance(compounds, basestring):
+            compounds = compounds.split()
+
+        if isinstance(fractions, basestring):
+            fractions = fractions.replace(',', '.').split()
+
+        if len(fractions) != len(compounds):
+            raise ValueError('compounds and fractions must have the same size')
+
         for compound, fraction in zip(compounds, fractions):
             self.add(compound, fraction)
 
