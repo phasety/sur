@@ -545,9 +545,9 @@ class Mixture(models.Model):
                     ('t_dep', 'zero'): Kij_t_Lij_0}[(kij, lij)]
         except KeyError:
             raise ValueError('Not valid kij and/or lij')
-        return Envelope.objects.get_or_create(mixture=self,
-                                              eos=eos,
-                                              mode=mode)[0]
+        return EosEnvelope.objects.get_or_create(mixture=self,
+                                                 eos=eos,
+                                                 mode=mode)[0]
 
 
 Kij_constant_Lij_0 = 'Kij_constant_Lij_0'
@@ -562,14 +562,13 @@ INTERACTION_MODE_CHOICES = ((Kij_constant_Lij_0, 'Kij constant value and Lij=0')
 
 
 class Envelope(models.Model):
-    mixture = models.ForeignKey('Mixture', related_name='envelopes')
-    eos = models.CharField(max_length=DEFAULT_MAX_LENGTH,
-                           choices=eos.CHOICES,
-                           default=eos.RKPR.MODEL_NAME)
-    mode = models.CharField(max_length=DEFAULT_MAX_LENGTH,
-                            choices=INTERACTION_MODE_CHOICES,
-                            default=Kij_t_Lij_constant)
+    """
+    A base object for envelopes.
+    """
+    class Meta:
+        abstract = True
 
+    mixture = models.ForeignKey('Mixture', related_name='%(class)s')
     p = PickledObjectField(editable=False,
                            help_text=u'Presure array of the envelope P-T')
     t = PickledObjectField(editable=False,
@@ -583,6 +582,19 @@ class Envelope(models.Model):
                                help_text=u'Temperature coordenates of critical points')
     d_cri = PickledObjectField(editable=False,
                                help_text=u'Density coordenates of critical points')
+
+
+class ExperimentalEnvelope(Envelope):
+    pass
+
+
+class EosEnvelope(Envelope):
+    eos = models.CharField(max_length=DEFAULT_MAX_LENGTH,
+                           choices=eos.CHOICES,
+                           default=eos.RKPR.MODEL_NAME)
+    mode = models.CharField(max_length=DEFAULT_MAX_LENGTH,
+                            choices=INTERACTION_MODE_CHOICES,
+                            default=Kij_t_Lij_constant)
 
     class Meta:
         unique_together = (('mixture', 'eos', 'mode'),)
