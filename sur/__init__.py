@@ -40,3 +40,8 @@ def setup_as_lib():
     connections['default'].cursor().executescript(tempfile.read())
 
     call_command('syncdb', verbosity=0)
+
+
+if not os.environ.get('DJANGO_SETTINGS_MODULE', None):
+    setup_as_lib()
+

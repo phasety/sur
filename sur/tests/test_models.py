@@ -4,11 +4,9 @@ from decimal import Decimal
 import numpy as np
 from numpy.testing import assert_array_equal
 
-import sur
-sur.setup_as_lib()
 
 from sur.models import (Compound, Mixture, MixtureFraction,
-                        K0InteractionParameter, Envelope)
+                        K0InteractionParameter, EosEnvelope)
 from django.db.utils import IntegrityError
 from django.core.exceptions import ValidationError
 
@@ -410,16 +408,16 @@ class TestEnvelope(TestCase):
         self.m.add(self.methane, 0.5)
         assert self.m.total_z == Decimal('0.9')
         with self.assertRaises(ValidationError):
-            Envelope.objects.create(mixture=self.m)
+            EosEnvelope.objects.create(mixture=self.m)
 
         self.m[self.methane] = 0.6   # total_z = 1.0
         assert self.m.clean() is None
         # not raises
-        Envelope.objects.create(mixture=self.m)
+        EosEnvelope.objects.create(mixture=self.m)
 
     def test_envelope_object_calc_env_on_save(self):
         self.m.add(self.ethane, 1)
-        env = Envelope.objects.create(mixture=self.m)
+        env = EosEnvelope.objects.create(mixture=self.m)
         self.assertIsInstance(env.p, np.ndarray)
         self.assertIsInstance(env.t, np.ndarray)
         self.assertIsInstance(env.d, np.ndarray)
@@ -432,5 +430,5 @@ class TestEnvelope(TestCase):
 
     def test_get_default_envelope_is_the_same(self):
         self.m.add(self.ethane, 1)
-        env = Envelope.objects.create(mixture=self.m)
+        env = EosEnvelope.objects.create(mixture=self.m)
         self.assertEqual(env, self.m.get_envelope())
