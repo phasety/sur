@@ -15,6 +15,7 @@ from picklefield.fields import PickledObjectField
 import numpy as np
 
 from envelope import envelope as envelope_routine
+from envelope import flash as flash_routine
 from . import units
 from . import eos
 
@@ -324,6 +325,9 @@ class Mixture(models.Model):
     def __len__(self):
         return self.fractions.count()
 
+    def __repr__(self):
+        return repr(list(self))
+
     def __item_preprocess(self, key):
         if not isinstance(key, (Compound, basestring)):
             raise TypeError('%s has a non valid key type' % key)
@@ -490,6 +494,23 @@ class Mixture(models.Model):
            attractive parameter for PR or SRK"""
         return self._compounds_array_field('get_m', call_args=(model,))
 
+    def add_many(self, compounds, fractions):
+        """shortcut to add many compounds to the mixture at once.
+
+            compounds and fractions could be iterables or strings.
+        """
+        if isinstance(compounds, basestring):
+            compounds = compounds.split()
+
+        if isinstance(fractions, basestring):
+            fractions = fractions.replace(',', '.').split()
+
+        if len(fractions) != len(compounds):
+            raise ValueError('compounds and fractions must have the same size')
+
+        for compound, fraction in zip(compounds, fractions):
+            self.add(compound, fraction)
+
     def add(self, compound, fraction=None):
         """
         Add compound fraction to the mixture.
@@ -549,6 +570,29 @@ class Mixture(models.Model):
                                                  eos=eos,
                                                  mode=mode)[0]
 
+    def get_flash(self, t, p, eos='RKPR', kij='t_dep', lij='constants'):
+        """
+        Get the flash on (t, p) for this mixture, calculated using
+        the `eos` (RKPR, SRK or PR) and the selected interaction parameters
+        mode.
+
+        kij: ``'t_dep'`` or ``'constants'``
+        lij: ``'zero'`, `0` or ``'constants'``
+        """
+        lij = 'zero' if lij in (0, '0') else lij
+        try:
+            mode = {('t_dep', 'zero'): Kij_constant_Lij_0,
+                    ('constants', 'constants'): Kij_constant_Lij_constant,
+                    ('t_dep', 'constants'): Kij_t_Lij_constant,
+                    ('t_dep', 'zero'): Kij_t_Lij_0}[(kij, lij)]
+        except KeyError:
+            raise ValueError('Not valid kij and/or lij')
+        return Flash.objects.get_or_create(t=t,
+                                           p=p,
+                                           input_mixture=self,
+                                           eos=eos,
+                                           mode=mode)[0]
+
 
 Kij_constant_Lij_0 = 'Kij_constant_Lij_0'
 Kij_constant_Lij_constant = 'Kij_constant_Lij_constant'
@@ -573,15 +617,15 @@ class Envelope(models.Model):
                            help_text=u'Presure array of the envelope P-T')
     t = PickledObjectField(editable=False,
                            help_text=u'Temperature array of the envelope P-T')
-    d = PickledObjectField(editable=False,
-                           help_text=u'Temperature array of the envelope P-T')
+    rho = PickledObjectField(editable=False,
+                             help_text=u'Density array of the envelope P-T')
 
     p_cri = PickledObjectField(editable=False,
                                help_text=u'Presure coordenates of critical points')
     t_cri = PickledObjectField(editable=False,
                                help_text=u'Temperature coordenates of critical points')
-    d_cri = PickledObjectField(editable=False,
-                               help_text=u'Density coordenates of critical points')
+    rho_cri = PickledObjectField(editable=False,
+                                 help_text=u'Density coordenates of critical points')
 
 
 class ExperimentalEnvelope(Envelope):
@@ -601,36 +645,8 @@ class EosEnvelope(Envelope):
 
     def _calc(self):
         """
-        Low level wrapper for the Fortran implementation of the
-        envelope calculator for multicompounds systems.
-
-        Required arguments taken from the mixture instance:
-
-          z : input rank-1 array('f') . should sum 1
-          tc : input rank-1 array('f')
-          pc : input rank-1 array('f')
-          ohm : input rank-1 array('f')
-
-          ac : input rank-1 array('f')
-          b : input rank-1 array('f')
-          delta : input rank-1 array('f')
-          k : input rank-1 array('f')
-
-        Optional arguments:
-
-          k0 : input rank-2 array('f') with bounds (n,n)
-          tstar : input rank-2 array('f') with bounds (n,n)
-          lij : input rank-2 array('f') with bounds (n,n)
-
-        Return object:
-
-          A tuple (envelope_data, critical_points_data) where envelope_data is a tuple
-
-            (tenv, penv, denv) rank-1 arrays of the same size
-
-          and critical_points_data
-
-            (tcri, pcri, dcri) rank-1 arrays of the same size
+        calculate the envelope based on the given parameters
+        ``mixture``, ``eos``, ``mode``.
 
         """
         m = self.mixture  # just in sake of brevity
@@ -654,24 +670,108 @@ class EosEnvelope(Envelope):
             env_result = envelope(k0=m.k0(self.eos), tstar=m.tstar(self.eos),
                                   lij=m.lij(self.eos))
 
-        self.p, self.t, self.d = env_result[0]
-        self.p_cri, self.t_cri, self.d_cri = env_result[1]
+        self.p, self.t, self.rho = env_result[0]
+        self.p_cri, self.t_cri, self.rho_cri = env_result[1]
 
     def save(self, *args, **kwargs):
         if not self.id:
+            # calculate everything the first time
             self._calc()
         super(Envelope, self).save(*args, **kwargs)
 
 
 class Flash(models.Model):
-    original_mixture = models.ForeignKey('Mixture', related_name='flashes')
-    t = models.FloatField(verbose_name='Temperature')
-    p = models.FloatField(verbose_name='Critical Pressure')
+    input_mixture = models.ForeignKey('Mixture', related_name='flashes')
+    t = models.FloatField(verbose_name='Temperature of the flash')
+    p = models.FloatField(verbose_name='Pressure of the flash')
 
     eos = models.CharField(max_length=DEFAULT_MAX_LENGTH, choices=eos.CHOICES)
     mode = models.CharField(max_length=DEFAULT_MAX_LENGTH,
                             choices=INTERACTION_MODE_CHOICES)
-    gas_mixture = models.ForeignKey('Mixture', editable=False,
-                                    related_name='flashes_as_gas')
+    vapour_mixture = models.ForeignKey('Mixture', editable=False,
+                                       related_name='flashes_as_gas')
     liquid_mixture = models.ForeignKey('Mixture', editable=False,
                                        related_name='flashes_as_liquid')
+    rho_l = models.FloatField(verbose_name='Density of liquid')
+    rho_v = models.FloatField(verbose_name='Density of vapour')
+    beta = models.FloatField(verbose_name='Vapour fraction',
+                             validators=[MinValueValidator(0.),
+                                         MaxValueValidator(1.)])
+
+    class Meta:
+        unique_together = (('t', 'p', 'input_mixture', 'eos', 'mode'),)
+
+    def clean(self):
+        z_calculated = self.y * self.beta + self.x * (1 - self.beta)
+        if not np.allclose(self.input_mixture.z, z_calculated):
+            raise ValidationError('Not all Zi != Yi*beta + Xi*(1 - beta)')
+
+    def _calc(self):
+        """
+        Calculate the flash for the given t and p
+        """
+        m = self.input_mixture  # just in sake of brevity
+        m.clean()
+        flash = partial(flash_routine, self.t, self.p, eos.NAMES[self.eos], m.z, m.tc,
+                        m.pc, m.acentric_factor, m.get_ac(self.eos), m.get_b(self.eos))
+
+        if self.eos == eos.RKPR.MODEL_NAME:
+            flash = partial(flash, k=m.get_k(), delta1=m.get_delta1())
+        else:
+            flash = partial(flash, m=m.get_m(self.eos))
+
+        if self.mode == Kij_constant_Lij_0:
+            flash_result = flash(kij=m.kij(self.eos))
+        elif self.mode == Kij_constant_Lij_constant:
+            flash_result = flash(kij=m.kij(self.eos), lij=m.lij(self.eos))
+        elif self.mode == Kij_t_Lij_0:
+            flash_result = flash(k0=m.k0(self.eos), tstar=m.tstar(self.eos))
+        elif self.mode == Kij_t_Lij_constant:
+            flash_result = flash(k0=m.k0(self.eos), tstar=m.tstar(self.eos),
+                                 lij=m.lij(self.eos))
+
+        self.x, self.y, self.rho_l, self.rho_v, self.beta = flash_result
+
+    def save(self, *args, **kwargs):
+        if not self.id:
+            # calculate the first time
+            self._calc()
+        super(Flash, self).save(*args, **kwargs)
+
+    @property
+    def x(self):
+        return self.liquid_mixture.z
+
+    @x.setter
+    def x(self, liquid_mixture_composition):
+        size = self.input_mixture.compounds.count()
+        if len(liquid_mixture_composition) != size:
+            raise ValueError('X must be same size than input_mixture (%d)' % size)
+
+        try:
+            self.liquid_mixture.delete()
+        except Mixture.DoesNotExist:
+            pass
+        m = Mixture()
+        m.add_many(self.input_mixture.compounds, liquid_mixture_composition)
+        self.liquid_mixture = m
+
+    @property
+    def y(self):
+        return self.vapour_mixture.z
+
+    @y.setter
+    def y(self, vapour_mixture_composition):
+        size = self.input_mixture.compounds.count()
+        if len(vapour_mixture_composition) != size:
+            raise ValueError('Y must be same size than input_mixture (%d)' % size)
+
+        try:
+            self.vapour_mixture.delete()
+        except Mixture.DoesNotExist:
+            pass
+
+        m = Mixture()
+        m.add_many(self.input_mixture.compounds,
+                   vapour_mixture_composition)
+        self.vapour_mixture = m
