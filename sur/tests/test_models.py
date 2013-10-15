@@ -231,7 +231,6 @@ class TestMixtureAdd(TestCase):
         with self.assertRaises(ValueError):
             self.m.add_many("ethane methane", "0.1 0.2 0.3")
 
-
     def test_cant_add_greater_than_1(self):
         with self.assertRaises(ValueError) as v:
             self.m.add('ethane', '1.2')
