@@ -1,7 +1,7 @@
 
 	subroutine read2PcubicNC(nc,nin,nout)
       implicit DOUBLE PRECISION (A-H,O-Z)
-      PARAMETER (nco=10,RGAS=0.08314472d0) 
+      PARAMETER (nco=10,RGAS=0.08314472d0)
 ! Critical constants must be given in K and bar
 ! b will be in L/mol and ac in bar*(L/mol)**2
 	DOUBLE PRECISION Kij(nco,nco),lij(nc,nc)
@@ -12,7 +12,7 @@
 	COMMON/names/fluid
       COMMON/CRIT/TC(nco),PC(nco),DCeos(nco),OM(nco)
 	COMMON /COMPONENTS/ ac,b,del1,rm,Kij,NTdep
-	COMMON/COVOL/b1(nco)	
+	COMMON/COVOL/b1(nco)
 	COMMON /bcross/bij(nco,nco)
 	COMMON /Tdep/ Kinf,Tstar
 ! COMMON /Kcubic/Kinf1,Kinf2,K01,K02,Tstar1,Tstar2,C1,C2
@@ -155,7 +155,7 @@
 
 	SUBROUTINE HelmSRKPR(nc,ND,NT,rn,V,T,Ar,ArV,ArTV,ArV2,Arn,ArVn,ArTn,Arn2)
       IMPLICIT DOUBLE PRECISION (A-H,O-Z)
-      PARAMETER (nco=10,RGAS=0.08314472d0) 
+      PARAMETER (nco=10,RGAS=0.08314472d0)
 	dimension rn(nc),Arn(nc),ArVn(nc),ArTn(nc),Arn2(nc,nc)
 	dimension dBi(nc),dBij(nc,nc)
 	dimension dDi(nc),dDij(nc,nc),dDiT(nc)
@@ -198,7 +198,7 @@
 	IF (ND.EQ.2) THEN
 	do j=1,i
 	Arn2(i,j)=AUX*(dBi(i)+dBi(j))-fB*(dBi(i)*dDi(j)+dBi(j)*dDi(i))  &
-     		+FFB*dBij(i,j)+FFBB*dBi(i)*dBi(j)-f*dDij(i,j)      
+     		+FFB*dBij(i,j)+FFBB*dBi(i)*dBi(j)-f*dDij(i,j)
 	Arn2(j,i)=Arn2(i,j)
 	end do
 	END IF

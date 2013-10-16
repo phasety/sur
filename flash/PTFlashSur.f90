@@ -39,8 +39,9 @@
       WRITE (2,*)
       WRITE (2,*) ' T(K)=',T
       WRITE (2,*) ' P(bar)=',P
-      call flash(nmodel, n, z, tc, pc, omg, ac, b, k_or_m, delta1, &
-                     Kij_or_K0, Tstar, Lij, t, p, x, y, rho_x, rho_y, beta)
+      call flash(nmodel, n, z(:n), tc(:n), pc(:n), omg(:n), ac(:n), b(:n), &
+    			 k_or_m(:n), delta1(:n), Kij_or_K0(:n, :n), Tstar(:n,:n), &
+    			 Lij(:n,:n), t, p, x(:n), y(:n), rho_x, rho_y, beta)
       WRITE (2,*)
       WRITE (2,*) 'Beta (vapor phase fraction)= ',beta
       WRITE (2,*) 'Comp',(i,i=1,N)
@@ -92,7 +93,7 @@
         real*8, intent(out) :: beta             ! total fraction of vapour (molar base)
 
         ! Intermediate variables during calculation process
-        real*8, dimension(n), intent(inout) :: PHILOGy, PHILOGx
+        real*8, dimension(n) :: PHILOGy, PHILOGx
         real*8, dimension(n) :: KFACT, LOG_K, var_K, denom, DLPHIT, DLPHIP
         real*8, dimension(n, n) :: FUGN
         real*8 :: g0, g1  ! function g valuated at beta=0 and 1, based on Wilson K factors
@@ -122,7 +123,6 @@
         ! Succesive sustitution loop starts here
         var_K=1.0
         do while (maxval(abs(var_K)) > 1.d-4)
-        	print *, kfact
             ! Newton starts here
             g = 1.0
             do while (abs(g)>1.d-4)
