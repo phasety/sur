@@ -39,8 +39,9 @@
       WRITE (2,*)
       WRITE (2,*) ' T(K)=',T
       WRITE (2,*) ' P(bar)=',P
-      call flash(nmodel, n, z, tc, pc, omg, ac, b, k_or_m, delta1, &
-                     Kij_or_K0, Tstar, Lij, t, p, x, y, rho_x, rho_y, beta)
+      call flash(nmodel, n, z(:n), tc(:n), pc(:n), omg(:n), ac(:n), b(:n), &
+    			 k_or_m(:n), delta1(:n), Kij_or_K0(:n, :n), Tstar(:n,:n), &
+    			 Lij(:n,:n), t, p, x(:n), y(:n), rho_x, rho_y, beta)
       WRITE (2,*)
       WRITE (2,*) 'Beta (vapor phase fraction)= ',beta
       WRITE (2,*) 'Comp',(i,i=1,N)
