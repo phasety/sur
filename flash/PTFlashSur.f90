@@ -92,7 +92,7 @@
         real*8, intent(out) :: beta             ! total fraction of vapour (molar base)
 
         ! Intermediate variables during calculation process
-        real*8, dimension(n), intent(inout) :: PHILOGy, PHILOGx
+        real*8, dimension(n) :: PHILOGy, PHILOGx
         real*8, dimension(n) :: KFACT, LOG_K, var_K, denom, DLPHIT, DLPHIP
         real*8, dimension(n, n) :: FUGN
         real*8 :: g0, g1  ! function g valuated at beta=0 and 1, based on Wilson K factors
@@ -122,7 +122,6 @@
         ! Succesive sustitution loop starts here
         var_K=1.0
         do while (maxval(abs(var_K)) > 1.d-4)
-        	print *, kfact
             ! Newton starts here
             g = 1.0
             do while (abs(g)>1.d-4)
