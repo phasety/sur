@@ -1,0 +1,37 @@
+METHANE (1
+Tc= 190.5640   Pc =  45.9900   Vc =  0.1152   OM = 0.0115
+Zc=   0.3343 Zcrat=   1.0000 Zceos=  0.3343 Vceos= 0.1152
+ac=   2.3277    b =   0.0300  del1=  0.9325    k = 1.4954
+ CARBON DI
+Tc= 304.2100   Pc =  73.8300   Vc =  0.0549   OM = 0.2236
+Zc=   0.1604 Zcrat=   2.0000 Zceos=  0.3208 Vceos= 0.1099
+ac=   3.8290    b =   0.0282  del1=  1.7268    k = 2.2385
+ C10 (3)
+Tc= 617.7000   Pc =  21.1000   Vc =  0.3504   OM = 0.4923
+Zc=   0.1440 Zcrat=   2.0000 Zceos=  0.2879 Vceos= 0.7008
+ac=  59.8868    b =   0.1736  del1=  3.4303    k = 2.8050
+
+ Tc, Pc and Vc are given in K, bar and L/mol respectively
+
+   KIJ MATRIX
+METHANE (1
+ CARBON DI 0.10000
+ C10 (3)   0.00000 0.09100
+
+   LIJ MATRIX
+METHANE (1
+ CARBON DI 0.00000
+ C10 (3)   0.00000-0.09000
+
+  Combining rules:
+  0: Classical or van der Waals
+
+Molar fractions:  0.250 0.500 0.250
+
+  T(K)=   300.000000000000
+  P(bar)=   100.000000000000
+
+ Beta (vapor phase fraction)=  -3.223221922785603E-002
+ Comp           1           2           3
+  x    0.2546E+00  0.5032E+00  0.2422E+00
+  y    0.3971E+00  0.6016E+00  0.1387E-02
