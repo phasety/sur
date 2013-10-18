@@ -83,7 +83,6 @@ subroutine readcase(n)
       WRITE (2,2) (y(j),j=1,N)
  1	FORMAT('  x  ', 10E12.4)
  2	FORMAT('  y  ', 10E12.4)
-
  end subroutine readcase
 
 subroutine flash(model, n, z, tcn, pcn, omgn, acn, bn, k_or_mn, delta1n, &
@@ -207,7 +206,11 @@ subroutine flash(model, n, z, tcn, pcn, omgn, acn, bn, k_or_mn, delta1n, &
         rho_y = 1/Vy
         !-----------------------------------------------------------
 
-
+        print *, x
+ 		print *, y
+ 		print *, rho_x
+ 		print *, rho_y
+ 		print *, beta
     end subroutine flash
 
 	subroutine betalimits (n,z,KFACT,bmin,bmax)
