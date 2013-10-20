@@ -1,29 +1,54 @@
+! Listado de commons utilizados, que podrían pasar a un módulo:
+!   COMMON /CRIT/TC(nco),PC(nco),DCeos(nco),omg(nco)
+!	COMMON /COMPONENTS/ ac(nco),b(nco),delta1(nco),rk(nco),Kij_or_K0,NTDEP
+!	COMMON /MODEL/ NMODEL
+!	COMMON /rule/ncomb
+!	COMMON /bcross/bij(nco,nco)
+!	COMMON /Tdep/ Kinf,Tstar   (escalares por ahora, pero esto cambiará)
 
 
  program calc_flash
-!  Construction of the NC Fug Curves vs P for a specified T (with SRK, PR  or RKPR)
 
     implicit DOUBLE PRECISION (A-H,O-Z)
-    PARAMETER (MAXC=10,nco=10)
-	dimension z(nco)
+    OPEN(1,FILE='flashIN.txt')
+    OPEN(2,FILE='flashOUT.txt')
+    read(1,*) N
+    call readcase(n)
+END program
 
-    ! eos parameters
-    real*8, dimension(nco) :: k_or_m  ! k for RKPR ; m for SRK/PR
+subroutine readcase(n)
+    implicit DOUBLE PRECISION (A-H,O-Z)
+    PARAMETER (nco=10)
+	dimension z(n)
+
+	DOUBLE PRECISION Kinf
+        ! pure compound physical constants
+        real*8, dimension(n) :: tcn
+        real*8, dimension(n) :: pcn
+        real*8, dimension(n) :: omgn
+
+        ! eos parameters
+        real*8, dimension(n) :: acn  ! in bar*(L/mol)**2
+        real*8, dimension(n) :: bn   ! in L/mol
+        real*8, dimension(n) :: delta1n  !only required for RKPR
+        real*8, dimension(n) :: k_or_mn  ! k for RKPR ; m for SRK/PR
+
+        ! interaction parameters matrices
+        real*8, dimension(n,n) :: Kij_or_K0n, Lijn
+!        real*8, dimension(n,n), intent(in) :: Tstarn   (scalar in this version)
 
     ! interaction parameters matrices
-    real*8, dimension(nco,nco) :: Kij_or_K0, Tstar, Lij
+    real*8, dimension(nco,nco) :: Kij_or_K0, Lij  ! , Tstar
 
     real*8, dimension(nco) :: x , y  ! composition of liquid and vapour (molar fractions)
 
-    COMMON/CRIT/TC(nco),PC(nco),DCeos(nco),omg(nco)
-	COMMON /COMPONENTS/ ac(nco),b(nco),delta1(nco),rk(nco),Kij_or_K0,NTDEP
-	COMMON /K12/ K12
-	COMMON /MODEL/ NMODEL
+        COMMON /CRIT/TC(nco),PC(nco),DCeos(nco),omg(nco)
+	    COMMON /COMPONENTS/ ac(nco),b(nco),delta1(nco),rk_or_m(nco),Kij_or_K0,NTDEP
+	    COMMON /rule/ncomb
+	    COMMON /bcross/bij(nco,nco)
+	    COMMON /Tdep/ Kinf,Tstar    ! (escalares por ahora, pero esto cambiará)
+	    COMMON /lforin/lij
 
-      NTD=0
-      OPEN(1,FILE='flashIN.txt')
-      OPEN(2,FILE='flashOUT.txt')
-        read(1,*) N
         READ(1,*) (z(j),j=1,N)
         read(1,*) T
         read(1,*) P
@@ -39,9 +64,18 @@
       WRITE (2,*)
       WRITE (2,*) ' T(K)=',T
       WRITE (2,*) ' P(bar)=',P
-      call flash(nmodel, n, z(:n), tc(:n), pc(:n), omg(:n), ac(:n), b(:n), &
-    			 k_or_m(:n), delta1(:n), Kij_or_K0(:n, :n), Tstar(:n,:n), &
-    			 Lij(:n,:n), t, p, x(:n), y(:n), rho_x, rho_y, beta)
+! Passing values from commons(nco) to input arguments (n)
+        TCn = tc(:n)
+        PCn = pc(:n)
+        OMGn= omg(:n)
+        acn = ac(:n)
+        bn = b(:n)
+        delta1n = delta1(:n)
+        k_or_mn = rk_or_m(:n)
+        Kij_or_K0n = Kij_or_K0(:n, :n)
+        lijn = lij(:n, :n)
+      call flash(nmodel, n, z, tcn, pcn, omgn, acn, bn, k_or_mn, delta1n, &
+                     Kij_or_K0n, Tstarn, Lijn, t, p, x, y, rho_x, rho_y, beta)
       WRITE (2,*)
       WRITE (2,*) 'Beta (vapor phase fraction)= ',beta
       WRITE (2,*) 'Comp',(i,i=1,N)
@@ -49,37 +83,38 @@
       WRITE (2,2) (y(j),j=1,N)
  1	FORMAT('  x  ', 10E12.4)
  2	FORMAT('  y  ', 10E12.4)
+ end subroutine readcase
 
-    END program
+subroutine flash(model, n, z, tcn, pcn, omgn, acn, bn, k_or_mn, delta1n, &
+                     Kij_or_K0n, Tstarn, Lijn, t, p, x, y, rho_x, rho_y, beta)
 
-    subroutine flash(nmodel, n, z, tc, pc, omg, ac, b, k_or_m, delta1, &
-                     Kij_or_K0, Tstar, Lij, t, p, x, y, rho_x, rho_y, beta)
-
-      implicit none  ! DOUBLE PRECISION (A-H,O-Z)
+    implicit DOUBLE PRECISION (A-H,O-Z)
+    PARAMETER (nco=10)
 
         ! M&M means the book by Michelsen and Mollerup, 2nd Edition (2007)
 
         ! eos id and  number of compounds in the system
-        integer, intent(in) :: nmodel, n
+        integer, intent(in) :: model, n
+	    DOUBLE PRECISION Kinf
 
         ! composition of the system
         real*8, dimension(n), intent(in) :: z
 
         ! pure compound physical constants
-        real*8, dimension(n), intent(in) :: tc
-        real*8, dimension(n), intent(in) :: pc
-        real*8, dimension(n), intent(in) :: omg
+        real*8, dimension(n), intent(in) :: tcn
+        real*8, dimension(n), intent(in) :: pcn
+        real*8, dimension(n), intent(in) :: omgn
 
         ! eos parameters
-        real*8, dimension(n), intent(in) :: ac  ! in bar*(L/mol)**2
-        real*8, dimension(n), intent(in) :: b   ! in L/mol
-        real*8, dimension(n), intent(in) :: delta1  !only required for RKPR
-        real*8, dimension(n), intent(in) :: k_or_m  ! k for RKPR ; m for SRK/PR
+        real*8, dimension(n), intent(in) :: acn  ! in bar*(L/mol)**2
+        real*8, dimension(n), intent(in) :: bn   ! in L/mol
+        real*8, dimension(n), intent(in) :: delta1n  !only required for RKPR
+        real*8, dimension(n), intent(in) :: k_or_mn  ! k for RKPR ; m for SRK/PR
 
         ! interaction parameters matrices
-        real*8, dimension(n,n), intent(in) :: Kij_or_K0
-        real*8, dimension(n,n), intent(in) :: Tstar
-        real*8, dimension(n,n), intent(in) :: Lij
+        real*8, dimension(n,n), intent(in) :: Kij_or_K0n
+!        real*8, dimension(n,n), intent(in) :: Tstarn   (scalar in this version)
+        real*8, dimension(n,n), intent(in) :: Lijn
 
         ! Temperature and Pressure for the flash
         real*8, intent(in) :: t            ! Temperature for the flash (K)
@@ -99,14 +134,40 @@
         real*8 :: g0, g1  ! function g valuated at beta=0 and 1, based on Wilson K factors
         real*8 :: g, dg, bmin, bmax, Vy, Vx
 
-        ! counters
- !       integer :: i, j
+        real*8, dimension(nco,nco) :: Kij_or_K0  ! , Tstar
+        COMMON /CRIT/TC(nco),PC(nco),DCeos(nco),omg(nco)
+	    COMMON /COMPONENTS/ ac(nco),b(nco),delta1(nco),rk_or_m(nco),Kij_or_K0,NTDEP
+	    COMMON /MODEL/ NMODEL
+	    COMMON /rule/ncomb
+	    COMMON /bcross/bij(nco,nco)
+	    COMMON /Tdep/ Kinf,Tstar
 
+! Charging the commons(nco) from input arguments (n)
+        NMODEL = model
+        TC(:n) = tcn
+        PC(:n) = pcn
+        OMG(:n)= omgn
+        ac(:n) = acn
+        b(:n) = bn
+        delta1(:n) = delta1n
+        rk_or_m(:n) = k_or_mn
+        Kij_or_K0(:n, :n) = Kij_or_K0n
+        Kinf = 0.0d0
+        ncomb = 0  ! only  vdW combining rules and quadratic mixing rules by  the moment
+        Tstar = Tstarn
+	! b matrix for Classical or van der Waals combining rules:
+		do i=1,n
+		    do j=i,n
+		        bij(i,j)=(1-lijn(i,j))*(b(i)+b(j))/2
+		        bij(j,i)=bij(i,j)
+		    end do
+		end do
+!
         !-----------------------------------------------------------
         ! This algorithm assumes that the specified T and P correspond to
         ! vapor-liquid separation predicted by the provided model (0<beta<1)
 
-        KFACT = (PC/P) *EXP(5.373*(1+omg)*(1-TC/T))
+        KFACT = (PCn/P) *EXP(5.373*(1+omgn)*(1-TCn/T))
         do while (g0<0.or.g1>0)
             g0 = sum(z*KFACT) - 1.D0
             g1 = 1.D0 - sum(z/KFACT)
@@ -145,7 +206,11 @@
         rho_y = 1/Vy
         !-----------------------------------------------------------
 
-
+        print *, x
+ 		print *, y
+ 		print *, rho_x
+ 		print *, rho_y
+ 		print *, beta
     end subroutine flash
 
 	subroutine betalimits (n,z,KFACT,bmin,bmax)
@@ -185,14 +250,15 @@
 	dimension ac(nco),b(nco),del1(nco),rk(nco),diam(nc),vc(nc)
 	dimension D(6),Vceos(nc)
       CHARACTER*10 fluid(nco)
-	COMMON/names/fluid
-      COMMON/CRIT/TC(nco),PC(nco),DCeos(nco),OM(nco)
+!	COMMON/names/fluid
+    COMMON/CRIT/TC(nco),PC(nco),DCeos(nco),OM(nco)
 	COMMON /COMPONENTS/ ac,b,del1,rk,Kij,NTDEP
-	COMMON /K12/ K12
-	COMMON/COVOL/bb1(nco)
+!	COMMON /K12/ K12
+!	COMMON/COVOL/bb1(nco)
 	COMMON /rule/ncomb
 	COMMON /bcross/bij(nco,nco)
 	COMMON /Tdep/ Kinf,Tstar
+	COMMON /lforin/lij
 !  D=[0.428363,18.496215,0.338426,0.660,789.723105,2.512392]
 	read(NIN,*) ncomb,NTDEP
 	do i=1,nc
@@ -204,7 +270,7 @@
 	Vc(i)=Vceos(i)/Zrat
 	dceos(i)=1/Vceos(i)
 	READ(NIN,*)ac(i),b(i),del1(i),rk(i)
- 4	bb1(i)=b(i)
+! 4	bb1(i)=b(i)
 	write(nout,'(A)')fluid(i)
 	write(nout,1)Tc(i),Pc(i),Vc(i),OM(i)
 	write(nout,3)Zcin,Zrat,Zc,Vceos(i)
@@ -217,6 +283,7 @@
 			if(NTDEP.ge.1)READ(NIN,*) Kinf
 			if(NTDEP.eq.1)READ(NIN,*)Tstar
 			READ(NIN,*) (lij(j,i),j=1,i-1)
+			lij(i,1:i-1)=lij(1:i-1,i)
 		end if
 	ENDIF
 	end do
@@ -224,7 +291,7 @@
 !  if(NTDEP.eq.2)READ(NIN,*)Tstar
 	write(NOUT,*)
 	write(nout,*)'Tc, Pc and Vc are given in K, bar and L/mol respectively'
-	K12=Kij(1,2)
+!	K12=Kij(1,2)
  1	FORMAT('Tc=',F9.4,'   Pc =',F9.4,'   Vc =',F8.4,'   OM =',F7.4)
  3	FORMAT('Zc=',F9.4,' Zcrat=',F9.4,' Zceos=',F8.4,' Vceos=',F7.4)
  2	FORMAT('ac=',F9.4,'    b =',F9.4,'  del1=',F8.4,'    k =',F7.4)
@@ -330,7 +397,7 @@
 	DOUBLE PRECISION Kinf,Kij0(nco,nco),Kij(nco,nco)
 	dimension ai(nc),daidT(nc),daidT2(nc)
 	dimension aij(nc,nc),daijdT(nc,nc),daijdT2(nc,nc)
-    COMMON/CRIT/TC(nco),PC(nco),DCeos(nco),OM(nco)
+    COMMON /CRIT/TC(nco),PC(nco),DCeos(nco),OM(nco)
 	COMMON /COMPONENTS/ ac(nco),b(nco),d1(nco),rk(nco),Kij0,NTDEP
 	COMMON /bcross/bij(nco,nco)
 	COMMON /rule/ncomb
@@ -727,10 +794,10 @@ SUBROUTINE TERMO(nc,MTYP,INDIC,T,P,rn,V,PHILOG,DLPHIP, DLPHIT,FUGN)
 !      COMMON/MOL/DC(2),D(2),DT(2),HA(2),HB(2)
 !      COMMON/MIXT/VCPM,CMIX,CVYM,CVYMT,dCVYM(MAXC),dCMIX(MAXC),
 !     *	dCVYMT(MAXC),d2CVYM(MAXC,MAXC),d2CMIX(MAXC,MAXC)
-      COMMON/MIXRULE/NSUB
-      COMMON/BMIX/B
+!      COMMON/MIXRULE/NSUB
+!      COMMON/BMIX/B
 !  COMMON/forB/DDB
-	COMMON/NG/NGR
+!	COMMON/NG/NGR
 	COMMON /rule/ncomb
 	NG=NGR
 	if(NMODEL.EQ.5.OR.NMODEL.EQ.7)then
