@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+import json
 from decimal import Decimal
 from itertools import combinations
 from functools import partial
@@ -370,6 +371,11 @@ class Mixture(models.Model):
         """
         return ((mf.compound, mf.fraction) for mf in self.fractions.all())
 
+    def as_json(self):
+
+        return json.dumps([(mf.compound.name, str(mf.fraction))
+                           for mf in self.fractions.all()])
+
     def _compounds_array_field(self, field_or_meth, as_array=True,
                                call_args=()):
         """helper to construct an array-like from compound's properties"""
@@ -493,6 +499,10 @@ class Mixture(models.Model):
         """Parameter for temperature dependence of the
            attractive parameter for PR or SRK"""
         return self._compounds_array_field('get_m', call_args=(model,))
+
+    def reset(self):
+        """delete all MixtureFractions"""
+        self.fractions.all().delete()
 
     def add_many(self, compounds, fractions):
         """shortcut to add many compounds to the mixture at once.
