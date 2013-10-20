@@ -59,6 +59,13 @@ class TestMixture(TestCase):
         self.m.add(self.ethane, 0.3)
         assert_array_equal(self.m.vc, [self.methane.vc, self.co2.vc, self.ethane.vc])
 
+    def test_decimal_round(self):
+        self.m['ETHANE'] = u'0.4'
+        self.m['CARBON DIOXIDE'] = u'0.3'
+        self.m['n-PENTANE'] = u'0.2'
+        self.m['n-HEXANE'] = 0.1
+        self.assertIsNone(self.m.clean())
+
 
 class TestMixtureMagicMeths(TestCase):
 

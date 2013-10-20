@@ -544,7 +544,7 @@ class Mixture(models.Model):
         actual_fraction = mf.get().fraction if mf.exists() else 0
 
         if fraction:
-            future_total = Decimal(fraction) + self.total_z - actual_fraction
+            future_total = Decimal(str(fraction)) + self.total_z - actual_fraction
             if future_total > Decimal('1.0'):
                 raise ValueError('Add this fraction would exceed 1.0. Max fraction '
                                  'allowed is %s' % (Decimal('1.0') - self.total_z))
@@ -553,7 +553,7 @@ class Mixture(models.Model):
 
         MixtureFraction.objects.create(mixture=self,
                                        compound=compound,
-                                       fraction=fraction)
+                                       fraction=str(fraction))
 
     def clean(self):
 
