@@ -48,7 +48,8 @@ class CompoundManager(models.Manager):
         q_formula = Q(**lookup('formula'))
         q_alias = Q(**lookup('aliases__name'))
 
-        return self.filter(q_name | q_formula | q_alias).distinct()
+        return self.filter(tc__gt=0, pc__gt=0, vc__gt=0).\
+           filter(q_name | q_formula | q_alias).distinct()
 
 
 def t_unit():
@@ -88,6 +89,15 @@ class Compound(models.Model):
     d = models.FloatField(null=True, blank=True)
     delta1 = models.FloatField(null=True, blank=True)
     weight = models.FloatField(editable=False, null=True, blank=True)
+
+    @staticmethod
+    def from_str(key):
+        if isinstance(key, basestring):
+            try:
+                key = Compound.objects.find(key, exact=True).get()
+            except Compound.DoesNotExist:
+                raise KeyError('%s is an unknown compound' % key)
+        return key
 
     def __init__(self, *args, **kwargs):
         self._eos_params = {}       # cache
@@ -257,7 +267,6 @@ def verify_parameter_uniquesness(sender, **kwargs):
         if qs.exists():
             raise IntegrityError('Already exists a parameter matching these condition')
 
-
 class KijInteractionParameter(AbstractInteractionParameter):
     """Constanst for Kij in mode Kij constant"""
     pass
@@ -276,6 +285,34 @@ class TstarInteractionParameter(AbstractInteractionParameter):
 class LijInteractionParameter(AbstractInteractionParameter):
     """Lij constanst"""
     pass
+
+
+def set_interaction(eos, kind, compound1, compound2, value, mixture=None):
+    """create or update an interaction parameter"""
+    KModel = {'kij':  KijInteractionParameter,
+              'k0':  K0InteractionParameter,
+              'tstar': TstarInteractionParameter,
+              'lij': LijInteractionParameter}[kind]
+
+    compound1 = Compound.from_str(compound1)
+    compound2 = Compound.from_str(compound2)
+
+    base = KModel.objects.filter(eos=eos).\
+        filter(compounds=compound1).filter(compounds=compound2)
+    if mixture:
+        base = base.filter(mixture=mixture)
+    else:
+        base = base.filter(mixture__isnull=True)
+
+    if base.exists():
+        interaction = base.get()
+        interaction.value = value
+        interaction.save(update_fields=('value',))
+    else:
+        interaction = KModel.objects.create(eos=eos, mixture=mixture, value=value)
+        interaction.compounds.add(compound1)
+        interaction.compounds.add(compound2)
+    return interaction
 
 
 class MixtureFraction(models.Model):
@@ -332,13 +369,7 @@ class Mixture(models.Model):
     def __item_preprocess(self, key):
         if not isinstance(key, (Compound, basestring)):
             raise TypeError('%s has a non valid key type' % key)
-
-        if isinstance(key, basestring):
-            try:
-                key = Compound.objects.find(key, exact=True).get()
-            except Compound.DoesNotExist:
-                raise KeyError('%s is an unknown compound' % key)
-        return key
+        return Compound.from_str(key)
 
     def __getitem__(self, key):
         key = self.__item_preprocess(key)
@@ -463,6 +494,10 @@ class Mixture(models.Model):
 
     def lij(self, eos):
         return self._get_interaction_matrix(eos, LijInteractionParameter)
+
+    def set_interaction(self, eos, kind, compound1, compound2, value):
+        """set the iteraction associated to this mixture"""
+        set_interaction(eos, kind, compound1, compound2, value, mixture=self)
 
     def sort(self, by_weight=True):
         """Sort the mixture by compound's weight or

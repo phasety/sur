@@ -6,7 +6,8 @@ from numpy.testing import assert_array_equal
 
 
 from sur.models import (Compound, Mixture, MixtureFraction,
-                        K0InteractionParameter, EosEnvelope)
+                        K0InteractionParameter, TstarInteractionParameter,
+                        EosEnvelope, set_interaction)
 from django.db.utils import IntegrityError
 from django.core.exceptions import ValidationError
 
@@ -262,7 +263,7 @@ class TestInteraction(TestCase):
         K0InteractionParameter.objects.all().delete()
         self.k = K0InteractionParameter.objects.create(eos='RKPR', value=0.4)
         self.ethane = Compound.objects.get(name='ETHANE')
-        self.methane = Compound.objects.get(name='ETHANE')
+        self.methane = Compound.objects.get(name='METHANE')
         self.co2 = Compound.objects.get(name='CARBON DIOXIDE')
         self.k.compounds.add(self.ethane)
         self.k.compounds.add(self.co2)
@@ -355,6 +356,45 @@ class TestInteraction(TestCase):
             other_k.compounds.add(self.co2)
         self.assertIn('Already exists a parameter matching these condition',
                       e.exception.message)
+
+class TestSetInteractionFunction(TestCase):
+
+    def setUp(self):
+        K0InteractionParameter.objects.all().delete()
+        TstarInteractionParameter.objects.all().delete()
+        self.ethane = Compound.objects.get(name='ETHANE')
+        self.methane = Compound.objects.get(name='METHANE')
+
+    def test_set_interaction(self):
+        set_interaction('RKPR', 'k0', 'ethane', 'methane', value=0.4)
+        k0 = K0InteractionParameter.objects.get()
+        self.assertIn(self.ethane, k0.compounds.all())
+        self.assertIn(self.methane, k0.compounds.all())
+        self.assertEqual(k0.value, 0.4)
+        self.assertIsNone(k0.mixture)
+        self.assertEqual(k0.eos, 'RKPR')
+
+    def test_set_interaction_update(self):
+        set_interaction('RKPR', 'k0', 'ethane', 'methane', value=0.4)
+        set_interaction('RKPR', 'k0', 'methane', 'ethane', value=0.5)
+        k0 = K0InteractionParameter.objects.get()  # just one
+        self.assertIn(self.ethane, k0.compounds.all())
+        self.assertIn(self.methane, k0.compounds.all())
+        self.assertEqual(k0.value, 0.5)
+        self.assertIsNone(k0.mixture)
+        self.assertEqual(k0.eos, 'RKPR')
+
+    def test_set_interaction_for_mix(self):
+        m = Mixture()
+        m.save()
+        set_interaction('PR', 'tstar', 'ethane', 'methane', value=0.1, mixture=m)
+        i = TstarInteractionParameter.objects.get()
+        self.assertIn(self.ethane, i.compounds.all())
+        self.assertIn(self.methane, i.compounds.all())
+        self.assertEqual(i.value, 0.1)
+        self.assertEqual(i.mixture, m)
+        self.assertEqual(i.eos, 'PR')
+
 
 
 class TestK0(TestCase):

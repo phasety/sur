@@ -168,7 +168,8 @@ class RKPR(CubicModel):
         return inputs, params
 
 _models = ['SRK', 'PR', 'RKPR']
-CHOICES = ((k, k) for k in _models)
 NAMES = dict([(k, locals()[k]) for k in _models])
+CHOICES = [(k, k) for k in _models]
+
 
 __all__ = _models + ['CHOICES', 'NAMES']
