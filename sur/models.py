@@ -14,6 +14,7 @@ from django.db.utils import IntegrityError
 
 from picklefield.fields import PickledObjectField
 import numpy as np
+from matplotlib import pyplot as plt
 
 from envelope import envelope as envelope_routine
 from envelope import flash as flash_routine
@@ -672,6 +673,12 @@ class Envelope(models.Model):
     rho_cri = PickledObjectField(editable=False,
                                  help_text=u'Density coordenates of critical points')
 
+    def plot(self, fig=None):
+        if fig is None:
+            fig, ax = plt.subplots()
+        ax.plot(self.p, self.t)
+        return fig
+
 
 class ExperimentalEnvelope(Envelope):
     pass
@@ -687,6 +694,12 @@ class EosEnvelope(Envelope):
 
     class Meta:
         unique_together = (('mixture', 'eos', 'mode'),)
+
+
+    def __unicode__(self):
+        return '<%(class)s: %(eos)s - %(mode)s>' % {'class': self.__class__.__name__,
+                                                    'eos': self.eos,
+                                                    'mode': self.mode}
 
     def _calc(self):
         """
