@@ -357,6 +357,7 @@ class TestInteraction(TestCase):
         self.assertIn('Already exists a parameter matching these condition',
                       e.exception.message)
 
+
 class TestSetInteractionFunction(TestCase):
 
     def setUp(self):
@@ -387,6 +388,7 @@ class TestSetInteractionFunction(TestCase):
     def test_set_interaction_for_mix(self):
         m = Mixture()
         m.save()
+        # shouldn't ensure compounds belongs to the mixture?
         set_interaction('PR', 'tstar', 'ethane', 'methane', value=0.1, mixture=m)
         i = TstarInteractionParameter.objects.get()
         self.assertIn(self.ethane, i.compounds.all())
@@ -394,6 +396,23 @@ class TestSetInteractionFunction(TestCase):
         self.assertEqual(i.value, 0.1)
         self.assertEqual(i.mixture, m)
         self.assertEqual(i.eos, 'PR')
+
+    def test_matrix_tstar(self):
+        m = Mixture()
+        m['ethane'] = 0.1
+        m['methane'] = 0.9
+        m.set_interaction('PR', 'tstar', 'ethane', 'methane', value=0.43)
+        assert_array_equal(m.tstar('pr'), np.array([[0, 0.43], [0.43, 0]]))
+
+    def test_matrix_kij_rkpr(self):
+        m = Mixture()
+        m['ethane'] = 0.1
+        m['methane'] = 0.8
+        m['co2'] = 0.1
+        m.set_interaction('rkpr', 'kij', 'ethane', 'co2', value=0.43)
+        assert_array_equal(m.tstar('pr'), np.array([[0, 0, 0.43],
+                                                    [0, 0, 0.],
+                                                    [0.43, 0, 0]]))
 
 
 
