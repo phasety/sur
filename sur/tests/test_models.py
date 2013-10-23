@@ -410,10 +410,9 @@ class TestSetInteractionFunction(TestCase):
         m['methane'] = 0.8
         m['co2'] = 0.1
         m.set_interaction('rkpr', 'kij', 'ethane', 'co2', value=0.43)
-        assert_array_equal(m.tstar('pr'), np.array([[0, 0, 0.43],
+        assert_array_equal(m.kij('rkpr'), np.array([[0, 0, 0.43],
                                                     [0, 0, 0.],
                                                     [0.43, 0, 0]]))
-
 
 
 class TestK0(TestCase):

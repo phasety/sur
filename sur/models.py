@@ -18,6 +18,7 @@ from matplotlib import pyplot as plt
 
 from envelope import envelope as envelope_routine
 from envelope import flash as flash_routine
+from eos import get_eos
 from . import units
 from . import eos
 
@@ -105,11 +106,7 @@ class Compound(models.Model):
         super(Compound, self).__init__(*args, **kwargs)
 
     def _get_eos_params(self, model, exclude=[]):
-        if isinstance(model, basestring):
-            try:
-                model = eos.NAMES[model.upper()]
-            except KeyError:
-                raise ValueError('Unknown %s model' % model)
+        model = get_eos(model)
         if model in exclude:
             raise ValueError("This parameter can't be calculated for %s"
                              % model.MODEL_NAME)
@@ -213,12 +210,7 @@ class InteractionManager(models.Manager):
         filter interactions for EOS and compounds
         globally defined on specific for a mixture.
         """
-        if isinstance(model, basestring):
-            try:
-                model = eos.NAMES[model.upper()]
-            except KeyError:
-                raise ValueError('Unknown %s model' % model)
-
+        model = get_eos(model)
         comps = Compound.objects.find(compound1)
         qs = self.filter(eos=model.MODEL_NAME, compounds__in=comps)
         if compound2:
@@ -290,6 +282,7 @@ class LijInteractionParameter(AbstractInteractionParameter):
 
 def set_interaction(eos, kind, compound1, compound2, value, mixture=None):
     """create or update an interaction parameter"""
+    eos = get_eos(eos).MODEL_NAME
     KModel = {'kij':  KijInteractionParameter,
               'k0':  K0InteractionParameter,
               'tstar': TstarInteractionParameter,
@@ -471,7 +464,7 @@ class Mixture(models.Model):
         m = np.zeros((n, n))
         for ((x, c1), (y, c2)) in combinations(enumerate(compounds), 2):
             try:
-                k = model_class.objects.find(eos_model, c1, c2, self)[0].value
+                k = model_class.objects.find(eos_model, c1, c2, mixture=self)[0].value
                 m[x, y] = k
             except:
                 pass

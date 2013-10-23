@@ -167,9 +167,22 @@ class RKPR(CubicModel):
         inputs, params = _cubic.modelsparam(1, cls.MODEL_ID, parameters)
         return inputs, params
 
+
+
 _models = ['SRK', 'PR', 'RKPR']
 NAMES = dict([(k, locals()[k]) for k in _models])
 CHOICES = [(k, k) for k in _models]
 
 
-__all__ = _models + ['CHOICES', 'NAMES']
+def get_eos(model):
+    if model in NAMES.values():
+        return model
+    try:
+        return NAMES[model.upper()]
+    except (KeyError, AttributeError):
+        raise ValueError('Unknown %s model' % model)
+
+
+
+__all__ = _models + ['CHOICES', 'NAMES', 'get_eos']
+
