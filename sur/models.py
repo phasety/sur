@@ -16,8 +16,8 @@ from picklefield.fields import PickledObjectField
 import numpy as np
 from matplotlib import pyplot as plt
 
-from envelope import envelope as envelope_routine
-from envelope import flash as flash_routine
+from envelope_sp import envelope as envelope_routine
+from envelope_sp import flash as flash_routine
 from eos import get_eos
 from . import units
 from . import eos
@@ -51,7 +51,7 @@ class CompoundManager(models.Manager):
         q_alias = Q(**lookup('aliases__name'))
 
         return self.filter(tc__gt=0, pc__gt=0, vc__gt=0).\
-           filter(q_name | q_formula | q_alias).distinct()
+            filter(q_name | q_formula | q_alias).distinct()
 
 
 def t_unit():
@@ -105,7 +105,7 @@ class Compound(models.Model):
         self._eos_params = {}       # cache
         super(Compound, self).__init__(*args, **kwargs)
 
-    def _get_eos_params(self, model, exclude=[]):
+    def _get_eos_params(self, model, exclude=[], update_vc=False):
         model = get_eos(model)
         if model in exclude:
             raise ValueError("This parameter can't be calculated for %s"
@@ -118,18 +118,22 @@ class Compound(models.Model):
             if model == eos.RKPR:
                 if self.delta1:
                     # delta1 defined. use it
-                    params = eos.RKPR.from_constants(self.tc, self.pc,
+                    constants, params = eos.RKPR.from_constants(self.tc, self.pc,
                                                      self.acentric_factor,
-                                                     del1=self.delta1)[1]
+                                                     del1=self.delta1)
                 else:
                     # use a default zrat = 1.16
                     Vcrat = 1.16
-                    params = eos.RKPR.from_constants(self.tc, self.pc,
+                    constants, params = eos.RKPR.from_constants(self.tc, self.pc,
                                                      self.acentric_factor,
-                                                     vc=self.vc * Vcrat)[1]
+                                                     vc=self.vc * Vcrat)
             else:
-                params = model.from_constants(self.tc, self.pc,
-                                              self.acentric_factor)[1]
+                constants, params = model.from_constants(self.tc, self.pc,
+                                              self.acentric_factor)
+
+            if update_vc:
+                vc = constants[-1]
+                self.vc = vc
             self._eos_params[model.MODEL_NAME] = params
             return params
 
@@ -259,6 +263,7 @@ def verify_parameter_uniquesness(sender, **kwargs):
             qs = qs.filter(mixture__isnull=True)
         if qs.exists():
             raise IntegrityError('Already exists a parameter matching these condition')
+
 
 class KijInteractionParameter(AbstractInteractionParameter):
     """Constanst for Kij in mode Kij constant"""
@@ -575,9 +580,14 @@ class Mixture(models.Model):
         if fraction:
             future_total = Decimal(str(fraction)) + self.total_z - actual_fraction
             if future_total > Decimal('1.0'):
-                raise ValueError('Add this fraction would exceed 1.0. Max fraction '
-                                 'allowed is %s' % (Decimal('1.0') - self.total_z))
-        else:
+                # TO DO test it
+                if future_total - Decimal('1.0') < Decimal('0.0001'):
+                    fraction = None
+                else:
+                    raise ValueError('Add this fraction would exceed 1.0. Max fraction '
+                                     'allowed is %s' % (Decimal('1.0') - self.total_z))
+
+        if fraction is None:
             fraction = Decimal('1.0') - self.total_z + actual_fraction
 
         MixtureFraction.objects.create(mixture=self,
@@ -618,6 +628,7 @@ class Mixture(models.Model):
         kij: ``'t_dep'`` or ``'constants'``
         lij: ``'zero'`, `0` or ``'constants'``
         """
+        eos = get_eos(eos)
         lij = 'zero' if lij in (0, '0') else lij
         try:
             mode = {('t_dep', 'zero'): Kij_constant_Lij_0,
@@ -626,11 +637,9 @@ class Mixture(models.Model):
                     ('t_dep', 'zero'): Kij_t_Lij_0}[(kij, lij)]
         except KeyError:
             raise ValueError('Not valid kij and/or lij')
-        return Flash.objects.get_or_create(t=t,
-                                           p=p,
-                                           input_mixture=self,
-                                           eos=eos,
-                                           mode=mode)[0]
+        return EosFlash.objects.get_or_create(t=t,
+                                              p=p, input_mixture=self, eos=eos,
+                                              mode=mode)[0]
 
 
 Kij_constant_Lij_0 = 'Kij_constant_Lij_0'
@@ -688,7 +697,6 @@ class EosEnvelope(Envelope):
     class Meta:
         unique_together = (('mixture', 'eos', 'mode'),)
 
-
     def __unicode__(self):
         return '<%(class)s: %(eos)s - %(mode)s>' % {'class': self.__class__.__name__,
                                                     'eos': self.eos,
@@ -732,22 +740,37 @@ class EosEnvelope(Envelope):
 
 
 class Flash(models.Model):
-    input_mixture = models.ForeignKey('Mixture', related_name='flashes')
+
+    class Meta:
+        abstract = True
+
+    input_mixture = models.ForeignKey('Mixture', related_name='%(class)ses')
     t = models.FloatField(verbose_name='Temperature of the flash')
     p = models.FloatField(verbose_name='Pressure of the flash')
 
-    eos = models.CharField(max_length=DEFAULT_MAX_LENGTH, choices=eos.CHOICES)
+    rho_l = models.FloatField(verbose_name='Density of liquid', null=True)  # remove null
+    rho_v = models.FloatField(verbose_name='Density of vapour', null=True)  # remove null
+    beta = models.FloatField(verbose_name='Vapour fraction', null=True)     # remove null
+                             # validators=[MinValueValidator(0.),
+                             #            MaxValueValidator(1.)])
+
+
+class ExperimentalFlash(Flash):
+    vapour_mixture = models.ForeignKey('Mixture', null=True,
+                                       related_name='experimental_flashes_as_gas')
+    liquid_mixture = models.ForeignKey('Mixture', null=True,
+                                       related_name='experimental_flashes_as_liquid')
+
+
+class EosFlash(Flash):
+    eos = models.CharField(max_length=DEFAULT_MAX_LENGTH,
+                           choices=eos.CHOICES)
     mode = models.CharField(max_length=DEFAULT_MAX_LENGTH,
                             choices=INTERACTION_MODE_CHOICES)
-    vapour_mixture = models.ForeignKey('Mixture', editable=False,
-                                       related_name='flashes_as_gas')
-    liquid_mixture = models.ForeignKey('Mixture', editable=False,
-                                       related_name='flashes_as_liquid')
-    rho_l = models.FloatField(verbose_name='Density of liquid')
-    rho_v = models.FloatField(verbose_name='Density of vapour')
-    beta = models.FloatField(verbose_name='Vapour fraction',
-                             validators=[MinValueValidator(0.),
-                                         MaxValueValidator(1.)])
+    vapour_mixture = models.ForeignKey('Mixture', null=True,  # remove null
+                                       related_name='eos_flashes_as_gas')
+    liquid_mixture = models.ForeignKey('Mixture', null=True,    # remove null
+                                       related_name='eos_flashes_as_liquid')
 
     class Meta:
         unique_together = (('t', 'p', 'input_mixture', 'eos', 'mode'),)
@@ -757,12 +780,16 @@ class Flash(models.Model):
         if not np.allclose(self.input_mixture.z, z_calculated):
             raise ValidationError('Not all Zi != Yi*beta + Xi*(1 - beta)')
 
+    def get_eos(self):
+        return get_eos(self.eos)
+
     def _calc(self):
         """
         Calculate the flash for the given t and p
         """
         m = self.input_mixture  # just in sake of brevity
         m.clean()
+        """
         flash = partial(flash_routine, self.t, self.p, eos.NAMES[self.eos], m.z, m.tc,
                         m.pc, m.acentric_factor, m.get_ac(self.eos), m.get_b(self.eos))
 
@@ -780,8 +807,9 @@ class Flash(models.Model):
         elif self.mode == Kij_t_Lij_constant:
             flash_result = flash(k0=m.k0(self.eos), tstar=m.tstar(self.eos),
                                  lij=m.lij(self.eos))
-
         self.x, self.y, self.rho_l, self.rho_v, self.beta = flash_result
+        """
+        self.x, self.y, self.rho_l, self.rho_v, self.beta = flash_routine(self)
 
     def save(self, *args, **kwargs):
         if not self.id:
@@ -800,7 +828,8 @@ class Flash(models.Model):
             raise ValueError('X must be same size than input_mixture (%d)' % size)
 
         try:
-            self.liquid_mixture.delete()
+            if self.liquid_mixture:
+                self.liquid_mixture.delete()
         except Mixture.DoesNotExist:
             pass
         m = Mixture()
@@ -818,7 +847,8 @@ class Flash(models.Model):
             raise ValueError('Y must be same size than input_mixture (%d)' % size)
 
         try:
-            self.vapour_mixture.delete()
+            if self.vapour_mixture:
+                self.vapour_mixture.delete()
         except Mixture.DoesNotExist:
             pass
 
