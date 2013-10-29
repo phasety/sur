@@ -10,6 +10,7 @@ from sur.models import (Compound, Mixture, MixtureFraction,
                         EosEnvelope, set_interaction)
 from django.db.utils import IntegrityError
 from django.core.exceptions import ValidationError
+from django.contrib.auth.models import User
 
 
 class TestMixture(TestCase):
@@ -295,6 +296,16 @@ class TestInteraction(TestCase):
             other_k.compounds.add(self.co2)
         self.assertIn('Already exists a parameter matching these condition',
                       e.exception.message)
+
+    def test_can_add_per_user_k0_for_existent_global_compounds(self):
+        user = User.objects.create(username='tin')
+        other_k = K0InteractionParameter.objects.create(eos='RKPR',
+                                                        value=0.1,
+                                                        user=user)
+        other_k.compounds.add(self.ethane)
+        other_k.compounds.add(self.co2)
+        found1 = K0InteractionParameter.objects.find('RKPR', self.ethane, user=user)
+        self.assertEqual(found1.count(), 2)
 
     def test_can_add_per_mixture_k0_for_existed_global_compounds(self):
         m = Mixture()

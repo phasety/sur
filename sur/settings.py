@@ -12,4 +12,4 @@ DATABASES = {
     'NAME': data('dev.db'),
     }
 }
-INSTALLED_APPS = ("sur",)
+INSTALLED_APPS = ("sur", "django.contrib.auth", "django.contrib.contenttypes")

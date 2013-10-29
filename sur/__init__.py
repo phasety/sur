@@ -39,7 +39,7 @@ def setup_as_lib():
     # Use in memory and import from tempfile
     connections['default'].cursor().executescript(tempfile.read())
 
-    call_command('syncdb', verbosity=0)
+    call_command('syncdb', verbosity=0, interactive=False)
 
 
 if not os.environ.get('DJANGO_SETTINGS_MODULE', None):

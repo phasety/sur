@@ -11,12 +11,13 @@ from django.core.exceptions import ValidationError
 from django.db.models.signals import m2m_changed
 from django.dispatch import receiver
 from django.db.utils import IntegrityError
+from django.contrib.auth.models import User
 
 from picklefield.fields import PickledObjectField
 import numpy as np
 from matplotlib import pyplot as plt
 
-from envelope_sp import envelope as envelope_routine
+from envelope import envelope as envelope_routine
 from envelope_sp import flash as flash_routine
 from eos import get_eos
 from . import units
@@ -119,17 +120,17 @@ class Compound(models.Model):
                 if self.delta1:
                     # delta1 defined. use it
                     constants, params = eos.RKPR.from_constants(self.tc, self.pc,
-                                                     self.acentric_factor,
-                                                     del1=self.delta1)
+                                                                self.acentric_factor,
+                                                                del1=self.delta1)
                 else:
                     # use a default zrat = 1.16
                     Vcrat = 1.16
                     constants, params = eos.RKPR.from_constants(self.tc, self.pc,
-                                                     self.acentric_factor,
-                                                     vc=self.vc * Vcrat)
+                                                                self.acentric_factor,
+                                                                vc=self.vc * Vcrat)
             else:
                 constants, params = model.from_constants(self.tc, self.pc,
-                                              self.acentric_factor)
+                                                         self.acentric_factor)
 
             if update_vc:
                 vc = constants[-1]
@@ -209,10 +210,10 @@ class Alias(models.Model):
 
 class InteractionManager(models.Manager):
 
-    def find(self, model, compound1, compound2=None, mixture=None):
+    def find(self, model, compound1, compound2=None, user=None, mixture=None):
         """
         filter interactions for EOS and compounds
-        globally defined on specific for a mixture.
+         defined globally, for an user or for specific mixture.
         """
         model = get_eos(model)
         comps = Compound.objects.find(compound1)
@@ -222,6 +223,11 @@ class InteractionManager(models.Manager):
             qs = qs.filter(compounds__in=comps)
 
         # only global or mixture
+        user_q = Q(user__isnull=True)
+        if user:
+            user_q |= Q(user=user)
+        qs = qs.filter(user_q)
+
         mix_q = Q(mixture__isnull=True)
         if mixture:
             mix_q |= Q(mixture=mixture)
@@ -241,6 +247,7 @@ class AbstractInteractionParameter(models.Model):
                            choices=eos.CHOICES)
     value = models.FloatField()
     mixture = models.ForeignKey('Mixture', null=True)
+    user = models.ForeignKey(User, null=True)
 
 
 @receiver(m2m_changed)
@@ -257,10 +264,17 @@ def verify_parameter_uniquesness(sender, **kwargs):
                                  'already defined')
         qs = cls.objects.filter(compounds__in=parameter.compounds.all()).\
             filter(compounds__id__in=compounds_set)
+
         if parameter.mixture:
             qs = qs.filter(mixture=parameter.mixture)
         else:
             qs = qs.filter(mixture__isnull=True)
+
+        if parameter.user:
+            qs = qs.filter(user=parameter.user)
+        else:
+            qs = qs.filter(user__isnull=True)
+
         if qs.exists():
             raise IntegrityError('Already exists a parameter matching these condition')
 
@@ -285,7 +299,8 @@ class LijInteractionParameter(AbstractInteractionParameter):
     pass
 
 
-def set_interaction(eos, kind, compound1, compound2, value, mixture=None):
+def set_interaction(eos, kind, compound1, compound2, value,
+                    mixture=None, user=None):
     """create or update an interaction parameter"""
     eos = get_eos(eos).MODEL_NAME
     KModel = {'kij':  KijInteractionParameter,
@@ -303,12 +318,18 @@ def set_interaction(eos, kind, compound1, compound2, value, mixture=None):
     else:
         base = base.filter(mixture__isnull=True)
 
+    if user:
+        base = base.filter(user=user)
+    else:
+        base = base.filter(user__isnull=True)
+
     if base.exists():
         interaction = base.get()
         interaction.value = value
         interaction.save(update_fields=('value',))
     else:
-        interaction = KModel.objects.create(eos=eos, mixture=mixture, value=value)
+        interaction = KModel.objects.create(eos=eos, mixture=mixture,
+                                            user=user, value=value)
         interaction.compounds.add(compound1)
         interaction.compounds.add(compound2)
     return interaction
@@ -338,6 +359,7 @@ class MixtureFraction(models.Model):
 class Mixture(models.Model):
     # use self.compounds
     Compounds = models.ManyToManyField(Compound, through='MixtureFraction')
+    user = models.ForeignKey(User, null=True)
 
     @property
     def compounds(self):
