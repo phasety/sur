@@ -4,7 +4,14 @@ this is a hack due we couldn't compile the fortran code using gfrotran.
 import sys
 import os.path
 import tempfile
-import subprocess
+import cStringIO
+
+try:
+    import subprocess32 as subprocess
+    TIME_OUT = True
+except ImportError:
+    import subprocess
+    TIME_OUT = False
 
 import numpy as np
 from django.template.loader import render_to_string
@@ -12,8 +19,10 @@ from eos import get_eos
 from . import data
 
 
-def exec_fortran(bin, path):
-    """Execute a fortran program"""
+def exec_fortran(bin, path, as_out_txt=None):
+    """Execute a fortran program
+    if as_out_txt is read that file and return its content
+    """
 
     args = []
     if sys.platform != 'win32':
@@ -21,10 +30,20 @@ def exec_fortran(bin, path):
         args.append('wine')
     args.append(data(bin + '.exe'))
 
-    return subprocess.check_output(args, cwd=path)
+    if TIME_OUT:
+        output = subprocess.check_output(args, cwd=path, timeout=20)
+    else:
+        output = subprocess.check_output(args, cwd=path)
+
+    if as_out_txt:
+        txt = os.path.join(path, as_out_txt)
+        with open(txt, 'r') as fh:
+            output = fh.read()
+
+    return output
 
 
-def write_input(mixture, eos, t=None, p=None):
+def write_input(mixture, eos, t=None, p=None, as_data=False):
     """
     if t and p are given, return the path of the folgter with
     a written flashIN.txt
@@ -39,21 +58,49 @@ def write_input(mixture, eos, t=None, p=None):
     eos = get_eos(eos)
     data = render_to_string('input.html', locals())
 
-    input_file = 'flashIN.txt' if t and p else 'envelopeIN.txt'
+    if as_data:
+        return data
+
+    input_file = 'flashIN.txt' if t and p else 'envelIN.txt'
     path = tempfile.mkdtemp()
     with open(os.path.join(path, input_file), 'w') as fh:
         fh.write(data)
     return path
 
 
-def envelope(envelope_instance):
-    pass
+def envelope(env):
+    path = write_input(env.mixture, env.eos)
+    output = exec_fortran('EnvelopeSur', path, as_out_txt="envelOUT.txt")
+
+    output = output.split('\n')
+
+    mark = "    T(K)        P(bar)        D(mol/L)"
+    for start, line in enumerate(output):
+        if line.startswith(mark):
+            break
+
+    env_block = []
+    for end, line in enumerate(output[start + 1:]):
+        if not line.strip():
+            break
+        env_block.append(line)
+
+    env_block = np.loadtxt(cStringIO.StringIO("\n".join(env_block)), unpack=True)
+
+    for start_cri, line in enumerate(output[start + end:]):
+        if line.startswith(mark):
+            break
+
+    cri_block = output[start + end + start_cri + 1:]
+    cri_block = np.loadtxt(cStringIO.StringIO("\n".join(cri_block)), unpack=True)
+    if not cri_block.any():
+        cri_block = [None, None, None]
+    return env_block, cri_block
 
 
 def flash(fi):
     path = write_input(fi.input_mixture, fi.eos, fi.t, fi.p)
-    output = exec_fortran('flash', path)
-    print output
+    output = exec_fortran('FlashSur', path)
     output = [l.strip() for l in output.split('\n') if l.strip()]
 
     x, y, rho_x, rho_y, beta = output

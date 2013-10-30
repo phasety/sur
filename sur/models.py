@@ -17,8 +17,8 @@ from picklefield.fields import PickledObjectField
 import numpy as np
 from matplotlib import pyplot as plt
 
-from envelope import envelope as envelope_routine
-from envelope_sp import flash as flash_routine
+from envelope_sp import (envelope as envelope_routine, flash as flash_routine,
+                         write_input)
 from eos import get_eos
 from . import units
 from . import eos
@@ -623,6 +623,7 @@ class Mixture(models.Model):
         if self.total_z != Decimal('1.0'):
             raise ValidationError('The mixture fractions should sum 1.0')
 
+
     def get_envelope(self, eos='RKPR', kij='t_dep', lij='constants'):
         """Get the envelope object for this mixture, calculated using
         the `eos` (RKPR, SRK or PR) and the selected interaction parameters
@@ -726,6 +727,9 @@ class EosEnvelope(Envelope):
                                                     'eos': self.eos,
                                                     'mode': self.mode}
 
+    def get_txt(self):
+        return write_input(self.mixture, self.eos, as_data=True)
+
     def _calc(self):
         """
         calculate the envelope based on the given parameters
@@ -734,6 +738,7 @@ class EosEnvelope(Envelope):
         """
         m = self.mixture  # just in sake of brevity
         m.clean()
+        """
         envelope = partial(envelope_routine, eos.NAMES[self.eos], m.z, m.tc,
                            m.pc, m.acentric_factor,
                            m.get_ac(self.eos), m.get_b(self.eos))
@@ -752,7 +757,8 @@ class EosEnvelope(Envelope):
         elif self.mode == Kij_t_Lij_constant:
             env_result = envelope(k0=m.k0(self.eos), tstar=m.tstar(self.eos),
                                   lij=m.lij(self.eos))
-
+        """
+        env_result = envelope_routine(self)
         self.p, self.t, self.rho = env_result[0]
         self.p_cri, self.t_cri, self.rho_cri = env_result[1]
 
@@ -807,6 +813,9 @@ class EosFlash(Flash):
     def get_eos(self):
         return get_eos(self.eos)
 
+    def get_txt(self):
+        return write_input(self.input_mixture, self.eos, self.t, self.p, as_data=True)
+
     def _calc(self):
         """
         Calculate the flash for the given t and p
@@ -838,7 +847,8 @@ class EosFlash(Flash):
     def save(self, *args, **kwargs):
         if not self.id:
             # calculate the first time
-            self._calc()
+            # self._calc()
+            pass
         super(Flash, self).save(*args, **kwargs)
 
     @property
