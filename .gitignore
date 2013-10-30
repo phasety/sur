@@ -5,6 +5,7 @@
 
 # ipy
 .ipynb_checkpoints
+data/*.exe
 
 # Packages
 *.egg
