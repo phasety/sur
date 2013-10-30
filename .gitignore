@@ -3,6 +3,9 @@
 # C extensions
 *.so
 
+# ipy
+.ipynb_checkpoints
+
 # Packages
 *.egg
 *.egg-info
