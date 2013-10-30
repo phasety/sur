@@ -482,7 +482,7 @@ class Mixture(models.Model):
         """
         return self._compounds_array_field('acentric_factor')
 
-    def _get_interaction_matrix(self, eos_model, model_class):
+    def _get_interaction_matrix(self, eos_model, model_class, **kwargs):
         """
         return the 2d square matrix of the Model interaction parameters
         """
@@ -491,7 +491,8 @@ class Mixture(models.Model):
         m = np.zeros((n, n))
         for ((x, c1), (y, c2)) in combinations(enumerate(compounds), 2):
             try:
-                k = model_class.objects.find(eos_model, c1, c2, mixture=self)[0].value
+                k = model_class.objects.find(eos_model, c1, c2,
+                                             mixture=self, **kwargs)[0].value
                 m[x, y] = k
             except:
                 pass
@@ -504,21 +505,22 @@ class Mixture(models.Model):
         return m + diagonal_mirrored
 
     # interaction matrices
-    def k0(self, eos):
-        return self._get_interaction_matrix(eos, K0InteractionParameter)
+    def k0(self, eos, user=None):
+        return self._get_interaction_matrix(eos, K0InteractionParameter, user=user)
 
-    def tstar(self, eos):
-        return self._get_interaction_matrix(eos, TstarInteractionParameter)
+    def tstar(self, eos, user=None):
+        return self._get_interaction_matrix(eos, TstarInteractionParameter, user=user)
 
-    def kij(self, eos):
-        return self._get_interaction_matrix(eos, KijInteractionParameter)
+    def kij(self, eos, user=None):
+        return self._get_interaction_matrix(eos, KijInteractionParameter, user=user)
 
-    def lij(self, eos):
-        return self._get_interaction_matrix(eos, LijInteractionParameter)
+    def lij(self, eos, user=None):
+        return self._get_interaction_matrix(eos, LijInteractionParameter, user=user)
 
-    def set_interaction(self, eos, kind, compound1, compound2, value):
+    def set_interaction(self, eos, kind, compound1, compound2, value, user=None):
         """set the iteraction associated to this mixture"""
-        set_interaction(eos, kind, compound1, compound2, value, mixture=self)
+        set_interaction(eos, kind, compound1, compound2, value,
+                        mixture=self, user=None)
 
     def sort(self, by_weight=True):
         """Sort the mixture by compound's weight or
