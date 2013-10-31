@@ -360,6 +360,10 @@ class Mixture(models.Model):
     # use self.compounds
     Compounds = models.ManyToManyField(Compound, through='MixtureFraction')
     user = models.ForeignKey(User, null=True)
+    name = models.CharField(max_length=DEFAULT_MAX_LENGTH)
+
+    def __unicode__(self):
+        return self.name
 
     @property
     def compounds(self):
