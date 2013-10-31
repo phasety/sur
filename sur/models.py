@@ -2,7 +2,7 @@
 import json
 from decimal import Decimal
 from itertools import combinations
-from functools import partial
+# from functools import partial
 
 from django.db import models
 from django.db.models import Q
@@ -360,7 +360,8 @@ class Mixture(models.Model):
     # use self.compounds
     Compounds = models.ManyToManyField(Compound, through='MixtureFraction')
     user = models.ForeignKey(User, null=True)
-    name = models.CharField(max_length=DEFAULT_MAX_LENGTH)
+    name = models.CharField(max_length=DEFAULT_MAX_LENGTH, null=True,
+                            help_text=u"A short indentification for this fluid/case")
 
     def __unicode__(self):
         return self.name
@@ -490,6 +491,8 @@ class Mixture(models.Model):
         """
         return the 2d square matrix of the Model interaction parameters
         """
+        if 'user' in kwargs and kwargs['user'] is None:
+            kwargs['user'] = self.user
         compounds = self.compounds
         n = compounds.count()
         m = np.zeros((n, n))
@@ -689,7 +692,7 @@ class Envelope(models.Model):
     class Meta:
         abstract = True
 
-    mixture = models.ForeignKey('Mixture', related_name='%(class)s')
+    mixture = models.ForeignKey('Mixture', related_name='%(class)ss')
     p = PickledObjectField(editable=False,
                            help_text=u'Presure array of the envelope P-T')
     t = PickledObjectField(editable=False,
@@ -722,14 +725,20 @@ class EosEnvelope(Envelope):
     mode = models.CharField(max_length=DEFAULT_MAX_LENGTH,
                             choices=INTERACTION_MODE_CHOICES,
                             default=Kij_t_Lij_constant)
+    # denormalization to save interactions matrix when de env is created.
+    # TO DO: refactor as Cismondi recommended.
+    interactions = PickledObjectField(editable=False, null=True)
 
-    class Meta:
-        unique_together = (('mixture', 'eos', 'mode'),)
+    # class Meta:
+    #    unique_together = (('mixture', 'eos', 'mode'),)
 
     def __unicode__(self):
-        return '<%(class)s: %(eos)s - %(mode)s>' % {'class': self.__class__.__name__,
-                                                    'eos': self.eos,
-                                                    'mode': self.mode}
+        return "%(eos)s - %(mode)s" % {'eos': self.eos,
+                                       'mode': self.get_mode_display()}
+
+    def __repr__(self):
+        return '<%(class)s: %(self)s>' % {'class': self.__class__.__name__,
+                                          'self': self}
 
     def get_txt(self):
         return write_input(self.mixture, self.eos, as_data=True)
@@ -770,6 +779,19 @@ class EosEnvelope(Envelope):
         if not self.id:
             # calculate everything the first time
             self._calc()
+            import ipdb; ipdb.set_trace()
+            # denormalization. it sucks
+            m = self.mixture
+            if self.mode == Kij_constant_Lij_0:
+                self.interactions = {'kij': m.kij(self.eos)}
+            elif self.mode == Kij_constant_Lij_constant:
+                self.interactions = {'kij': m.kij(self.eos), 'lij': m.lij(self.eos)}
+            elif self.mode == Kij_t_Lij_0:
+                self.interactions = {'k0': m.k0(self.eos), 'tstar': m.tstar(self.eos)}
+            elif self.mode == Kij_t_Lij_constant:
+                self.interactions = {'k0': m.k0(self.eos), 'tstar': m.tstar(self.eos),
+                                     'lij': m.lij(self.eos)}
+
         super(Envelope, self).save(*args, **kwargs)
 
 
@@ -806,8 +828,13 @@ class EosFlash(Flash):
     liquid_mixture = models.ForeignKey('Mixture', null=True,    # remove null
                                        related_name='eos_flashes_as_liquid')
 
-    class Meta:
-        unique_together = (('t', 'p', 'input_mixture', 'eos', 'mode'),)
+    # denormalization to save interactions matrix when de env is created.
+    # TO DO: refactor as Cismondi recommended.
+    rel_envelope = models.ForeignKey('EosEnvelope', editable=False, null=True)
+
+    # TO DO: refactor with this constraint enabled
+    # class Meta:
+    #    unique_together = (('t', 'p', 'input_mixture', 'eos', 'mode'),)
 
     def clean(self):
         z_calculated = self.y * self.beta + self.x * (1 - self.beta)
