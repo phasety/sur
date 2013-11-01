@@ -710,6 +710,10 @@ class Envelope(models.Model):
         if fig is None:
             fig, ax = plt.subplots()
         ax.plot(self.p, self.t)
+        ax.grid()
+        ax.set_xlabel("Temperature [K]")
+        ax.set_ylabel("Pressure [bar]")
+        fig.frameon = False
         return fig
 
 
@@ -849,7 +853,7 @@ class EosFlash(Flash):
         return write_input(self.input_mixture, self.eos, self.t, self.p, as_data=True)
 
     def as_json(self):
-        cols = [[m.name, x_, y_] for (m, x_, y_) in
+        cols = [[m.name, str(x_), str(y_)] for (m, x_, y_) in
                 zip(self.input_mixture.compounds, self.x, self.y)]
         return json.dumps(cols)
 
