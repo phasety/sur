@@ -31,8 +31,8 @@ def exec_fortran(bin, path, as_out_txt=None):
     args.append(data(bin + '.exe'))
 
     if TIME_OUT:
-        p = subprocess.Popen(args, cwd=path, timeout=8, stdout=subprocess.PIPE)
-        output = p.communicate()[0]
+        p = subprocess.Popen(args, cwd=path, stdout=subprocess.PIPE)
+        output = p.communicate(timeout=8)[0]
     else:
         p = subprocess.Popen(args, cwd=path, stdout=subprocess.PIPE)
         output = p.communicate()[0]
