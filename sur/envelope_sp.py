@@ -31,10 +31,11 @@ def exec_fortran(bin, path, as_out_txt=None):
     args.append(data(bin + '.exe'))
 
     if TIME_OUT:
-        output = subprocess.check_output(args, cwd=path, timeout=20)
+        p = subprocess.Popen(args, cwd=path, timeout=8, stdout=subprocess.PIPE)
+        output = p.communicate()[0]
     else:
-        output = subprocess.check_output(args, cwd=path)
-
+        p = subprocess.Popen(args, cwd=path, stdout=subprocess.PIPE)
+        output = p.communicate()[0]
     if as_out_txt:
         txt = os.path.join(path, as_out_txt)
         with open(txt, 'r') as fh:
@@ -53,7 +54,8 @@ def write_input(mixture, eos, t=None, p=None, as_data=False):
         if i > 0:
             c.k12 = "   ".join(map(str, mixture.kij(eos)[:i, i]))
             c.l12 = "   ".join(map(str, mixture.lij(eos)[:i, i]))
-        c.params = "   ".join(map(str, c._get_eos_params(eos, update_vc=True)))
+        update = eos == 'RKPR'
+        c.params = "   ".join(map(str, c._get_eos_params(eos, update_vc=update)))
         compounds.append(c)
     eos = get_eos(eos)
     data = render_to_string('input.html', locals())
@@ -62,6 +64,7 @@ def write_input(mixture, eos, t=None, p=None, as_data=False):
 
     input_file = 'flashIN.txt' if t and p else 'envelIN.txt'
     path = tempfile.mkdtemp()
+    print path
     with open(os.path.join(path, input_file), 'w') as fh:
         fh.write(data)
 
