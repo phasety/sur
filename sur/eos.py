@@ -71,7 +71,7 @@ class SRK(CubicModel):
     Soave modification of Redlich–Kwong EOS
     """
 
-    MODEL_ID = 2
+    MODEL_ID = 1
     MODEL_NAME = 'SRK'
 
 
@@ -79,7 +79,7 @@ class PR(CubicModel):
     """
     Peng–Robinson equation of state
     """
-    MODEL_ID = 1
+    MODEL_ID = 2
     MODEL_NAME = 'PR'
 
 
