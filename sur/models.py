@@ -630,7 +630,6 @@ class Mixture(models.Model):
         if self.total_z != Decimal('1.0'):
             raise ValidationError('The mixture fractions should sum 1.0')
 
-
     def get_envelope(self, eos='RKPR', kij='t_dep', lij='constants'):
         """Get the envelope object for this mixture, calculated using
         the `eos` (RKPR, SRK or PR) and the selected interaction parameters
@@ -728,6 +727,8 @@ class EosEnvelope(Envelope):
     # denormalization to save interactions matrix when de env is created.
     # TO DO: refactor as Cismondi recommended.
     interactions = PickledObjectField(editable=False, null=True)
+    input_txt = models.TextField(editable=False, null=True)
+    output_txt = models.TextField(editable=False, null=True)
 
     # class Meta:
     #    unique_together = (('mixture', 'eos', 'mode'),)
@@ -779,7 +780,6 @@ class EosEnvelope(Envelope):
         if not self.id:
             # calculate everything the first time
             self._calc()
-            import ipdb; ipdb.set_trace()
             # denormalization. it sucks
             m = self.mixture
             if self.mode == Kij_constant_Lij_0:
@@ -830,7 +830,8 @@ class EosFlash(Flash):
 
     # denormalization to save interactions matrix when de env is created.
     # TO DO: refactor as Cismondi recommended.
-    rel_envelope = models.ForeignKey('EosEnvelope', editable=False, null=True)
+    rel_envelope = models.ForeignKey('EosEnvelope',
+                                     editable=False, null=True, related_name='flashes')
 
     # TO DO: refactor with this constraint enabled
     # class Meta:
@@ -846,6 +847,11 @@ class EosFlash(Flash):
 
     def get_txt(self):
         return write_input(self.input_mixture, self.eos, self.t, self.p, as_data=True)
+
+    def as_json(self):
+        cols = [[m.name, x_, y_] for (m, x_, y_) in
+                zip(self.input_mixture.compounds, self.x, self.y)]
+        return json.dumps(cols)
 
     def _calc(self):
         """
@@ -878,8 +884,8 @@ class EosFlash(Flash):
     def save(self, *args, **kwargs):
         if not self.id:
             # calculate the first time
-            # self._calc()
-            pass
+            self._calc()
+            # pass
         super(Flash, self).save(*args, **kwargs)
 
     @property

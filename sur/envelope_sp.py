@@ -57,7 +57,6 @@ def write_input(mixture, eos, t=None, p=None, as_data=False):
         compounds.append(c)
     eos = get_eos(eos)
     data = render_to_string('input.html', locals())
-
     if as_data:
         return data
 
@@ -65,12 +64,17 @@ def write_input(mixture, eos, t=None, p=None, as_data=False):
     path = tempfile.mkdtemp()
     with open(os.path.join(path, input_file), 'w') as fh:
         fh.write(data)
+
     return path
 
 
 def envelope(env):
     path = write_input(env.mixture, env.eos)
     output = exec_fortran('EnvelopeSur', path, as_out_txt="envelOUT.txt")
+
+    # to debug
+    env.input_txt = open(os.path.join(path, 'envelIN.txt')).read()
+    env.output_txt = output
 
     output = output.split('\n')
 
