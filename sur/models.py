@@ -700,11 +700,16 @@ class Envelope(models.Model):
                              help_text=u'Density array of the envelope P-T')
 
     p_cri = PickledObjectField(editable=False,
+                               null=True,
                                help_text=u'Presure coordenates of critical points')
     t_cri = PickledObjectField(editable=False,
+                               null=True,
                                help_text=u'Temperature coordenates of critical points')
     rho_cri = PickledObjectField(editable=False,
+                                 null=True,
                                  help_text=u'Density coordenates of critical points')
+    index_cri = PickledObjectField(editable=False,
+                                   null=True)
 
     def plot(self, fig=None):
         if fig is None:
