@@ -711,10 +711,22 @@ class Envelope(models.Model):
     index_cri = PickledObjectField(editable=False,
                                    null=True)
 
+
     def plot(self, fig=None):
         if fig is None:
             fig, ax = plt.subplots()
-        ax.plot(self.p, self.t)
+
+        colors = ('red', 'blue', 'violet', 'black', 'yellow')
+
+        start = 0
+        for index, color in zip(self.index_cri, colors):
+            ax.plot(self.t[start:index], self.t[start:index], color=color)
+            start = index
+
+        if self.index_cri.size > 1:
+            ax.scatter(self.p_cri, self.t_cri)
+
+
         ax.grid()
         ax.set_xlabel("Temperature [K]")
         ax.set_ylabel("Pressure [bar]")
@@ -783,7 +795,12 @@ class EosEnvelope(Envelope):
         """
         env_result = envelope_routine(self)
         self.p, self.t, self.rho = env_result[0]
-        self.p_cri, self.t_cri, self.rho_cri = env_result[1]
+        self.p_cri, self.t_cri, self.rho_cri, self.index_cri = env_result[1]
+        if self.index_cri is not None:
+            self.index_cri = self.index_cri.astype(int)
+        else:
+            self.index_cri = np.array([], dtype=int)
+        self.index_cri = np.append(self.index_cri, self.p.size)
 
     def save(self, *args, **kwargs):
         if not self.id:

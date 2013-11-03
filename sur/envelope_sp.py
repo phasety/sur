@@ -32,7 +32,7 @@ def exec_fortran(bin, path, as_out_txt=None):
 
     if TIME_OUT:
         p = subprocess.Popen(args, cwd=path, stdout=subprocess.PIPE)
-        output = p.communicate(timeout=8)[0]
+        output = p.communicate(timeout=20)[0]
     else:
         p = subprocess.Popen(args, cwd=path, stdout=subprocess.PIPE)
         output = p.communicate()[0]
@@ -46,7 +46,7 @@ def exec_fortran(bin, path, as_out_txt=None):
 
 def write_input(mixture, eos, t=None, p=None, as_data=False):
     """
-    if t and p are given, return the path of the folgter with
+    if t and p are given, return the path of the folder with
     a written flashIN.txt
     """
     compounds = []
@@ -73,7 +73,8 @@ def write_input(mixture, eos, t=None, p=None, as_data=False):
 
 def envelope(env):
     path = write_input(env.mixture, env.eos)
-    output = exec_fortran('EnvelopeSur', path, as_out_txt="envelOUT.txt")
+    output = exec_fortran('EnvelopeSur', path,
+                          as_out_txt="envelOUT.txt")
 
     # to debug
     env.input_txt = open(os.path.join(path, 'envelIN.txt')).read()
@@ -92,16 +93,18 @@ def envelope(env):
             break
         env_block.append(line)
 
-    env_block = np.loadtxt(cStringIO.StringIO("\n".join(env_block)), unpack=True)
+    env_block = np.loadtxt(cStringIO.StringIO("\n".join(env_block)),
+                           unpack=True, ndmin=2)
 
     for start_cri, line in enumerate(output[start + end:]):
         if line.startswith(mark):
             break
 
     cri_block = output[start + end + start_cri + 1:]
-    cri_block = np.loadtxt(cStringIO.StringIO("\n".join(cri_block)), unpack=True)
+    cri_block = np.loadtxt(cStringIO.StringIO("\n".join(cri_block)),
+                           unpack=True, ndmin=2)
     if not cri_block.any():
-        cri_block = [None, None, None]
+        cri_block = [None, None, None, None]
     return env_block, cri_block
 
 
@@ -114,4 +117,4 @@ def flash(fi):
     rho_x, rho_y, beta = map(float, (rho_x, rho_y, beta))
     x = np.fromstring(x, sep=" ")
     y = np.fromstring(y, sep=" ")
-    return x / x.sum(), y/ y.sum(), rho_x, rho_y, beta
+    return x / x.sum(), y / y.sum(), rho_x, rho_y, beta
