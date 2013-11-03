@@ -73,8 +73,7 @@ def write_input(mixture, eos, t=None, p=None, as_data=False):
 
 def envelope(env):
     path = write_input(env.mixture, env.eos)
-    output = exec_fortran('EnvelopeSur', path,
-                          as_out_txt="envelOUT.txt")
+    output = exec_fortran('EnvelopeSur', path, as_out_txt="envelOUT.txt")
 
     # to debug
     env.input_txt = open(os.path.join(path, 'envelIN.txt')).read()

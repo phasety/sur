@@ -728,7 +728,7 @@ class Envelope(models.Model):
             # plot last point of a segment to the critical point
             # and the first of the next to the critical point
             if self.index_cri.size > 1:
-                seg = 0 if i % 2 == 1 else -1
+                seg = 0 if i % self.index_cri.size != 0 else -1
                 ax.plot([p[seg], self.p_cri[i / 2]],
                         [t[seg], self.t_cri[i / 2]], color=color)
 
