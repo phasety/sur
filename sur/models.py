@@ -711,7 +711,6 @@ class Envelope(models.Model):
     index_cri = PickledObjectField(editable=False,
                                    null=True)
 
-
     def plot(self, fig=None):
         if fig is None:
             fig, ax = plt.subplots()
@@ -719,13 +718,22 @@ class Envelope(models.Model):
         colors = ('red', 'blue', 'violet', 'black', 'yellow')
 
         start = 0
-        for index, color in zip(self.index_cri, colors):
-            ax.plot(self.t[start:index], self.t[start:index], color=color)
+        for i, (index, color) in enumerate(zip(self.index_cri, colors)):
+            p = self.p[start:index]
+            t = self.t[start:index]
+            ax.plot(p, t, color=color)
             start = index
+
+            # extra segments
+            # plot last point of a segment to the critical point
+            # and the first of the next to the critical point
+            if self.index_cri.size > 1:
+                seg = 0 if i % 2 == 1 else -1
+                ax.plot([p[seg], self.p_cri[i / 2]],
+                        [t[seg], self.t_cri[i / 2]], color=color)
 
         if self.index_cri.size > 1:
             ax.scatter(self.p_cri, self.t_cri)
-
 
         ax.grid()
         ax.set_xlabel("Temperature [K]")
