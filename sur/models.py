@@ -721,7 +721,7 @@ class Envelope(models.Model):
         for i, (index, color) in enumerate(zip(self.index_cri, colors)):
             p = self.p[start:index]
             t = self.t[start:index]
-            ax.plot(p, t, color=color)
+            ax.plot(t, p, color=color)
             start = index
 
             # extra segments
@@ -729,11 +729,11 @@ class Envelope(models.Model):
             # and the first of the next to the critical point
             if self.index_cri.size > 1:
                 seg = 0 if i % self.index_cri.size != 0 else -1
-                ax.plot([p[seg], self.p_cri[i / 2]],
-                        [t[seg], self.t_cri[i / 2]], color=color)
+                ax.plot([t[seg], self.t_cri[i / 2]],
+                        [p[seg], self.p_cri[i / 2]], color=color)
 
         if self.index_cri.size > 1:
-            ax.scatter(self.p_cri, self.t_cri)
+            ax.scatter(self.t_cri, self.p_cri)
 
         ax.grid()
         ax.set_xlabel("Temperature [K]")
@@ -802,8 +802,8 @@ class EosEnvelope(Envelope):
                                   lij=m.lij(self.eos))
         """
         env_result = envelope_routine(self)
-        self.p, self.t, self.rho = env_result[0]
-        self.p_cri, self.t_cri, self.rho_cri, self.index_cri = env_result[1]
+        self.t, self.p, self.rho = env_result[0]
+        self.t_cri, self.p_cri, self.rho_cri, self.index_cri = env_result[1]
         if self.index_cri is not None:
             self.index_cri = self.index_cri.astype(int)
         else:
