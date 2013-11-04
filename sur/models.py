@@ -263,7 +263,7 @@ def verify_parameter_uniquesness(sender, **kwargs):
             raise IntegrityError('This interaction parameter has its compounds '
                                  'already defined')
         qs = cls.objects.filter(compounds__in=parameter.compounds.all()).\
-            filter(compounds__id__in=compounds_set)
+            filter(compounds__id__in=compounds_set, eos=parameter.eos)
 
         if parameter.mixture:
             qs = qs.filter(mixture=parameter.mixture)

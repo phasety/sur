@@ -7,6 +7,7 @@ from numpy.testing import assert_array_equal
 
 from sur.models import (Compound, Mixture, MixtureFraction,
                         K0InteractionParameter, TstarInteractionParameter,
+                        KijInteractionParameter,
                         EosEnvelope, set_interaction)
 from django.db.utils import IntegrityError
 from django.core.exceptions import ValidationError
@@ -261,13 +262,17 @@ class TestMixtureAdd(TestCase):
 class TestInteraction(TestCase):
 
     def setUp(self):
-        K0InteractionParameter.objects.all().delete()
         self.k = K0InteractionParameter.objects.create(eos='RKPR', value=0.4)
         self.ethane = Compound.objects.get(name='ETHANE')
         self.methane = Compound.objects.get(name='METHANE')
         self.co2 = Compound.objects.get(name='CARBON DIOXIDE')
         self.k.compounds.add(self.ethane)
         self.k.compounds.add(self.co2)
+
+    def tearDown(self):
+        K0InteractionParameter.objects.all().delete()
+        KijInteractionParameter.objects.all().delete()
+        User.objects.all().delete()
 
     def test_find_order_doesnt_import(self):
         found1 = K0InteractionParameter.objects.find('RKPR', self.ethane)[0]
@@ -367,6 +372,43 @@ class TestInteraction(TestCase):
             other_k.compounds.add(self.co2)
         self.assertIn('Already exists a parameter matching these condition',
                       e.exception.message)
+
+    def test_same_mixture_and_user_different_eos_doesn_superpose(self):
+        m = Mixture()
+        m.add(self.methane, 0.2)
+        m.add(self.co2, 0.1)
+        user = User.objects.create(username='tin')
+        m.set_interaction('RKPR', 'kij', self.methane, self.co2, value=0.1, user=user)
+        m.set_interaction('PR', 'kij', self.methane, self.co2, value=0.2, user=user)
+        # default for user
+        set_interaction('SRK', 'kij', self.methane, self.co2, value=0.3, user=user)
+        kij_rkpr = m.kij('RKPR', user=user)
+        kij_pr = m.kij('PR', user=user)
+        kij_srk = m.kij('SRK', user=user)
+        assert_array_equal(kij_pr, np.array([[0., 0.2], [0.2, 0.]]))
+        assert_array_equal(kij_rkpr, np.array([[0., 0.1], [0.1, 0.]]))
+        assert_array_equal(kij_srk, np.array([[0., 0.3], [0.3, 0.]]))
+
+    def test_defaults_priority(self):
+        m = Mixture()
+        m.add(self.methane, 0.5)
+        m.add(self.co2, 0.5)
+        user = User.objects.create(username='tin')
+
+        # default staff
+        set_interaction('SRK', 'lij', self.methane, self.co2, value=0.4)
+
+        assert_array_equal(m.lij('SRK', user=user), np.array([[0., 0.4], [0.4, 0.]]))
+
+        # now user defined
+        set_interaction('SRK', 'lij', self.methane, self.co2,
+                        value=0.6, user=user)
+        assert_array_equal(m.lij('SRK', user=user), np.array([[0., 0.6], [0.6, 0.]]))
+
+        # now mixture
+        set_interaction('SRK', 'lij', self.methane, self.co2,
+                        value=0.9, user=user, mixture=m)
+        assert_array_equal(m.lij('SRK', user=user), np.array([[0., 0.9], [0.9, 0.]]))
 
 
 class TestSetInteractionFunction(TestCase):
