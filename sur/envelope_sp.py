@@ -44,7 +44,7 @@ def exec_fortran(bin, path, as_out_txt=None):
     return output
 
 
-def write_input(mixture, eos, t=None, p=None, as_data=False):
+def write_input(mixture, eos, t=None, p=None, as_data=False, interactions=None):
     """
     if t and p are given, return the path of the folder with
     a written flashIN.txt
@@ -52,8 +52,8 @@ def write_input(mixture, eos, t=None, p=None, as_data=False):
     compounds = []
     for i, c in enumerate(mixture.compounds):
         if i > 0:
-            c.k12 = "   ".join(map(str, mixture.kij(eos)[:i, i]))
-            c.l12 = "   ".join(map(str, mixture.lij(eos)[:i, i]))
+            for k, matrix in interactions.items():
+                setattr(c, '%s_' % k, "   ".join(map(str, matrix[:i, i])))
         update = eos == 'RKPR'
         c.params = "   ".join(map(str, c._get_eos_params(eos, update_vc=update)))
         compounds.append(c)
@@ -72,9 +72,8 @@ def write_input(mixture, eos, t=None, p=None, as_data=False):
 
 
 def envelope(env):
-    path = write_input(env.mixture, env.eos)
+    path = write_input(env.mixture, env.eos, interactions=env.interactions)
     output = exec_fortran('EnvelopeSur', path, as_out_txt="envelOUT.txt")
-
     # to debug
     env.input_txt = open(os.path.join(path, 'envelIN.txt')).read()
     env.output_txt = output
@@ -108,7 +107,13 @@ def envelope(env):
 
 
 def flash(fi):
-    path = write_input(fi.input_mixture, fi.eos, fi.t, fi.p)
+    if fi.rel_envelope:
+        interactions = fi.rel_envelope.interactions
+    else:
+        from .models import get_interactions
+        interactions = get_interactions(fi.input_mixture, fi.mode, fi.eos)
+    path = write_input(fi.input_mixture, fi.eos, fi.t, fi.p,
+                       interactions=interactions)
     output = exec_fortran('FlashSur', path)
     output = [l.strip() for l in output.split('\n') if l.strip()]
 

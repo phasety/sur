@@ -42,7 +42,7 @@ def test_one_critical_point():
     m.set_interaction('rkpr', 'kij', 'methane', 'co2', .1)
     m.set_interaction('rkpr', 'kij', 'co2', 'n-decane',  0.091)
     m.set_interaction('rkpr', 'lij', 'co2', 'n-decane',  -0.90)
-    env = m.get_envelope('rkpr')
+    env = m.get_envelope('rkpr', kij='constants', lij='constants')
     env.plot()
     assert_fig('one_critical')
 
@@ -51,7 +51,7 @@ def test_no_critical():
     m = Mixture()
     m.add_many("METHANE n-HEXANE n-DECANE", "0.92 0.05 0.03")
     m.set_interaction('rkpr', 'kij', 'methane', 'n-decane', .1)
-    env = m.get_envelope('rkpr')
+    env = m.get_envelope('rkpr', kij='constants', lij='zero')
     env.plot()
     assert_fig('no_critical')
 

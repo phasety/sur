@@ -12,7 +12,7 @@ from django.db.models.signals import m2m_changed
 from django.dispatch import receiver
 from django.db.utils import IntegrityError
 from django.contrib.auth.models import User
-
+from django.utils.datastructures import SortedDict
 from picklefield.fields import PickledObjectField
 import numpy as np
 from matplotlib import pyplot as plt
@@ -339,9 +339,9 @@ class MixtureFraction(models.Model):
     mixture = models.ForeignKey('Mixture', related_name='fractions')
     compound = models.ForeignKey('Compound')
     fraction = models.DecimalField(decimal_places=4,
-                                   max_digits=MAX_DIGITS,
-                                   validators=[MinValueValidator(0.),
-                                               MaxValueValidator(1.)])
+                                   max_digits=MAX_DIGITS)
+                                   # validators=[MinValueValidator(0.),
+                                   #            MaxValueValidator(1.)])
     position = models.PositiveIntegerField(editable=False)
 
     def save(self, *args, **kwargs):
@@ -640,7 +640,7 @@ class Mixture(models.Model):
         """
         lij = 'zero' if lij in (0, '0') else lij
         try:
-            mode = {('t_dep', 'zero'): Kij_constant_Lij_0,
+            mode = {('constants', 'zero'): Kij_constant_Lij_0,
                     ('constants', 'constants'): Kij_constant_Lij_constant,
                     ('t_dep', 'constants'): Kij_t_Lij_constant,
                     ('t_dep', 'zero'): Kij_t_Lij_0}[(kij, lij)]
@@ -813,20 +813,32 @@ class EosEnvelope(Envelope):
     def save(self, *args, **kwargs):
         if not self.id:
             # calculate everything the first time
+            self.interactions = get_interactions(self.mixture,
+                                                 self.mode,
+                                                 self.eos)
             self._calc()
             # denormalization. it sucks
-            m = self.mixture
-            if self.mode == Kij_constant_Lij_0:
-                self.interactions = {'kij': m.kij(self.eos)}
-            elif self.mode == Kij_constant_Lij_constant:
-                self.interactions = {'kij': m.kij(self.eos), 'lij': m.lij(self.eos)}
-            elif self.mode == Kij_t_Lij_0:
-                self.interactions = {'k0': m.k0(self.eos), 'tstar': m.tstar(self.eos)}
-            elif self.mode == Kij_t_Lij_constant:
-                self.interactions = {'k0': m.k0(self.eos), 'tstar': m.tstar(self.eos),
-                                     'lij': m.lij(self.eos)}
 
         super(Envelope, self).save(*args, **kwargs)
+
+
+def get_interactions(m, mode, eos):
+    n = m.compounds.count()
+    if mode == Kij_constant_Lij_0:
+        interactions = SortedDict([('kij', m.kij(eos)),
+                                   ('lij', np.zeros((n, n)))])
+    elif mode == Kij_constant_Lij_constant:
+        interactions = SortedDict([('kij', m.kij(eos)),
+                                   ('lij', m.lij(eos))])
+    elif mode == Kij_t_Lij_0:
+        interactions = SortedDict([('k0', m.k0(eos)),
+                                   ('tstar', m.tstar(eos)),
+                                   ('lij', np.zeros((n, n)))])
+    elif mode == Kij_t_Lij_constant:
+        interactions = SortedDict([('k0', m.k0(eos)),
+                                   ('tstar', m.tstar(eos)),
+                                   ('lij', m.lij(eos))])
+    return interactions
 
 
 class Flash(models.Model):

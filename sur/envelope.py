@@ -1,6 +1,6 @@
 import _env
 import numpy as np
-from . import eos
+from sur import eos
 
 
 def flash(t, p, model, z, tc, pc, ohm, ac, b, m=None, k=None,

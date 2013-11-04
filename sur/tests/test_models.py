@@ -546,9 +546,9 @@ class TestFlash(TestCase):
         self.m.add(self.methane, 0.5)
         assert self.m.total_z == Decimal('0.9')
         with self.assertRaises(ValidationError):
-            self.m.get_flash(10., 20.)
+            self.m.get_flash(10., 20., kij='constants', lij='constants')
 
         self.m[self.methane] = 0.6   # total_z = 1.0
         assert self.m.clean() is None
         # not raises
-        self.m.get_flash(10., 20.)
+        self.m.get_flash(10., 20., kij='constants', lij='constants')

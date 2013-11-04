@@ -6,7 +6,9 @@
 0  0			ncomb, nTdep
 {% for c in compounds %}{{ c.name }}({{ forloop.counter }})
 {{ c.tc }}  {{ c.pc }} {{ c.acentric_factor }}  {{ c.vc }} {{ c.vc_rat|default:1.16 }}          tc, pc, ohm, vc, zrat
-{{ c.params }}		ac, b, delta1, k{% if forloop.counter > 1 %}
-{{ c.k12 }} 		kij
-{{ c.l12 }} 		lij{% endif %}
+{{ c.params }}		ac, b, delta1, k{% if forloop.counter > 1 %}{% if c.kij_ %}
+{{ c.kij_ }} 		kij{% endif %}{% if c.k0_ %}
+{{ c.k0_ }}          k0{% endif %}{% if c.tstar_ %}
+{{ c.tstar_ }}       tstar{% endif %}
+{{ c.lij_ }} 		lij{% endif %}
 {% endfor %}
