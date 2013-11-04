@@ -3,7 +3,7 @@
 {{ t }}		T(K)
 {{ p }}		P(bar){% endif %}
 {{ eos.MODEL_ID }}				NMODEL (1:SRK / 2:PR / 3:RKPR)
-0  0			ncomb, nTdep
+0  {{ nTdep }}			ncomb, nTdep
 {% for c in compounds %}{{ c.name }}({{ forloop.counter }})
 {{ c.tc }}  {{ c.pc }} {{ c.acentric_factor }}  {{ c.vc }} {{ c.vc_rat|default:1.16 }}          tc, pc, ohm, vc, zrat
 {{ c.params }}		ac, b, delta1, k{% if forloop.counter > 1 %}{% if c.kij_ %}
