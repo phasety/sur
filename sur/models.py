@@ -259,7 +259,7 @@ def verify_parameter_uniquesness(sender, **kwargs):
     compounds_set = kwargs.get('pk_set', None)
     action = kwargs.get('action', None)
     if action == 'pre_add':
-        if parameter.compounds.count() == 2:
+        if parameter.compounds.all().distinct().count() == 2:
             raise IntegrityError('This interaction parameter has its compounds '
                                  'already defined')
         qs = cls.objects.filter(compounds__in=parameter.compounds.all()).\

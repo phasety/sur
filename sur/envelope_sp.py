@@ -116,10 +116,13 @@ def flash(fi):
     path = write_input(fi.input_mixture, fi.eos, fi.t, fi.p,
                        interactions=interactions)
     output = exec_fortran('FlashSur', path)
-    output = [l.strip() for l in output.split('\n') if l.strip()]
 
-    x, y, rho_x, rho_y, beta = output
-    rho_x, rho_y, beta = map(float, (rho_x, rho_y, beta))
-    x = np.fromstring(x, sep=" ")
-    y = np.fromstring(y, sep=" ")
+
+    output = [float(n) for n in output.replace('\r\n', '').split()]
+
+    n = len(fi.input_mixture)
+    x, y, (rho_x, rho_y, beta) = output[:n], output[n:-3], output[-3:]
+
+    x = np.array(x)
+    y = np.array(y)
     return x / x.sum(), y / y.sum(), rho_x, rho_y, beta

@@ -70,6 +70,23 @@ class TestMixture(TestCase):
         self.assertIsNone(self.m.clean())
 
 
+class TestCompunds(TestCase):
+
+    def test_filter_is_distinct(self):
+        m1 = Mixture.objects.create()
+        m2 = Mixture.objects.create()
+        m3 = Mixture.objects.create()
+        m4 = Mixture.objects.create()
+        m1['METHANE'] = u'0.4'
+        m1['CARBON DIOXIDE'] = u'0.3'
+        m2['CARBON DIOXIDE'] = u'0.3'
+        m1['METHANE'] = u'0.4'
+        m3['METHANE'] = u'0.1'
+        m4['METHANE'] = u'0.221'
+        self.assertEqual(len(list(Compound.objects.filter(name='METHANE'))), 1)
+
+
+
 class TestMixtureMagicMeths(TestCase):
 
     def setUp(self):
