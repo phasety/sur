@@ -6,7 +6,7 @@ from itertools import combinations
 
 from django.db import models
 from django.db.models import Q
-from django.core.validators import MaxValueValidator, MinValueValidator
+# from django.core.validators import MaxValueValidator, MinValueValidator
 from django.core.exceptions import ValidationError
 from django.db.models.signals import m2m_changed
 from django.dispatch import receiver
@@ -235,19 +235,98 @@ class InteractionManager(models.Manager):
         return qs
 
 
+class EosSetup(models.Model):
+    KIJ_MODE_CHOICES = (('t_dep', 'Kij is temperature dependent'),
+                        ('constants', 'kij is a constant for each binary interaction'))
+    lij_mode_choices = (('zero', 'lij is zero for each binary interaction'),
+                        ('constants', 'Lij is a constant of each binary interaction'))
+
+    eos = models.CharField(max_length=DEFAULT_MAX_LENGTH,
+                           choices=eos.CHOICES)
+    name = models.CharField(max_length=DEFAULT_MAX_LENGTH, null=True,
+                            help_text=u"A short indentification for this "
+                                      u"EOS configuration")
+    user = models.ForeignKey(User, null=True)
+    kij_mode = models.CharField(max_length=DEFAULT_MAX_LENGTH,
+                                choices=KIJ_MODE_CHOICES, default='constants'),
+    lij_mode = models.CharField(max_length=DEFAULT_MAX_LENGTH,
+                                choices=KIJ_MODE_CHOICES, default='zero'),
+
+    def set_interaction(self, kind, compound1, compound2, value):
+        """create or update an interaction parameter"""
+        KModel = {'kij':  KijInteractionParameter,
+                  'k0':  K0InteractionParameter,
+                  'tstar': TstarInteractionParameter,
+                  'lij': LijInteractionParameter}[kind]
+
+        compound1 = Compound.from_str(compound1)
+        compound2 = Compound.from_str(compound2)
+
+        base = KModel.objects.filter(setup=self,
+                                     compounds=compound1).filter(compounds=compound2)
+
+        if base.exists():
+            interaction = base.get()
+            interaction.value = value
+            interaction.save(update_fields=('value',))
+        else:
+            interaction = KModel.objects.create(setup=self, value=value)
+            interaction.compounds.add(compound1)
+            interaction.compounds.add(compound2)
+        return interaction
+
+    def _get_interaction_matrix(self, model_class, mixture, **kwargs):
+        """
+        return the 2d square matrix of the Model interaction parameters
+        for a mixture
+        """
+        if 'user' in kwargs and kwargs['user'] is None:
+            kwargs['user'] = self.user
+
+        compounds = mixture.compounds
+        n = len(mixture)
+        m = np.zeros((n, n))
+        for ((x, c1), (y, c2)) in combinations(enumerate(compounds), 2):
+            try:
+                k = model_class.objects.find(self.eos, c1, c2, **kwargs)[0].value
+                m[x, y] = k
+            except:
+                pass
+
+        # 0 1 2    0 0 0
+        # 0 0 0 +  1 0 0
+        # 0 0 0    2 0 0
+
+        diagonal_mirrored = np.rot90(np.flipud(m), -1)
+        return m + diagonal_mirrored
+
+    # interaction matrices
+    def k0(self, mixture):
+        return self._get_interaction_matrix(K0InteractionParameter, mixture)
+
+    def tstar(self, mixture):
+        return self._get_interaction_matrix(TstarInteractionParameter, mixture)
+
+    def kij(self, mixture):
+        return self._get_interaction_matrix(KijInteractionParameter, mixture)
+
+    def lij(self, mixture):
+        return self._get_interaction_matrix(LijInteractionParameter, mixture)
+
+
 class AbstractInteractionParameter(models.Model):
     class Meta:
         abstract = True
         ordering = ['-mixture']
 
     objects = InteractionManager()
-
+    setup = models.ForeignKey('EosSetup')
     compounds = models.ManyToManyField('Compound')
-    eos = models.CharField(max_length=DEFAULT_MAX_LENGTH,
-                           choices=eos.CHOICES)
     value = models.FloatField()
-    mixture = models.ForeignKey('Mixture', null=True)
-    user = models.ForeignKey(User, null=True)
+
+    @property
+    def eos(self):
+        return self.setup.eos
 
 
 @receiver(m2m_changed)
@@ -263,17 +342,7 @@ def verify_parameter_uniquesness(sender, **kwargs):
             raise IntegrityError('This interaction parameter has its compounds '
                                  'already defined')
         qs = cls.objects.filter(compounds__in=parameter.compounds.all()).\
-            filter(compounds__id__in=compounds_set, eos=parameter.eos)
-
-        if parameter.mixture:
-            qs = qs.filter(mixture=parameter.mixture)
-        else:
-            qs = qs.filter(mixture__isnull=True)
-
-        if parameter.user:
-            qs = qs.filter(user=parameter.user)
-        else:
-            qs = qs.filter(user__isnull=True)
+            filter(compounds__id__in=compounds_set, setup=parameter.setup)
 
         if qs.exists():
             raise IntegrityError('Already exists a parameter matching these condition')
@@ -297,42 +366,6 @@ class TstarInteractionParameter(AbstractInteractionParameter):
 class LijInteractionParameter(AbstractInteractionParameter):
     """Lij constanst"""
     pass
-
-
-def set_interaction(eos, kind, compound1, compound2, value,
-                    mixture=None, user=None):
-    """create or update an interaction parameter"""
-    eos = get_eos(eos).MODEL_NAME
-    KModel = {'kij':  KijInteractionParameter,
-              'k0':  K0InteractionParameter,
-              'tstar': TstarInteractionParameter,
-              'lij': LijInteractionParameter}[kind]
-
-    compound1 = Compound.from_str(compound1)
-    compound2 = Compound.from_str(compound2)
-
-    base = KModel.objects.filter(eos=eos).\
-        filter(compounds=compound1).filter(compounds=compound2)
-    if mixture:
-        base = base.filter(mixture=mixture)
-    else:
-        base = base.filter(mixture__isnull=True)
-
-    if user:
-        base = base.filter(user=user)
-    else:
-        base = base.filter(user__isnull=True)
-
-    if base.exists():
-        interaction = base.get()
-        interaction.value = value
-        interaction.save(update_fields=('value',))
-    else:
-        interaction = KModel.objects.create(eos=eos, mixture=mixture,
-                                            user=user, value=value)
-        interaction.compounds.add(compound1)
-        interaction.compounds.add(compound2)
-    return interaction
 
 
 class MixtureFraction(models.Model):
@@ -486,48 +519,6 @@ class Mixture(models.Model):
         than ``self.compounds``
         """
         return self._compounds_array_field('acentric_factor')
-
-    def _get_interaction_matrix(self, eos_model, model_class, **kwargs):
-        """
-        return the 2d square matrix of the Model interaction parameters
-        """
-        if 'user' in kwargs and kwargs['user'] is None:
-            kwargs['user'] = self.user
-        compounds = self.compounds
-        n = compounds.count()
-        m = np.zeros((n, n))
-        for ((x, c1), (y, c2)) in combinations(enumerate(compounds), 2):
-            try:
-                k = model_class.objects.find(eos_model, c1, c2,
-                                             mixture=self, **kwargs)[0].value
-                m[x, y] = k
-            except:
-                pass
-
-        # 0 1 2    0 0 0
-        # 0 0 0 +  1 0 0
-        # 0 0 0    2 0 0
-
-        diagonal_mirrored = np.rot90(np.flipud(m), -1)
-        return m + diagonal_mirrored
-
-    # interaction matrices
-    def k0(self, eos, user=None):
-        return self._get_interaction_matrix(eos, K0InteractionParameter, user=user)
-
-    def tstar(self, eos, user=None):
-        return self._get_interaction_matrix(eos, TstarInteractionParameter, user=user)
-
-    def kij(self, eos, user=None):
-        return self._get_interaction_matrix(eos, KijInteractionParameter, user=user)
-
-    def lij(self, eos, user=None):
-        return self._get_interaction_matrix(eos, LijInteractionParameter, user=user)
-
-    def set_interaction(self, eos, kind, compound1, compound2, value, user=None):
-        """set the iteraction associated to this mixture"""
-        set_interaction(eos, kind, compound1, compound2, value,
-                        mixture=self, user=None)
 
     def sort(self, by_weight=True):
         """Sort the mixture by compound's weight or
