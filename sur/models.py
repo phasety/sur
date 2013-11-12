@@ -298,18 +298,36 @@ class EosSetup(models.Model):
         return interactions
 
 
+
 class InteractionManager(models.Manager):
 
-    def find(self, setup, compound1, compound2=None):
+    def find(self, compound1, compound2=None, setup=None, eos=None, user=None):
         """
         filter interactions for EOS and compounds
-         defined globally or for an user.
+         defined globally, for an user or for specific mixture.
         """
+        if setup:
+            eos = setup.eos
+        elif eos:
+            eos = get_eos(eos).MODEL_NAME
+        else:
+            raise ValidationError('Setup or eos must be given')
+
         comps = Compound.objects.find(compound1)
-        qs = self.filter(setup=setup, compounds__in=comps)
+        qs = self.filter(eos=eos, compounds__in=comps)
         if compound2:
             comps = Compound.objects.find(compound2)
             qs = qs.filter(compounds__in=comps)
+        # only global or mixture
+        user_q = Q(user__isnull=True)
+        if user:
+            user_q |= Q(user=user)
+        qs = qs.filter(user_q)
+
+        setup_q = Q(setup__isnull=True)
+        if setup:
+            setup_q |= Q(setup=setup)
+        qs = qs.filter(setup_q)
         return qs
 
 
@@ -336,6 +354,8 @@ class AbstractInteractionParameter(models.Model):
                                   "match with the EosSetup's one")
 
     def save(self, *args, **kwargs):
+        if self.setup and not self.eos:
+            self.eos = self.setup.eos
         self.clean()
         super(AbstractInteractionParameter, self).save(*args, **kwargs)
 
@@ -352,6 +372,9 @@ def verify_parameter_uniquesness(sender, **kwargs):
         if parameter.compounds.all().distinct().count() == 2:
             raise IntegrityError('This interaction parameter has its compounds '
                                  'already defined')
+        if parameter.value == 0.2:
+            import ipdb; ipdb.set_trace()
+
         qs = cls.objects.filter(compounds__in=parameter.compounds.all()).\
             filter(compounds__id__in=compounds_set, eos=parameter.eos)
 
@@ -389,10 +412,17 @@ class LijInteractionParameter(AbstractInteractionParameter):
     pass
 
 
-def set_interaction(eos, kind, compound1, compound2, value,
-                    setup=None, user=None):
+def set_interaction(kind, compound1, compound2, value,
+                    setup=None, eos=None, user=None):
     """create or update an interaction parameter"""
-    eos = get_eos(eos).MODEL_NAME
+
+    if setup:
+        eos = setup.eos
+    elif eos:
+        eos = get_eos(eos).MODEL_NAME
+    else:
+        raise ValidationError('Setup or eos must be given')
+
     KModel = {'kij':  KijInteractionParameter,
               'k0':  K0InteractionParameter,
               'tstar': TstarInteractionParameter,
