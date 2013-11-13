@@ -498,9 +498,10 @@ class TestK0(TestCase):
         self.m.add(self.ethane, 0.1)
         self.m.add(self.co2, 0.3)
         self.m.add(self.methane, 0.2)
+        self.s = EosSetup.objects.create(eos='RKPR')
 
     def test_all_zeros_by_default(self):
-        assert_array_equal(self.m.k0('RKPR'), np.zeros((3, 3)))
+        assert_array_equal(self.s.k0(self.m), np.zeros((3, 3)))
 
     def test_there_is_a_global_k(self):
         k = K0InteractionParameter.objects.create(eos='RKPR',
@@ -511,7 +512,7 @@ class TestK0(TestCase):
         expected = np.zeros((3, 3))
         expected[0, 2] = expected[2, 0] = k.value
 
-        assert_array_equal(self.m.k0('RKPR'), expected)
+        assert_array_equal(self.s.k0(self.m), expected)
 
     def test_there_is_a_global_k_a_mixture_override(self):
         k = K0InteractionParameter.objects.create(eos='RKPR',
