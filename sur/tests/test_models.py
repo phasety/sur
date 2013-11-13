@@ -406,6 +406,7 @@ class TestInteraction(TestCase):
         assert_array_equal(kij_srk, np.array([[0., 0.3], [0.3, 0.]]))
 
     def test_defaults_priority(self):
+        K0InteractionParameter.objects.all().delete()
         m = Mixture()
         m.add(self.methane, 0.5)
         m.add(self.co2, 0.5)

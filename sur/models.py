@@ -240,7 +240,7 @@ class EosSetup(models.Model):
 
     def set_interaction(self, kind, compound1, compound2, value):
         """create or update an interaction parameter"""
-        set_interaction(self.eos, kind, compound1, compound2, value,
+        set_interaction(kind, compound1, compound2, value,
                         setup=self, user=self.user)
 
     def _get_interaction_matrix(self, model_class, mixture, **kwargs):
@@ -253,7 +253,7 @@ class EosSetup(models.Model):
         m = np.zeros((n, n))
         for ((x, c1), (y, c2)) in combinations(enumerate(compounds), 2):
             try:
-                k = model_class.objects.find(self, c1, c2)[0].value
+                k = model_class.objects.find(c1, c2, setup=self)[0].value
                 m[x, y] = k
             except:
                 pass
@@ -322,6 +322,9 @@ class InteractionManager(models.Manager):
         user_q = Q(user__isnull=True)
         if user:
             user_q |= Q(user=user)
+        elif setup and setup.user:
+            user_q |= Q(user=setup.user)
+
         qs = qs.filter(user_q)
 
         setup_q = Q(setup__isnull=True)
@@ -334,6 +337,7 @@ class InteractionManager(models.Manager):
 class AbstractInteractionParameter(models.Model):
     class Meta:
         abstract = True
+        ordering = ['-setup', '-user']
 
     objects = InteractionManager()
 
@@ -356,6 +360,8 @@ class AbstractInteractionParameter(models.Model):
     def save(self, *args, **kwargs):
         if self.setup and not self.eos:
             self.eos = self.setup.eos
+        if self.setup and self.setup.user and not self.user:
+            self.user = self.setup.user
         self.clean()
         super(AbstractInteractionParameter, self).save(*args, **kwargs)
 
@@ -372,9 +378,6 @@ def verify_parameter_uniquesness(sender, **kwargs):
         if parameter.compounds.all().distinct().count() == 2:
             raise IntegrityError('This interaction parameter has its compounds '
                                  'already defined')
-        if parameter.value == 0.2:
-            import ipdb; ipdb.set_trace()
-
         qs = cls.objects.filter(compounds__in=parameter.compounds.all()).\
             filter(compounds__id__in=compounds_set, eos=parameter.eos)
 
