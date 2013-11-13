@@ -339,34 +339,26 @@ class TestInteraction(TestCase):
         found1 = K0InteractionParameter.objects.find(self.ethane, setup=s)
         self.assertEqual(found1.count(), 2)
 
-    def test_per_mixture_compound_is_first(self):
-        m = Mixture()
-        m.add(self.methane, 0.2)
-        m.add(self.co2, 0.1)
-        other_k = K0InteractionParameter.objects.create(eos='RKPR',
-                                                        value=0.1,
-                                                        mixture=m)
-        other_k.compounds.add(self.ethane)
-        other_k.compounds.add(self.co2)
-        k0s = K0InteractionParameter.objects.find('RKPR', self.ethane, mixture=m)
-        self.assertEqual(k0s[0].mixture, m)
+    def test_per_setup_is_first(self):
+        s = EosSetup.objects.create(eos='RKPR')
+        other_k = s.set_interaction('k0', self.ethane, self.co2, value=0.1)
+        k0s = K0InteractionParameter.objects.find(self.ethane,
+                                                  setup=s, eos='RKPR')
+        self.assertEqual(k0s[0].setup, s)
         self.assertEqual(k0s[0].value, 0.1)
-        self.assertIsNone(k0s[1].mixture)
+        self.assertIsNone(k0s[1].setup)
         self.assertEqual(k0s[1].value, 0.4)
 
-    def test_same_custom_k_for_different_mixture_doesnt_interfer(self):
+    def test_same_custom_k_for_different_setuo_doesnt_interfer(self):
         assert K0InteractionParameter.objects.filter(compounds=self.ethane,
-                                                     mixture__isnull=True).count() == 1
+                                                     setup__isnull=True).count() == 1
         for i in range(2):
-            m = Mixture()
-            m.add(self.methane, 0.2)
-            m.add(self.co2, 0.1)
-            other_k = K0InteractionParameter.objects.create(eos='RKPR',
-                                                            value=0.1,
-                                                            mixture=m)
+            s = EosSetup.objects.create(eos='RKPR')
+            other_k = K0InteractionParameter.objects.create(value=0.1,
+                                                            setup=s)
             other_k.compounds.add(self.ethane)
             other_k.compounds.add(self.co2)
-        found1 = K0InteractionParameter.objects.find('RKPR', self.ethane, mixture=m)
+        found1 = K0InteractionParameter.objects.find(self.ethane, setup=s)
         self.assertEqual(found1.count(), 2)
 
     def test_cant_add_already_existent_per_setup_k0(self):
@@ -389,18 +381,23 @@ class TestInteraction(TestCase):
         self.assertIn('Already exists a parameter matching these condition',
                       e.exception.message)
 
-    def test_same_mixture_and_user_different_eos_doesn_superpose(self):
+    def test_same_setup_and_user_different_eos_doesn_superpose(self):
         m = Mixture()
         m.add(self.methane, 0.2)
         m.add(self.co2, 0.1)
         user = User.objects.create(username='tin')
-        m.set_interaction('RKPR', 'kij', self.methane, self.co2, value=0.1, user=user)
-        m.set_interaction('PR', 'kij', self.methane, self.co2, value=0.2, user=user)
+        s1 = EosSetup.objects.create(eos='RKPR', user=user)
+        s2 = EosSetup.objects.create(eos='PR', user=user)
+        s3 = EosSetup.objects.create(eos='SRK', user=user)
+
+        s1.set_interaction('kij', self.methane, self.co2, value=0.1)
+        s2.set_interaction('kij', self.methane, self.co2, value=0.2)
         # default for user
-        set_interaction('SRK', 'kij', self.methane, self.co2, value=0.3, user=user)
-        kij_rkpr = m.kij('RKPR', user=user)
-        kij_pr = m.kij('PR', user=user)
-        kij_srk = m.kij('SRK', user=user)
+        set_interaction('kij', self.methane, self.co2,
+                        eos='SRK', value=0.3, user=user)
+        kij_rkpr = s1.kij(m)
+        kij_pr = s2.kij(m)
+        kij_srk = s3.kij(m)
         assert_array_equal(kij_pr, np.array([[0., 0.2], [0.2, 0.]]))
         assert_array_equal(kij_rkpr, np.array([[0., 0.1], [0.1, 0.]]))
         assert_array_equal(kij_srk, np.array([[0., 0.3], [0.3, 0.]]))
