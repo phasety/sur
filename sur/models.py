@@ -245,8 +245,8 @@ class EosSetup(models.Model):
 
     def set_interaction(self, kind, compound1, compound2, value):
         """create or update an interaction parameter"""
-        set_interaction(kind, compound1, compound2, value,
-                        setup=self, user=self.user)
+        return set_interaction(kind, compound1, compound2, value,
+                               setup=self, user=self.user)
 
     def _get_interaction_matrix(self, model_class, mixture, **kwargs):
         """
