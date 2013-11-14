@@ -6,7 +6,7 @@ from itertools import combinations
 
 from django.db import models
 from django.db.models import Q
-from django.core.validators import MaxValueValidator, MinValueValidator
+# from django.core.validators import MaxValueValidator, MinValueValidator
 from django.core.exceptions import ValidationError
 from django.db.models.signals import m2m_changed
 from django.dispatch import receiver
@@ -208,37 +208,136 @@ class Alias(models.Model):
         return '%s (%s)' % (self.name, self.compound.name)
 
 
+class EosSetup(models.Model):
+    T_DEP = 't_dep'
+    CONSTANTS = 'constants'
+    ZERO = 'zero'
+
+    KIJ_MODE_CHOICES = ((T_DEP, 'Kij is temperature dependent'),
+                        (CONSTANTS, 'kij is a constant for each binary interaction'))
+    LIJ_MODE_CHOICES = ((ZERO, 'Lij is zero for each binary interaction'),
+                        (CONSTANTS, 'Lij is a constant of each binary interaction'))
+
+    eos = models.CharField(max_length=DEFAULT_MAX_LENGTH,
+                           choices=eos.CHOICES)
+    name = models.CharField(max_length=DEFAULT_MAX_LENGTH, null=True,
+                            help_text=u"A short indentification for this "
+                                      u"EOS configuration")
+    user = models.ForeignKey(User, null=True)
+    kij_mode = models.CharField(max_length=DEFAULT_MAX_LENGTH,
+                                choices=KIJ_MODE_CHOICES,
+                                default='constants')
+    lij_mode = models.CharField(max_length=DEFAULT_MAX_LENGTH,
+                                choices=LIJ_MODE_CHOICES,
+                                default='zero')
+
+    def __unicode__(self):
+        d = {'eos': self.eos, 'kij_mode': self.kij_mode, 'lij_mode': self.lij_mode}
+        mode = u"%(eos)s - kij %(kij_mode)s - lij %(lij_mode)s" % d
+        if self.name:
+            return u"%s %s" % (self.name, mode)
+        return mode
+
+    def set_interaction(self, kind, compound1, compound2, value):
+        """create or update an interaction parameter"""
+        return set_interaction(kind, compound1, compound2, value,
+                               setup=self, user=self.user)
+
+    def _get_interaction_matrix(self, model_class, mixture, **kwargs):
+        """
+        return the 2d square matrix of the Model interaction parameters
+        for a mixture
+        """
+        compounds = mixture.compounds
+        n = len(mixture)
+        m = np.zeros((n, n))
+        for ((x, c1), (y, c2)) in combinations(enumerate(compounds), 2):
+            try:
+                k = model_class.objects.find(c1, c2, setup=self)[0].value
+                m[x, y] = k
+            except:
+                pass
+
+        # 0 1 2    0 0 0
+        # 0 0 0 +  1 0 0
+        # 0 0 0    2 0 0
+
+        diagonal_mirrored = np.rot90(np.flipud(m), -1)
+        return m + diagonal_mirrored
+
+    # interaction matrices
+    def k0(self, mixture):
+        return self._get_interaction_matrix(K0InteractionParameter, mixture)
+
+    def tstar(self, mixture):
+        return self._get_interaction_matrix(TstarInteractionParameter, mixture)
+
+    def kij(self, mixture):
+        return self._get_interaction_matrix(KijInteractionParameter, mixture)
+
+    def lij(self, mixture):
+        return self._get_interaction_matrix(LijInteractionParameter, mixture)
+
+    def get_interactions(self, mixture):
+        """returns a sorted dict with the interactions matrix for a given
+        mode and mixture"""
+
+        interactions = SortedDict([])
+
+        if self.kij_mode == EosSetup.CONSTANTS:
+            interactions['kij'] = self.kij(mixture)
+        else:
+            interactions['k0'] = self.k0(mixture)
+            interactions['tstar'] = self.tstar(mixture)
+
+        if self.lij_mode == EosSetup.CONSTANTS:
+            interactions['lij'] = self.lij(mixture)
+        else:
+            n = len(mixture)
+            interactions['lij'] = np.zeros((n, n))
+        return interactions
+
+
+
 class InteractionManager(models.Manager):
 
-    def find(self, model, compound1, compound2=None, user=None, mixture=None):
+    def find(self, compound1, compound2=None, setup=None, eos=None, user=None):
         """
         filter interactions for EOS and compounds
          defined globally, for an user or for specific mixture.
         """
-        model = get_eos(model)
+        if setup:
+            eos = setup.eos
+        elif eos:
+            eos = get_eos(eos).MODEL_NAME
+        else:
+            raise ValidationError('Setup or eos must be given')
+
         comps = Compound.objects.find(compound1)
-        qs = self.filter(eos=model.MODEL_NAME, compounds__in=comps)
+        qs = self.filter(eos=eos, compounds__in=comps)
         if compound2:
             comps = Compound.objects.find(compound2)
             qs = qs.filter(compounds__in=comps)
-
         # only global or mixture
         user_q = Q(user__isnull=True)
         if user:
             user_q |= Q(user=user)
+        elif setup and setup.user:
+            user_q |= Q(user=setup.user)
+
         qs = qs.filter(user_q)
 
-        mix_q = Q(mixture__isnull=True)
-        if mixture:
-            mix_q |= Q(mixture=mixture)
-        qs = qs.filter(mix_q)
+        setup_q = Q(setup__isnull=True)
+        if setup:
+            setup_q |= Q(setup=setup)
+        qs = qs.filter(setup_q)
         return qs
 
 
 class AbstractInteractionParameter(models.Model):
     class Meta:
         abstract = True
-        ordering = ['-mixture']
+        ordering = ['-setup', '-user']
 
     objects = InteractionManager()
 
@@ -246,8 +345,25 @@ class AbstractInteractionParameter(models.Model):
     eos = models.CharField(max_length=DEFAULT_MAX_LENGTH,
                            choices=eos.CHOICES)
     value = models.FloatField()
-    mixture = models.ForeignKey('Mixture', null=True)
+    setup = models.ForeignKey('EosSetup', null=True)
     user = models.ForeignKey(User, null=True)
+
+    def clean(self):
+        if self.setup and self.setup.eos != self.eos:
+            raise ValidationError("The EOS for the interaction doesn't "
+                                  "match with the EosSetup's one")
+
+        if self.setup and self.setup.eos != self.eos:
+            raise ValidationError("The user for the interaction doesn't "
+                                  "match with the EosSetup's one")
+
+    def save(self, *args, **kwargs):
+        if self.setup and not self.eos:
+            self.eos = self.setup.eos
+        if self.setup and self.setup.user and not self.user:
+            self.user = self.setup.user
+        self.clean()
+        super(AbstractInteractionParameter, self).save(*args, **kwargs)
 
 
 @receiver(m2m_changed)
@@ -265,10 +381,10 @@ def verify_parameter_uniquesness(sender, **kwargs):
         qs = cls.objects.filter(compounds__in=parameter.compounds.all()).\
             filter(compounds__id__in=compounds_set, eos=parameter.eos)
 
-        if parameter.mixture:
-            qs = qs.filter(mixture=parameter.mixture)
+        if parameter.setup:
+            qs = qs.filter(setup=parameter.setup)
         else:
-            qs = qs.filter(mixture__isnull=True)
+            qs = qs.filter(setup__isnull=True)
 
         if parameter.user:
             qs = qs.filter(user=parameter.user)
@@ -299,10 +415,17 @@ class LijInteractionParameter(AbstractInteractionParameter):
     pass
 
 
-def set_interaction(eos, kind, compound1, compound2, value,
-                    mixture=None, user=None):
+def set_interaction(kind, compound1, compound2, value,
+                    setup=None, eos=None, user=None):
     """create or update an interaction parameter"""
-    eos = get_eos(eos).MODEL_NAME
+
+    if setup:
+        eos = setup.eos
+    elif eos:
+        eos = get_eos(eos).MODEL_NAME
+    else:
+        raise ValidationError('Setup or eos must be given')
+
     KModel = {'kij':  KijInteractionParameter,
               'k0':  K0InteractionParameter,
               'tstar': TstarInteractionParameter,
@@ -313,10 +436,10 @@ def set_interaction(eos, kind, compound1, compound2, value,
 
     base = KModel.objects.filter(eos=eos).\
         filter(compounds=compound1).filter(compounds=compound2)
-    if mixture:
-        base = base.filter(mixture=mixture)
+    if setup:
+        base = base.filter(setup=setup)
     else:
-        base = base.filter(mixture__isnull=True)
+        base = base.filter(setup__isnull=True)
 
     if user:
         base = base.filter(user=user)
@@ -328,7 +451,7 @@ def set_interaction(eos, kind, compound1, compound2, value,
         interaction.value = value
         interaction.save(update_fields=('value',))
     else:
-        interaction = KModel.objects.create(eos=eos, mixture=mixture,
+        interaction = KModel.objects.create(eos=eos, setup=setup,
                                             user=user, value=value)
         interaction.compounds.add(compound1)
         interaction.compounds.add(compound2)
@@ -487,48 +610,6 @@ class Mixture(models.Model):
         """
         return self._compounds_array_field('acentric_factor')
 
-    def _get_interaction_matrix(self, eos_model, model_class, **kwargs):
-        """
-        return the 2d square matrix of the Model interaction parameters
-        """
-        if 'user' in kwargs and kwargs['user'] is None:
-            kwargs['user'] = self.user
-        compounds = self.compounds
-        n = compounds.count()
-        m = np.zeros((n, n))
-        for ((x, c1), (y, c2)) in combinations(enumerate(compounds), 2):
-            try:
-                k = model_class.objects.find(eos_model, c1, c2,
-                                             mixture=self, **kwargs)[0].value
-                m[x, y] = k
-            except:
-                pass
-
-        # 0 1 2    0 0 0
-        # 0 0 0 +  1 0 0
-        # 0 0 0    2 0 0
-
-        diagonal_mirrored = np.rot90(np.flipud(m), -1)
-        return m + diagonal_mirrored
-
-    # interaction matrices
-    def k0(self, eos, user=None):
-        return self._get_interaction_matrix(eos, K0InteractionParameter, user=user)
-
-    def tstar(self, eos, user=None):
-        return self._get_interaction_matrix(eos, TstarInteractionParameter, user=user)
-
-    def kij(self, eos, user=None):
-        return self._get_interaction_matrix(eos, KijInteractionParameter, user=user)
-
-    def lij(self, eos, user=None):
-        return self._get_interaction_matrix(eos, LijInteractionParameter, user=user)
-
-    def set_interaction(self, eos, kind, compound1, compound2, value, user=None):
-        """set the iteraction associated to this mixture"""
-        set_interaction(eos, kind, compound1, compound2, value,
-                        mixture=self, user=None)
-
     def sort(self, by_weight=True):
         """Sort the mixture by compound's weight or
            by position
@@ -630,58 +711,24 @@ class Mixture(models.Model):
         if self.total_z != Decimal('1.0'):
             raise ValidationError('The mixture fractions should sum 1.0')
 
-    def get_envelope(self, eos='RKPR', kij='t_dep', lij='constants'):
+    def get_envelope(self, setup):
         """Get the envelope object for this mixture, calculated using
-        the `eos` (RKPR, SRK or PR) and the selected interaction parameters
+        the setup EOS with its selected interaction parameters
         mode.
-
-        kij: ``'t_dep'`` or ``'constants'``
-        lij: ``'zero'`, `0` or ``'constants'``
         """
-        lij = 'zero' if lij in (0, '0') else lij
-        try:
-            mode = {('constants', 'zero'): Kij_constant_Lij_0,
-                    ('constants', 'constants'): Kij_constant_Lij_constant,
-                    ('t_dep', 'constants'): Kij_t_Lij_constant,
-                    ('t_dep', 'zero'): Kij_t_Lij_0}[(kij, lij)]
-        except KeyError:
-            raise ValueError('Not valid kij and/or lij')
         return EosEnvelope.objects.get_or_create(mixture=self,
-                                                 eos=eos,
-                                                 mode=mode)[0]
+                                                 setup=setup)[0]
 
-    def get_flash(self, t, p, eos='RKPR', kij='t_dep', lij='constants'):
+    def get_flash(self, setup, t, p):
         """
         Get the flash on (t, p) for this mixture, calculated using
-        the `eos` (RKPR, SRK or PR) and the selected interaction parameters
+        the setup EOS with its selected interaction parameters
         mode.
-
-        kij: ``'t_dep'`` or ``'constants'``
-        lij: ``'zero'`, `0` or ``'constants'``
         """
-        eos = get_eos(eos)
-        lij = 'zero' if lij in (0, '0') else lij
-        try:
-            mode = {('t_dep', 'zero'): Kij_constant_Lij_0,
-                    ('constants', 'constants'): Kij_constant_Lij_constant,
-                    ('t_dep', 'constants'): Kij_t_Lij_constant,
-                    ('t_dep', 'zero'): Kij_t_Lij_0}[(kij, lij)]
-        except KeyError:
-            raise ValueError('Not valid kij and/or lij')
         return EosFlash.objects.get_or_create(t=t,
-                                              p=p, input_mixture=self, eos=eos,
-                                              mode=mode)[0]
-
-
-Kij_constant_Lij_0 = 'Kij_constant_Lij_0'
-Kij_constant_Lij_constant = 'Kij_constant_Lij_constant'
-Kij_t_Lij_constant = 'Kij_t_Lij_constant'
-Kij_t_Lij_0 = 'Kij_t_Lij_0'
-
-INTERACTION_MODE_CHOICES = ((Kij_constant_Lij_0, 'Kij constant value and Lij=0'),
-                            (Kij_constant_Lij_constant, 'Kij and Lij constant'),
-                            (Kij_t_Lij_constant, 'Kij (T) and Lij constant'),
-                            (Kij_t_Lij_0, 'Kij (T) and Lij=0'))
+                                              p=p,
+                                              mixture=self,
+                                              setup=setup)[0]
 
 
 class Envelope(models.Model):
@@ -747,28 +794,17 @@ class ExperimentalEnvelope(Envelope):
 
 
 class EosEnvelope(Envelope):
-    eos = models.CharField(max_length=DEFAULT_MAX_LENGTH,
-                           choices=eos.CHOICES,
-                           default=eos.RKPR.MODEL_NAME)
-    mode = models.CharField(max_length=DEFAULT_MAX_LENGTH,
-                            choices=INTERACTION_MODE_CHOICES,
-                            default=Kij_t_Lij_constant)
-    # denormalization to save interactions matrix when de env is created.
-    # TO DO: refactor as Cismondi recommended.
-    interactions = PickledObjectField(editable=False, null=True)
+    setup = models.ForeignKey('EosSetup')
+
     input_txt = models.TextField(editable=False, null=True)
     output_txt = models.TextField(editable=False, null=True)
 
     # class Meta:
     #    unique_together = (('mixture', 'eos', 'mode'),)
 
-    def __unicode__(self):
-        return "%(eos)s - %(mode)s" % {'eos': self.eos,
-                                       'mode': self.get_mode_display()}
-
     def __repr__(self):
-        return '<%(class)s: %(self)s>' % {'class': self.__class__.__name__,
-                                          'self': self}
+        return '<%(class)s: %(setup)s>' % {'class': self.__class__.__name__,
+                                           'setup': self.setup}
 
     def get_txt(self):
         return write_input(self.mixture, self.eos, as_data=True)
@@ -812,33 +848,13 @@ class EosEnvelope(Envelope):
 
     def save(self, *args, **kwargs):
         if not self.id:
-            # calculate everything the first time
-            self.interactions = get_interactions(self.mixture,
-                                                 self.mode,
-                                                 self.eos)
             self._calc()
-            # denormalization. it sucks
 
         super(Envelope, self).save(*args, **kwargs)
 
-
-def get_interactions(m, mode, eos):
-    n = m.compounds.count()
-    if mode == Kij_constant_Lij_0:
-        interactions = SortedDict([('kij', m.kij(eos)),
-                                   ('lij', np.zeros((n, n)))])
-    elif mode == Kij_constant_Lij_constant:
-        interactions = SortedDict([('kij', m.kij(eos)),
-                                   ('lij', m.lij(eos))])
-    elif mode == Kij_t_Lij_0:
-        interactions = SortedDict([('k0', m.k0(eos)),
-                                   ('tstar', m.tstar(eos)),
-                                   ('lij', np.zeros((n, n)))])
-    elif mode == Kij_t_Lij_constant:
-        interactions = SortedDict([('k0', m.k0(eos)),
-                                   ('tstar', m.tstar(eos)),
-                                   ('lij', m.lij(eos))])
-    return interactions
+    @property
+    def interactions(self):
+        return self.setup.get_interactions(self.mixture)
 
 
 class Flash(models.Model):
@@ -846,7 +862,7 @@ class Flash(models.Model):
     class Meta:
         abstract = True
 
-    input_mixture = models.ForeignKey('Mixture', related_name='%(class)ses')
+    mixture = models.ForeignKey('Mixture', related_name='%(class)ses')
     t = models.FloatField(verbose_name='Temperature of the flash')
     p = models.FloatField(verbose_name='Pressure of the flash')
 
@@ -865,45 +881,37 @@ class ExperimentalFlash(Flash):
 
 
 class EosFlash(Flash):
-    eos = models.CharField(max_length=DEFAULT_MAX_LENGTH,
-                           choices=eos.CHOICES)
-    mode = models.CharField(max_length=DEFAULT_MAX_LENGTH,
-                            choices=INTERACTION_MODE_CHOICES)
+    setup = models.ForeignKey('EosSetup')
     vapour_mixture = models.ForeignKey('Mixture', null=True,  # remove null
                                        related_name='eos_flashes_as_gas')
     liquid_mixture = models.ForeignKey('Mixture', null=True,    # remove null
                                        related_name='eos_flashes_as_liquid')
 
-    # denormalization to save interactions matrix when de env is created.
-    # TO DO: refactor as Cismondi recommended.
-    rel_envelope = models.ForeignKey('EosEnvelope',
-                                     editable=False, null=True, related_name='flashes')
-
     # TO DO: refactor with this constraint enabled
     # class Meta:
-    #    unique_together = (('t', 'p', 'input_mixture', 'eos', 'mode'),)
+    #    unique_together = (('t', 'p', 'mixture', 'eos', 'mode'),)
 
     def clean(self):
         z_calculated = self.y * self.beta + self.x * (1 - self.beta)
-        if not np.allclose(self.input_mixture.z, z_calculated):
+        if not np.allclose(self.mixture.z, z_calculated):
             raise ValidationError('Not all Zi != Yi*beta + Xi*(1 - beta)')
 
     def get_eos(self):
         return get_eos(self.eos)
 
     def get_txt(self):
-        return write_input(self.input_mixture, self.eos, self.t, self.p, as_data=True)
+        return write_input(self.mixture, self.eos, self.t, self.p, as_data=True)
 
     def as_json(self):
         cols = [[m.name, str(x_), str(y_)] for (m, x_, y_) in
-                zip(self.input_mixture.compounds, self.x, self.y)]
+                zip(self.mixture.compounds, self.x, self.y)]
         return json.dumps(cols)
 
     def _calc(self):
         """
         Calculate the flash for the given t and p
         """
-        m = self.input_mixture  # just in sake of brevity
+        m = self.mixture  # just in sake of brevity
         m.clean()
         """
         flash = partial(flash_routine, self.t, self.p, eos.NAMES[self.eos], m.z, m.tc,
@@ -935,14 +943,18 @@ class EosFlash(Flash):
         super(Flash, self).save(*args, **kwargs)
 
     @property
+    def interactions(self):
+        return self.setup.get_interactions(self.mixture)
+
+    @property
     def x(self):
         return self.liquid_mixture.z
 
     @x.setter
     def x(self, liquid_mixture_composition):
-        size = self.input_mixture.compounds.count()
+        size = self.mixture.compounds.count()
         if len(liquid_mixture_composition) != size:
-            raise ValueError('X must be same size than input_mixture (%d)' % size)
+            raise ValueError('X must be same size than mixture (%d)' % size)
 
         try:
             if self.liquid_mixture:
@@ -950,7 +962,7 @@ class EosFlash(Flash):
         except Mixture.DoesNotExist:
             pass
         m = Mixture()
-        m.add_many(self.input_mixture.compounds, liquid_mixture_composition)
+        m.add_many(self.mixture.compounds, liquid_mixture_composition)
         self.liquid_mixture = m
 
     @property
@@ -959,9 +971,9 @@ class EosFlash(Flash):
 
     @y.setter
     def y(self, vapour_mixture_composition):
-        size = self.input_mixture.compounds.count()
+        size = self.mixture.compounds.count()
         if len(vapour_mixture_composition) != size:
-            raise ValueError('Y must be same size than input_mixture (%d)' % size)
+            raise ValueError('Y must be same size than mixture (%d)' % size)
 
         try:
             if self.vapour_mixture:
@@ -970,6 +982,6 @@ class EosFlash(Flash):
             pass
 
         m = Mixture()
-        m.add_many(self.input_mixture.compounds,
+        m.add_many(self.mixture.compounds,
                    vapour_mixture_composition)
         self.vapour_mixture = m

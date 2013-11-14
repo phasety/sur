@@ -8,7 +8,7 @@ from numpy.testing import assert_array_equal
 from sur.models import (Compound, Mixture, MixtureFraction,
                         K0InteractionParameter, TstarInteractionParameter,
                         KijInteractionParameter,
-                        EosEnvelope, set_interaction)
+                        EosEnvelope, set_interaction, EosSetup)
 from django.db.utils import IntegrityError
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
@@ -84,7 +84,6 @@ class TestCompunds(TestCase):
         m3['METHANE'] = u'0.1'
         m4['METHANE'] = u'0.221'
         self.assertEqual(len(list(Compound.objects.filter(name='METHANE'))), 1)
-
 
 
 class TestMixtureMagicMeths(TestCase):
@@ -292,9 +291,9 @@ class TestInteraction(TestCase):
         User.objects.all().delete()
 
     def test_find_order_doesnt_import(self):
-        found1 = K0InteractionParameter.objects.find('RKPR', self.ethane)[0]
-        found2 = K0InteractionParameter.objects.find('RKPR', self.co2)[0]
-        found3 = K0InteractionParameter.objects.find('RKPR', self.co2, self.ethane)[0]
+        found1 = K0InteractionParameter.objects.find(self.ethane, eos='RKPR')[0]
+        found2 = K0InteractionParameter.objects.find(self.co2, eos='RKPR')[0]
+        found3 = K0InteractionParameter.objects.find(self.co2, self.ethane, eos='RKPR')[0]
         self.assertEqual(found1, found2)
         self.assertEqual(found1, found3)
 
@@ -308,7 +307,7 @@ class TestInteraction(TestCase):
         other_k = K0InteractionParameter.objects.create(eos='RKPR', value=0.1)
         other_k.compounds.add(self.ethane)
         other_k.compounds.add(self.methane)
-        found1 = K0InteractionParameter.objects.find('RKPR', self.ethane)
+        found1 = K0InteractionParameter.objects.find(self.ethane, eos='RKPR')
         self.assertEqual(found1.count(), 2)
 
     def test_cant_add_another_global_k0_for_both_shared_compounds(self):
@@ -326,106 +325,107 @@ class TestInteraction(TestCase):
                                                         user=user)
         other_k.compounds.add(self.ethane)
         other_k.compounds.add(self.co2)
-        found1 = K0InteractionParameter.objects.find('RKPR', self.ethane, user=user)
+        found1 = K0InteractionParameter.objects.find(self.ethane, eos='RKPR', user=user)
         self.assertEqual(found1.count(), 2)
 
-    def test_can_add_per_mixture_k0_for_existed_global_compounds(self):
-        m = Mixture()
-        m.add(self.methane, 0.2)
-        m.add(self.co2, 0.1)
+    def test_can_add_per_setup_k0_for_existed_global_compounds(self):
+        s = EosSetup(eos='RKPR')
         other_k = K0InteractionParameter.objects.create(eos='RKPR',
                                                         value=0.1,
-                                                        mixture=m)
+                                                        setup=s)
         other_k.compounds.add(self.ethane)
         other_k.compounds.add(self.co2)
-        found1 = K0InteractionParameter.objects.find('RKPR', self.ethane, mixture=m)
+        found1 = K0InteractionParameter.objects.find(self.ethane, setup=s)
         self.assertEqual(found1.count(), 2)
 
-    def test_per_mixture_compound_is_first(self):
-        m = Mixture()
-        m.add(self.methane, 0.2)
-        m.add(self.co2, 0.1)
-        other_k = K0InteractionParameter.objects.create(eos='RKPR',
-                                                        value=0.1,
-                                                        mixture=m)
-        other_k.compounds.add(self.ethane)
-        other_k.compounds.add(self.co2)
-        k0s = K0InteractionParameter.objects.find('RKPR', self.ethane, mixture=m)
-        self.assertEqual(k0s[0].mixture, m)
+    def test_per_setup_is_first(self):
+        s = EosSetup.objects.create(eos='RKPR')
+        s.set_interaction('k0', self.ethane, self.co2, value=0.1)
+        k0s = K0InteractionParameter.objects.find(self.ethane,
+                                                  setup=s, eos='RKPR')
+        self.assertEqual(k0s[0].setup, s)
         self.assertEqual(k0s[0].value, 0.1)
-        self.assertIsNone(k0s[1].mixture)
+        self.assertIsNone(k0s[1].setup)
         self.assertEqual(k0s[1].value, 0.4)
 
-    def test_same_custom_k_for_different_mixture_doesnt_interfer(self):
+    def test_same_custom_k_for_different_setuo_doesnt_interfer(self):
         assert K0InteractionParameter.objects.filter(compounds=self.ethane,
-                                                     mixture__isnull=True).count() == 1
+                                                     setup__isnull=True).count() == 1
         for i in range(2):
-            m = Mixture()
-            m.add(self.methane, 0.2)
-            m.add(self.co2, 0.1)
-            other_k = K0InteractionParameter.objects.create(eos='RKPR',
-                                                            value=0.1,
-                                                            mixture=m)
+            s = EosSetup.objects.create(eos='RKPR')
+            other_k = K0InteractionParameter.objects.create(value=0.1,
+                                                            setup=s)
             other_k.compounds.add(self.ethane)
             other_k.compounds.add(self.co2)
-        found1 = K0InteractionParameter.objects.find('RKPR', self.ethane, mixture=m)
+        found1 = K0InteractionParameter.objects.find(self.ethane, setup=s)
         self.assertEqual(found1.count(), 2)
 
-    def test_cant_add_already_existent_per_mixture_k0(self):
-        m = Mixture()
-        m.add(self.methane, 0.2)
-        m.add(self.co2, 0.1)
-        k = K0InteractionParameter.objects.create(eos='RKPR',
-                                                  value=0.1,
-                                                  mixture=m)
+    def test_cant_add_already_existent_per_setup_k0(self):
+        K0InteractionParameter.objects.all().delete()
+
+        # To do
+        # s = EosSetup(eos='RKPR')
+        s = EosSetup.objects.create(eos='RKPR')
+
+        k = K0InteractionParameter.objects.create(value=0.1,
+                                                  setup=s)
         k.compounds.add(self.ethane)
         k.compounds.add(self.co2)
 
-        other_k = K0InteractionParameter.objects.create(eos='RKPR',
-                                                        value=0.1,
-                                                        mixture=m)
+        other_k = K0InteractionParameter.objects.create(value=0.2,
+                                                        setup=s)
         other_k.compounds.add(self.ethane)
         with self.assertRaises(IntegrityError) as e:
             other_k.compounds.add(self.co2)
         self.assertIn('Already exists a parameter matching these condition',
                       e.exception.message)
 
-    def test_same_mixture_and_user_different_eos_doesn_superpose(self):
+    def test_same_setup_and_user_different_eos_doesn_superpose(self):
         m = Mixture()
         m.add(self.methane, 0.2)
         m.add(self.co2, 0.1)
         user = User.objects.create(username='tin')
-        m.set_interaction('RKPR', 'kij', self.methane, self.co2, value=0.1, user=user)
-        m.set_interaction('PR', 'kij', self.methane, self.co2, value=0.2, user=user)
+        s1 = EosSetup.objects.create(eos='RKPR', user=user)
+        s2 = EosSetup.objects.create(eos='PR', user=user)
+        s3 = EosSetup.objects.create(eos='SRK', user=user)
+
+        s1.set_interaction('kij', self.methane, self.co2, value=0.1)
+        s2.set_interaction('kij', self.methane, self.co2, value=0.2)
         # default for user
-        set_interaction('SRK', 'kij', self.methane, self.co2, value=0.3, user=user)
-        kij_rkpr = m.kij('RKPR', user=user)
-        kij_pr = m.kij('PR', user=user)
-        kij_srk = m.kij('SRK', user=user)
+        set_interaction('kij', self.methane, self.co2,
+                        eos='SRK', value=0.3, user=user)
+        kij_rkpr = s1.kij(m)
+        kij_pr = s2.kij(m)
+        kij_srk = s3.kij(m)
         assert_array_equal(kij_pr, np.array([[0., 0.2], [0.2, 0.]]))
         assert_array_equal(kij_rkpr, np.array([[0., 0.1], [0.1, 0.]]))
         assert_array_equal(kij_srk, np.array([[0., 0.3], [0.3, 0.]]))
 
     def test_defaults_priority(self):
+        K0InteractionParameter.objects.all().delete()
         m = Mixture()
         m.add(self.methane, 0.5)
         m.add(self.co2, 0.5)
+
         user = User.objects.create(username='tin')
+        s = EosSetup.objects.create(eos='SRK', user=user)
 
         # default staff
-        set_interaction('SRK', 'lij', self.methane, self.co2, value=0.4)
+        set_interaction('lij', self.methane, self.co2, value=0.4, eos='SRK')
 
-        assert_array_equal(m.lij('SRK', user=user), np.array([[0., 0.4], [0.4, 0.]]))
+        assert_array_equal(s.lij(m),
+                           np.array([[0., 0.4], [0.4, 0.]]))
 
         # now user defined
-        set_interaction('SRK', 'lij', self.methane, self.co2,
-                        value=0.6, user=user)
-        assert_array_equal(m.lij('SRK', user=user), np.array([[0., 0.6], [0.6, 0.]]))
+        set_interaction('lij', self.methane, self.co2,
+                        value=0.6, user=user, eos='SRK')
+        assert_array_equal(s.lij(m),
+                           np.array([[0., 0.6], [0.6, 0.]]))
 
-        # now mixture
-        set_interaction('SRK', 'lij', self.methane, self.co2,
-                        value=0.9, user=user, mixture=m)
-        assert_array_equal(m.lij('SRK', user=user), np.array([[0., 0.9], [0.9, 0.]]))
+        # now setup
+        s.set_interaction('lij', self.methane, self.co2, value=0.9)
+        assert_array_equal(s.lij(m),
+                           np.array([[0., 0.9], [0.9, 0.]]))
 
 
 class TestSetInteractionFunction(TestCase):
@@ -437,52 +437,80 @@ class TestSetInteractionFunction(TestCase):
         self.methane = Compound.objects.get(name='METHANE')
 
     def test_set_interaction(self):
-        set_interaction('RKPR', 'k0', 'ethane', 'methane', value=0.4)
+        set_interaction('k0', 'ethane', 'methane', eos='RKPR', value=0.4)
+
         k0 = K0InteractionParameter.objects.get()
         self.assertIn(self.ethane, k0.compounds.all())
         self.assertIn(self.methane, k0.compounds.all())
         self.assertEqual(k0.value, 0.4)
-        self.assertIsNone(k0.mixture)
+        self.assertIsNone(k0.setup)
+        self.assertIsNone(k0.user)
         self.assertEqual(k0.eos, 'RKPR')
 
     def test_set_interaction_update(self):
-        set_interaction('RKPR', 'k0', 'ethane', 'methane', value=0.4)
-        set_interaction('RKPR', 'k0', 'methane', 'ethane', value=0.5)
+
+        set_interaction('k0', 'ethane', 'methane', eos='RKPR', value=0.4)
+        set_interaction('k0', 'ethane', 'methane', eos='RKPR', value=0.5)
         k0 = K0InteractionParameter.objects.get()  # just one
         self.assertIn(self.ethane, k0.compounds.all())
         self.assertIn(self.methane, k0.compounds.all())
         self.assertEqual(k0.value, 0.5)
-        self.assertIsNone(k0.mixture)
+        self.assertIsNone(k0.setup)
+        self.assertIsNone(k0.user)
         self.assertEqual(k0.eos, 'RKPR')
 
-    def test_set_interaction_for_mix(self):
-        m = Mixture()
-        m.save()
+    def test_set_interaction_for_setup(self):
+        s = EosSetup.objects.create(eos='PR')
+
         # shouldn't ensure compounds belongs to the mixture?
-        set_interaction('PR', 'tstar', 'ethane', 'methane', value=0.1, mixture=m)
+        s.set_interaction('tstar', 'ethane', 'methane', value=0.1)
+
         i = TstarInteractionParameter.objects.get()
+
         self.assertIn(self.ethane, i.compounds.all())
         self.assertIn(self.methane, i.compounds.all())
         self.assertEqual(i.value, 0.1)
-        self.assertEqual(i.mixture, m)
+        self.assertEqual(i.setup, s)
+        self.assertIsNone(i.user)
         self.assertEqual(i.eos, 'PR')
+
+    def test_set_interaction_for_setup_update(self):
+        s = EosSetup.objects.create(eos='PR')
+
+        # shouldn't ensure compounds belongs to the mixture?
+        s.set_interaction('tstar', 'ethane', 'methane', value=0.1)
+
+        #update
+        s.set_interaction('tstar', 'ethane', 'methane', value=0.2)
+
+        i = TstarInteractionParameter.objects.get()
+
+        self.assertIn(self.ethane, i.compounds.all())
+        self.assertIn(self.methane, i.compounds.all())
+        self.assertEqual(i.value, 0.2)
+        self.assertEqual(i.setup, s)
+        self.assertIsNone(i.user)
+        self.assertEqual(i.eos, 'PR')
+
 
     def test_matrix_tstar(self):
         m = Mixture()
         m['ethane'] = 0.1
         m['methane'] = 0.9
-        m.set_interaction('PR', 'tstar', 'ethane', 'methane', value=0.43)
-        assert_array_equal(m.tstar('pr'), np.array([[0, 0.43], [0.43, 0]]))
+        s = EosSetup.objects.create(eos='PR')
+        s.set_interaction('tstar', 'ethane', 'methane', value=0.43)
+        assert_array_equal(s.tstar(m), np.array([[0, 0.43], [0.43, 0]]))
 
     def test_matrix_kij_rkpr(self):
         m = Mixture()
         m['ethane'] = 0.1
         m['methane'] = 0.8
         m['co2'] = 0.1
-        m.set_interaction('rkpr', 'kij', 'ethane', 'co2', value=0.43)
-        assert_array_equal(m.kij('rkpr'), np.array([[0, 0, 0.43],
-                                                    [0, 0, 0.],
-                                                    [0.43, 0, 0]]))
+        s = EosSetup.objects.create(eos='RKPR')
+        s.set_interaction('kij', 'ethane', 'co2', value=0.43)
+        assert_array_equal(s.kij(m), np.array([[0, 0, 0.43],
+                                               [0, 0, 0.],
+                                               [0.43, 0, 0]]))
 
 
 class TestK0(TestCase):
@@ -497,9 +525,10 @@ class TestK0(TestCase):
         self.m.add(self.ethane, 0.1)
         self.m.add(self.co2, 0.3)
         self.m.add(self.methane, 0.2)
+        self.s = EosSetup.objects.create(eos='RKPR')
 
     def test_all_zeros_by_default(self):
-        assert_array_equal(self.m.k0('RKPR'), np.zeros((3, 3)))
+        assert_array_equal(self.s.k0(self.m), np.zeros((3, 3)))
 
     def test_there_is_a_global_k(self):
         k = K0InteractionParameter.objects.create(eos='RKPR',
@@ -510,42 +539,27 @@ class TestK0(TestCase):
         expected = np.zeros((3, 3))
         expected[0, 2] = expected[2, 0] = k.value
 
-        assert_array_equal(self.m.k0('RKPR'), expected)
+        assert_array_equal(self.s.k0(self.m), expected)
 
-    def test_there_is_a_global_k_a_mixture_override(self):
-        k = K0InteractionParameter.objects.create(eos='RKPR',
-                                                  value=0.1)
-        k.compounds.add(self.ethane)
-        k.compounds.add(self.methane)
-
-        k2 = K0InteractionParameter.objects.create(eos='RKPR',
-                                                   value=0.2,
-                                                   mixture=self.m)
-        k2.compounds.add(self.ethane)
-        k2.compounds.add(self.methane)
-
+    def test_there_is_a_global_k_a_setup_override(self):
+        set_interaction('k0', self.ethane, self.methane, eos='RKPR',
+                        value=0.1)
+        k2 = self.s.set_interaction('k0', self.ethane, self.methane, value=0.2)
         expected = np.zeros((3, 3))
         expected[0, 2] = expected[2, 0] = k2.value
-
-        assert_array_equal(self.m.k0('RKPR'), expected)
+        assert_array_equal(self.s.k0(self.m), expected)
 
     def test_global_k_for_same_custom_for_other_interaction(self):
-        k = K0InteractionParameter.objects.create(eos='RKPR',
-                                                  value=0.1)
-        k.compounds.add(self.ethane)
-        k.compounds.add(self.methane)
+        k = set_interaction('k0', self.ethane, self.methane, value=0.1,
+                            eos='RKPR')
 
-        k2 = K0InteractionParameter.objects.create(eos='RKPR',
-                                                   value=0.2,
-                                                   mixture=self.m)
-        k2.compounds.add(self.ethane)
-        k2.compounds.add(self.co2)
+        k2 = self.s.set_interaction('k0', self.ethane, self.co2, value=0.2)
 
         expected = np.zeros((3, 3))
         expected[0, 1] = expected[1, 0] = k2.value
         expected[0, 2] = expected[2, 0] = k.value
 
-        assert_array_equal(self.m.k0('RKPR'), expected)
+        assert_array_equal(self.s.k0(self.m), expected)
 
 
 class TestEnvelope(TestCase):
@@ -603,11 +617,13 @@ class TestFlash(TestCase):
         self.m.add(self.ethane, 0.1)
         self.m.add(self.co2, 0.3)
         self.m.add(self.methane, 0.5)
+        s = EosSetup.objects.create(eos='RKPR',
+                                    kij_mode='constants', lij_mode='constants')
         assert self.m.total_z == Decimal('0.9')
         with self.assertRaises(ValidationError):
-            self.m.get_flash(10., 20., kij='constants', lij='constants')
+            self.m.get_flash(s, 10., 20.)
 
         self.m[self.methane] = 0.6   # total_z = 1.0
         assert self.m.clean() is None
         # not raises
-        self.m.get_flash(10., 20., kij='constants', lij='constants')
+        self.m.get_flash(s, 10., 20.)

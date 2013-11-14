@@ -73,7 +73,7 @@ def write_input(mixture, eos, t=None, p=None, as_data=False, interactions=None):
 
 
 def envelope(env):
-    path = write_input(env.mixture, env.eos, interactions=env.interactions)
+    path = write_input(env.mixture, env.setup.eos, interactions=env.interactions)
     output = exec_fortran('EnvelopeSur', path, as_out_txt="envelOUT.txt")
     # to debug
     env.input_txt = open(os.path.join(path, 'envelIN.txt')).read()
@@ -108,19 +108,13 @@ def envelope(env):
 
 
 def flash(fi):
-    if fi.rel_envelope:
-        interactions = fi.rel_envelope.interactions
-    else:
-        from .models import get_interactions
-        interactions = get_interactions(fi.input_mixture, fi.mode, fi.eos)
-    path = write_input(fi.input_mixture, fi.eos, fi.t, fi.p,
-                       interactions=interactions)
+    path = write_input(fi.mixture, fi.setup.eos, fi.t, fi.p,
+                       interactions=fi.interactions)
     output = exec_fortran('FlashSur', path)
-
 
     output = [float(n) for n in output.replace('\r\n', '').split()]
 
-    n = len(fi.input_mixture)
+    n = len(fi.mixture)
     x, y, (rho_x, rho_y, beta) = output[:n], output[n:-3], output[-3:]
 
     x = np.array(x)
