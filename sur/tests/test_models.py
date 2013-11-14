@@ -437,52 +437,80 @@ class TestSetInteractionFunction(TestCase):
         self.methane = Compound.objects.get(name='METHANE')
 
     def test_set_interaction(self):
-        set_interaction('RKPR', 'k0', 'ethane', 'methane', value=0.4)
+        set_interaction('k0', 'ethane', 'methane', eos='RKPR', value=0.4)
+
         k0 = K0InteractionParameter.objects.get()
         self.assertIn(self.ethane, k0.compounds.all())
         self.assertIn(self.methane, k0.compounds.all())
         self.assertEqual(k0.value, 0.4)
-        self.assertIsNone(k0.mixture)
+        self.assertIsNone(k0.setup)
+        self.assertIsNone(k0.user)
         self.assertEqual(k0.eos, 'RKPR')
 
     def test_set_interaction_update(self):
-        set_interaction('RKPR', 'k0', 'ethane', 'methane', value=0.4)
-        set_interaction('RKPR', 'k0', 'methane', 'ethane', value=0.5)
+
+        set_interaction('k0', 'ethane', 'methane', eos='RKPR', value=0.4)
+        set_interaction('k0', 'ethane', 'methane', eos='RKPR', value=0.5)
         k0 = K0InteractionParameter.objects.get()  # just one
         self.assertIn(self.ethane, k0.compounds.all())
         self.assertIn(self.methane, k0.compounds.all())
         self.assertEqual(k0.value, 0.5)
-        self.assertIsNone(k0.mixture)
+        self.assertIsNone(k0.setup)
+        self.assertIsNone(k0.user)
         self.assertEqual(k0.eos, 'RKPR')
 
-    def test_set_interaction_for_mix(self):
-        m = Mixture()
-        m.save()
+    def test_set_interaction_for_setup(self):
+        s = EosSetup.objects.create(eos='PR')
+
         # shouldn't ensure compounds belongs to the mixture?
-        set_interaction('PR', 'tstar', 'ethane', 'methane', value=0.1, mixture=m)
+        s.set_interaction('tstar', 'ethane', 'methane', value=0.1)
+
         i = TstarInteractionParameter.objects.get()
+
         self.assertIn(self.ethane, i.compounds.all())
         self.assertIn(self.methane, i.compounds.all())
         self.assertEqual(i.value, 0.1)
-        self.assertEqual(i.mixture, m)
+        self.assertEqual(i.setup, s)
+        self.assertIsNone(i.user)
         self.assertEqual(i.eos, 'PR')
+
+    def test_set_interaction_for_setup_update(self):
+        s = EosSetup.objects.create(eos='PR')
+
+        # shouldn't ensure compounds belongs to the mixture?
+        s.set_interaction('tstar', 'ethane', 'methane', value=0.1)
+
+        #update
+        s.set_interaction('tstar', 'ethane', 'methane', value=0.2)
+
+        i = TstarInteractionParameter.objects.get()
+
+        self.assertIn(self.ethane, i.compounds.all())
+        self.assertIn(self.methane, i.compounds.all())
+        self.assertEqual(i.value, 0.2)
+        self.assertEqual(i.setup, s)
+        self.assertIsNone(i.user)
+        self.assertEqual(i.eos, 'PR')
+
 
     def test_matrix_tstar(self):
         m = Mixture()
         m['ethane'] = 0.1
         m['methane'] = 0.9
-        m.set_interaction('PR', 'tstar', 'ethane', 'methane', value=0.43)
-        assert_array_equal(m.tstar('pr'), np.array([[0, 0.43], [0.43, 0]]))
+        s = EosSetup.objects.create(eos='PR')
+        s.set_interaction('tstar', 'ethane', 'methane', value=0.43)
+        assert_array_equal(s.tstar(m), np.array([[0, 0.43], [0.43, 0]]))
 
     def test_matrix_kij_rkpr(self):
         m = Mixture()
         m['ethane'] = 0.1
         m['methane'] = 0.8
         m['co2'] = 0.1
-        m.set_interaction('rkpr', 'kij', 'ethane', 'co2', value=0.43)
-        assert_array_equal(m.kij('rkpr'), np.array([[0, 0, 0.43],
-                                                    [0, 0, 0.],
-                                                    [0.43, 0, 0]]))
+        s = EosSetup.objects.create(eos='RKPR')
+        s.set_interaction('kij', 'ethane', 'co2', value=0.43)
+        assert_array_equal(s.kij(m), np.array([[0, 0, 0.43],
+                                               [0, 0, 0.],
+                                               [0.43, 0, 0]]))
 
 
 class TestK0(TestCase):
@@ -589,11 +617,13 @@ class TestFlash(TestCase):
         self.m.add(self.ethane, 0.1)
         self.m.add(self.co2, 0.3)
         self.m.add(self.methane, 0.5)
+        s = EosSetup.objects.create(eos='RKPR',
+                                    kij_mode='constants', lij_mode='constants')
         assert self.m.total_z == Decimal('0.9')
         with self.assertRaises(ValidationError):
-            self.m.get_flash(10., 20., kij='constants', lij='constants')
+            self.m.get_flash(s, 10., 20.)
 
         self.m[self.methane] = 0.6   # total_z = 1.0
         assert self.m.clean() is None
         # not raises
-        self.m.get_flash(10., 20., kij='constants', lij='constants')
+        self.m.get_flash(s, 10., 20.)
