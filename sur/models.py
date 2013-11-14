@@ -231,11 +231,6 @@ class EosSetup(models.Model):
                                 choices=LIJ_MODE_CHOICES,
                                 default='zero')
 
-    def __init__(self, *args, **kwargs):
-        super(EosSetup, self).__init__(*args, **kwargs)
-        # self.save()
-
-
     def __unicode__(self):
         d = {'eos': self.eos, 'kij_mode': self.kij_mode, 'lij_mode': self.lij_mode}
         mode = u"%(eos)s - kij %(kij_mode)s - lij %(lij_mode)s" % d
