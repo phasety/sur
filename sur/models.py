@@ -218,12 +218,14 @@ class EosSetup(models.Model):
     LIJ_MODE_CHOICES = ((ZERO, 'Lij is zero for each binary interaction'),
                         (CONSTANTS, 'Lij is a constant of each binary interaction'))
 
-    eos = models.CharField(max_length=DEFAULT_MAX_LENGTH,
-                           choices=eos.CHOICES)
-    name = models.CharField(max_length=DEFAULT_MAX_LENGTH, null=True,
+    name = models.CharField(max_length=DEFAULT_MAX_LENGTH, null=True, blank=True,
                             help_text=u"A short indentification for this "
                                       u"EOS configuration")
-    user = models.ForeignKey(User, null=True)
+
+    eos = models.CharField(max_length=DEFAULT_MAX_LENGTH,
+                           choices=eos.CHOICES,
+                           default='RKPR')
+    user = models.ForeignKey(User, null=True, editable=False)
     kij_mode = models.CharField(max_length=DEFAULT_MAX_LENGTH,
                                 choices=KIJ_MODE_CHOICES,
                                 default='constants')
