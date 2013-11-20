@@ -300,7 +300,6 @@ class EosSetup(models.Model):
         return interactions
 
 
-
 class InteractionManager(models.Manager):
 
     def find(self, compound1, compound2=None, setup=None, eos=None, user=None):
@@ -428,8 +427,8 @@ def set_interaction(kind, compound1, compound2, value,
     else:
         raise ValidationError('Setup or eos must be given')
 
-    KModel = {'kij':  KijInteractionParameter,
-              'k0':  K0InteractionParameter,
+    KModel = {'kij': KijInteractionParameter,
+              'k0': K0InteractionParameter,
               'tstar': TstarInteractionParameter,
               'lij': LijInteractionParameter}[kind]
 
@@ -721,6 +720,29 @@ class Mixture(models.Model):
         return EosEnvelope.objects.get_or_create(mixture=self,
                                                  setup=setup)[0]
 
+    def experimental_envelope(self, t, p,
+                              rho=None, t_cri=None, p_cri=None, rho_cri=None):
+        """Create an associated :class:`ExperimentalEnvelope`
+           associated to this mixture
+
+        :type t, p, rho: str or sequences of float
+
+        """
+        def sanitize(var):
+            if isinstance(var, basestring):
+                var = var.replace(',', '.').split()
+            if var is not None:
+                var = np.array(var)
+            return var
+        arguments = t, p, rho, t_cri, p_cri, rho_cri
+        t, p, rho, t_cri, p_cri, rho_cri = map(sanitize, arguments)
+        return ExperimentalEnvelope.objects.create(mixture=self,
+                                                   t=t, p=p, rho=rho,
+                                                   p_cri=p_cri,
+                                                   t_cri=t_cri,
+                                                   rho_cri=rho_cri)
+
+
     def get_flash(self, setup, t, p):
         """
         Get the flash on (t, p) for this mixture, calculated using
@@ -745,7 +767,7 @@ class Envelope(models.Model):
                            help_text=u'Presure array of the envelope P-T')
     t = PickledObjectField(editable=False,
                            help_text=u'Temperature array of the envelope P-T')
-    rho = PickledObjectField(editable=False,
+    rho = PickledObjectField(editable=False, null=True,
                              help_text=u'Density array of the envelope P-T')
 
     p_cri = PickledObjectField(editable=False,
@@ -768,13 +790,14 @@ class Envelope(models.Model):
                        in its last axes. Otherwise a new figure will be created.
                        This is useful to chain multiples plots in the same figure.
         :type figure: :class:`Figure` instance or None
-        :param critical_point: Define the marker for the critical point. If it's
-                               None, the point won't be plotted.
-        :type critical_point: str or None
         :param format: if given, the whole envelope will use this format
                        if it's None, each segment of the envelope
                        will be ploted in a different color.
         :type format: str or None
+        :param critical_point: Define the marker for the critical point. If it's
+                               None, the point won't be plotted.
+        :type critical_point: str or None
+
         :returns: a :class:`Figure` instance
 
         """
@@ -806,7 +829,7 @@ class Envelope(models.Model):
         if critical_point and self.index_cri.size > 1:
             ax.scatter(self.t_cri, self.p_cri, marker=critical_point)
 
-        ax.grid()
+        ax.grid(True)
         ax.set_xlabel("Temperature [K]")
         ax.set_ylabel("Pressure [bar]")
         fig.frameon = False
@@ -814,7 +837,42 @@ class Envelope(models.Model):
 
 
 class ExperimentalEnvelope(Envelope):
-    pass
+
+    def plot(self, fig=None, critical_point=None, marker='s', color='k'):
+        """
+        Plot the envelope in a T vs P as a scatter figure
+
+        :param figure: If it'ss given, the envelope will be plotted
+                       in its last axes. Otherwise a new figure will be created.
+                       This is useful to chain multiples plots in the same figure.
+        :type figure: :class:`Figure` instance or None
+        :param critical_point: Define the marker for the critical point. If it's
+                               None, the point won't be plotted.
+        :type critical_point: str or None
+        :param marker: Define the marker for each experimental point in the envelope.
+                       A square by default
+        :type marker: str or None
+        :param color: define the color of the points
+        :type color: color str
+        :returns: a :class:`Figure` instance
+        """
+
+        if fig is None:
+            fig, ax = plt.subplots()
+        else:
+            ax = fig.get_axes()[-1]
+
+        ax.scatter(self.t, self.p, c=color, marker=marker)
+        if critical_point and self.index_cri.size > 1:
+            ax.scatter(self.t_cri, self.p_cri, marker=critical_point)
+
+        ax.grid()
+        ax.set_xlabel("Temperature [K]")
+        ax.set_ylabel("Pressure [bar]")
+        fig.frameon = False
+        return fig
+
+
 
 
 class EosEnvelope(Envelope):
