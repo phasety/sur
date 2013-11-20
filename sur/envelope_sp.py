@@ -1,5 +1,5 @@
 """
-this is a hack due we couldn't compile the fortran code using gfrotran.
+this is a hack due we couldn't compile the fortran code using gfortran.
 """
 import sys
 import os.path
@@ -65,7 +65,6 @@ def write_input(mixture, eos, t=None, p=None, as_data=False, interactions=None):
 
     input_file = 'flashIN.txt' if t and p else 'envelIN.txt'
     path = tempfile.mkdtemp()
-    print path
     with open(os.path.join(path, input_file), 'w') as fh:
         fh.write(data)
 
