@@ -1,5 +1,5 @@
 """
-this is a hack due we couldn't compile the fortran code using gfrotran.
+this is a hack due we couldn't compile the fortran code using gfortran.
 """
 import sys
 import os.path
