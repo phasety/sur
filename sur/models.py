@@ -760,29 +760,51 @@ class Envelope(models.Model):
     index_cri = PickledObjectField(editable=False,
                                    null=True)
 
-    def plot(self, fig=None):
+    def plot(self, fig=None, critical_point='o', format=None):
+        """
+        Plot the envelope in a T vs P figure.
+
+        :param figure: If it'ss given, the envelope will be plotted
+                       in its last axes. Otherwise a new figure will be created.
+                       This is useful to chain multiples plots in the same figure.
+        :type figure: :class:`Figure` instance or None
+        :param critical_point: Define the marker for the critical point. If it's
+                               None, the point won't be plotted.
+        :type critical_point: str or None
+        :param format: if given, the whole envelope will use this format
+                       if it's None, each segment of the envelope
+                       will be ploted in a different color.
+        :type format: str or None
+        :returns: a :class:`Figure` instance
+
+        """
+
         if fig is None:
             fig, ax = plt.subplots()
+        else:
+            ax = fig.get_axes()[-1]
 
-        colors = ('red', 'blue', 'violet', 'black', 'yellow')
+        if format:
+            ax.plot(self.t, self.p, format)
+        else:
+            colors = ('red', 'blue', 'violet', 'black', 'yellow')
+            start = 0
+            for i, (index, color) in enumerate(zip(self.index_cri, colors)):
+                p = self.p[start:index]
+                t = self.t[start:index]
+                ax.plot(t, p, color=color)
+                start = index
 
-        start = 0
-        for i, (index, color) in enumerate(zip(self.index_cri, colors)):
-            p = self.p[start:index]
-            t = self.t[start:index]
-            ax.plot(t, p, color=color)
-            start = index
+                # extra segments
+                # plot last point of a segment to the critical point
+                # and the first of the next to the critical point
+                if self.index_cri.size > 1:
+                    seg = 0 if i % self.index_cri.size != 0 else -1
+                    ax.plot([t[seg], self.t_cri[i / 2]],
+                            [p[seg], self.p_cri[i / 2]], color=color)
 
-            # extra segments
-            # plot last point of a segment to the critical point
-            # and the first of the next to the critical point
-            if self.index_cri.size > 1:
-                seg = 0 if i % self.index_cri.size != 0 else -1
-                ax.plot([t[seg], self.t_cri[i / 2]],
-                        [p[seg], self.p_cri[i / 2]], color=color)
-
-        if self.index_cri.size > 1:
-            ax.scatter(self.t_cri, self.p_cri)
+        if critical_point and self.index_cri.size > 1:
+            ax.scatter(self.t_cri, self.p_cri, marker=critical_point)
 
         ax.grid()
         ax.set_xlabel("Temperature [K]")
