@@ -19,7 +19,7 @@ from eos import get_eos
 from . import data
 
 
-def exec_fortran(bin, path, as_out_txt=None):
+def exec_fortran(bin, path, as_out_txt=None, timeout=10):
     """Execute a fortran program
     if as_out_txt is read that file and return its content
     """
@@ -32,7 +32,7 @@ def exec_fortran(bin, path, as_out_txt=None):
 
     if TIME_OUT:
         p = subprocess.Popen(args, cwd=path, stdout=subprocess.PIPE)
-        output = p.communicate(timeout=20)[0]
+        output = p.communicate(timeout=timeout)[0]
     else:
         p = subprocess.Popen(args, cwd=path, stdout=subprocess.PIPE)
         output = p.communicate()[0]
@@ -73,7 +73,8 @@ def write_input(mixture, eos, t=None, p=None, as_data=False, interactions=None):
 
 def envelope(env):
     path = write_input(env.mixture, env.setup.eos, interactions=env.interactions)
-    output = exec_fortran('EnvelopeSur', path, as_out_txt="envelOUT.txt")
+    output = exec_fortran('EnvelopeSur', path, as_out_txt="envelOUT.txt",
+                          timeout=len(env.mixture) + 2)
     # to debug
     env.input_txt = open(os.path.join(path, 'envelIN.txt')).read()
     env.output_txt = output
