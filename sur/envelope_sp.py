@@ -72,7 +72,6 @@ def write_input(mixture, eos, t=None, p=None, as_data=False, interactions=None):
 
 
 def envelope(env):
-    import ipdb; ipdb.set_trace()
     path = write_input(env.mixture, env.setup.eos, interactions=env.interactions)
     output = exec_fortran('EnvelopeSur', path, as_out_txt="envelOUT.txt")
     # to debug
