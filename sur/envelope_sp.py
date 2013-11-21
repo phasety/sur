@@ -57,7 +57,7 @@ def write_input(mixture, eos, t=None, p=None, as_data=False, interactions=None):
         update = eos == 'RKPR'
         c.params = "   ".join(map(str, c._get_eos_params(eos, update_vc=update)))
         compounds.append(c)
-    nTdep = 1 if 'k0' in matrix else 0
+    nTdep = 1 if 'k0' in interactions else 0
     eos = get_eos(eos)
     data = render_to_string('input.html', locals())
     if as_data:
@@ -72,6 +72,7 @@ def write_input(mixture, eos, t=None, p=None, as_data=False, interactions=None):
 
 
 def envelope(env):
+    import ipdb; ipdb.set_trace()
     path = write_input(env.mixture, env.setup.eos, interactions=env.interactions)
     output = exec_fortran('EnvelopeSur', path, as_out_txt="envelOUT.txt")
     # to debug
