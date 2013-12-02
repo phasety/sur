@@ -192,7 +192,7 @@ class Compound(models.Model):
         return self.weight > other.weight
 
     class Meta:
-        ordering = ('mixturefraction__position', 'weight')
+        ordering = ('weight',)
 
 
 class Alias(models.Model):
@@ -492,7 +492,7 @@ class Mixture(models.Model):
 
     @property
     def compounds(self):
-        return self.Compounds.all()
+        return self.Compounds.all().order_by('mixturefraction__position')
 
     @property
     def z(self):
