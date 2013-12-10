@@ -192,7 +192,7 @@ class Compound(models.Model):
         return self.weight > other.weight
 
     class Meta:
-        ordering = ('weight',)
+        ordering = ('mixturefraction__position', 'weight')
 
 
 class Alias(models.Model):
@@ -492,7 +492,7 @@ class Mixture(models.Model):
 
     @property
     def compounds(self):
-        return self.Compounds.all().order_by('mixturefraction__position')
+        return self.Compounds.all()
 
     @property
     def z(self):
@@ -708,8 +708,7 @@ class Mixture(models.Model):
                                        fraction=str(fraction))
 
     def clean(self):
-
-        if self.total_z != Decimal('1.0'):
+        if abs(self.total_z - Decimal('1.0')) > Decimal('.0001'):
             raise ValidationError('The mixture fractions should sum 1.0')
 
     def get_envelope(self, setup):
