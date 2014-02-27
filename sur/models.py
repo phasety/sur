@@ -3,6 +3,7 @@ import json
 from decimal import Decimal
 from itertools import combinations
 # from functools import partial
+from StringIO import StringIO
 
 from django.db import models
 from django.db.models import Q
@@ -240,10 +241,24 @@ class EosSetup(models.Model):
             return u"%s %s" % (self.name, mode)
         return mode
 
-    def set_interaction(self, kind, compound1, compound2, value):
+    def set_interaction	(self, kind, compound1, compound2, value):
         """create or update an interaction parameter"""
         return set_interaction(kind, compound1, compound2, value,
                                setup=self, user=self.user)
+
+    def set_interaction_matrix(self, kind, mixture, matrix):
+	
+	matrix = np.loadtxt(StringIO(matrix.replace(',', '.')))
+	size = len(mixture)
+	if matrix.shape != (size,size):
+	    raise ValueError('matrix must be same size than mixture')
+	for ((x, c1), (y, c2)) in combinations(enumerate(mixture.compounds), 2):
+            try:
+		self.set_interaction(kind, c1, c2, matrix[x,y])
+            except:
+                pass
+	
+
 
     def _get_interaction_matrix(self, model_class, mixture, **kwargs):
         """
