@@ -23,6 +23,7 @@ from envelope_sp import (envelope as envelope_routine, flash as flash_routine,
 from eos import get_eos
 from . import units
 from . import eos
+from .plots import multiplot    # noqa
 
 
 DEFAULT_MAX_LENGTH = 255
@@ -247,7 +248,7 @@ class EosSetup(models.Model):
                                setup=self, user=self.user)
 
     def set_interaction_matrix(self, kind, mixture, matrix):
-	
+
 	matrix = np.loadtxt(StringIO(matrix.replace(',', '.')))
 	size = len(mixture)
 	if matrix.shape != (size,size):
@@ -257,7 +258,7 @@ class EosSetup(models.Model):
 		self.set_interaction(kind, c1, c2, matrix[x,y])
             except:
                 pass
-	
+
 
 
     def _get_interaction_matrix(self, model_class, mixture, **kwargs):
