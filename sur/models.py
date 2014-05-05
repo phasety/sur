@@ -796,9 +796,10 @@ class Envelope(models.Model):
                                  help_text=u'Density coordenates of critical points')
     index_cri = PickledObjectField(editable=False,
                                    null=True)
-    label = models.CharField(max_length=100, null=True, blank=True)
+    label = models.CharField(max_length=100, null=True, blank=True,
+                             default='__nolengend__')
 
-    def plot(self, fig=None, critical_point='o', format=None):
+    def plot(self, fig=None, critical_point='o', format=None, legends=None):
         """
         Plot the envelope in a T vs P figure.
 
@@ -813,6 +814,7 @@ class Envelope(models.Model):
         :param critical_point: Define the marker for the critical point. If it's
                                None, the point won't be plotted.
         :type critical_point: str or None
+        :lengends: show legends. See http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.legend
 
         :returns: a :class:`Figure` instance
 
@@ -824,14 +826,14 @@ class Envelope(models.Model):
             ax = fig.get_axes()[-1]
 
         if format:
-            ax.plot(self.t, self.p, format)
+            ax.plot(self.t, self.p, format, label=self.label)
         else:
             colors = ('red', 'blue', 'violet', 'black', 'yellow')
             start = 0
             for i, (index, color) in enumerate(zip(self.index_cri, colors)):
                 p = self.p[start:index]
                 t = self.t[start:index]
-                ax.plot(t, p, color=color)
+                ax.plot(t, p, color=color, label=self.label)
                 start = index
 
                 # extra segments
@@ -848,6 +850,8 @@ class Envelope(models.Model):
         ax.grid(True)
         ax.set_xlabel("Temperature [K]")
         ax.set_ylabel("Pressure [bar]")
+        if legends:
+            ax.legend(loc=legends)
         fig.frameon = False
         return fig
 
@@ -878,7 +882,7 @@ class ExperimentalEnvelope(Envelope):
         else:
             ax = fig.get_axes()[-1]
 
-        ax.scatter(self.t, self.p, c=color, marker=marker)
+        ax.scatter(self.t, self.p, c=color, marker=marker, label=self.label)
         if critical_point and self.index_cri.size > 1:
             ax.scatter(self.t_cri, self.p_cri, marker=critical_point)
 

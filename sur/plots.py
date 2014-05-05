@@ -7,7 +7,7 @@ from itertools import cycle
 
 def multiplot(envelopes, experimental_envelopes=None, formats=None,
               critical_point='o', experimental_colors=None,
-              experimental_markers=None):
+              experimental_markers=None, legends=None):
     """merge the plot of multiples envelopes"""
 
     COLORS = ('red', 'blue', 'green', 'violet', 'black', 'cyan',
@@ -43,5 +43,11 @@ def multiplot(envelopes, experimental_envelopes=None, formats=None,
     fig = reduce(plot, zip(envelopes[1:], formats[1:]), first)
     plot_exp = lambda fig, (exp_env, marker, color): exp_env.plot(fig, marker=marker,
                                                                   color=color)
-    return reduce(plot_exp, zip(experimental_envelopes, experimental_markers,
+    multi_fig =  reduce(plot_exp, zip(experimental_envelopes, experimental_markers,
                                 experimental_colors), fig)
+
+    if legends:
+        ax = multi_fig.get_axes()[-1]
+        ax.legend(loc=legends)
+
+    return multi_fig
