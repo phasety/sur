@@ -28,7 +28,7 @@ from .plots import multiplot    # noqa
 
 DEFAULT_MAX_LENGTH = 255
 MAX_DIGITS = 15
-DECIMAL_PLACES = 5
+DECIMAL_PLACES = 6
 
 
 class CompoundManager(models.Manager):
@@ -478,7 +478,7 @@ def set_interaction(kind, compound1, compound2, value,
 class MixtureFraction(models.Model):
     mixture = models.ForeignKey('Mixture', related_name='fractions')
     compound = models.ForeignKey('Compound')
-    fraction = models.DecimalField(decimal_places=4,
+    fraction = models.DecimalField(decimal_places=DECIMAL_PLACES,
                                    max_digits=MAX_DIGITS)
                                    # validators=[MinValueValidator(0.),
                                    #            MaxValueValidator(1.)])
@@ -710,7 +710,7 @@ class Mixture(models.Model):
             future_total = Decimal(str(fraction)) + self.total_z - actual_fraction
             if future_total > Decimal('1.0'):
                 # TO DO test it
-                if future_total - Decimal('1.0') < Decimal('0.0001'):
+                if future_total - Decimal('1.0') < Decimal('0.01'):
                     fraction = None
                 else:
                     raise ValueError('Add this fraction would exceed 1.0. Max fraction '

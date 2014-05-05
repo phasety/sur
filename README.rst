@@ -69,16 +69,6 @@ La interfaz básica
 
 
 
-
-
-
-
-
-
-
-
-
-
 .. _F2py: http://www.f2py.com
 
 
