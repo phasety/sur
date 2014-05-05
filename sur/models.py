@@ -796,6 +796,7 @@ class Envelope(models.Model):
                                  help_text=u'Density coordenates of critical points')
     index_cri = PickledObjectField(editable=False,
                                    null=True)
+    label = models.CharField(max_length=100, null=True, blank=True)
 
     def plot(self, fig=None, critical_point='o', format=None):
         """
