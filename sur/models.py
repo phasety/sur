@@ -446,7 +446,7 @@ def set_interaction(kind, compound1, compound2, value,
     KModel = {'kij': KijInteractionParameter,
               'k0': K0InteractionParameter,
               'tstar': TstarInteractionParameter,
-              'lij': LijInteractionParameter}[kind]
+              'lij': LijInteractionParameter}[kind.lower()]
 
     compound1 = Compound.from_str(compound1)
     compound2 = Compound.from_str(compound2)
