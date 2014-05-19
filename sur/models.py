@@ -23,7 +23,6 @@ from envelope_sp import (envelope as envelope_routine, flash as flash_routine,
 from eos import get_eos
 from . import units
 from . import eos
-from .plots import multiplot    # noqa
 
 
 DEFAULT_MAX_LENGTH = 255
