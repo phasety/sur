@@ -9,6 +9,24 @@ DATA = os.path.abspath(os.path.join(ROOT, '..', 'data'))
 data = lambda a: os.path.join(DATA, a)
 
 
+def copydb(dbfrom='disk', dbto='default'):
+    """read the database and return a tempfile"""
+    from django.db import connections
+
+
+    connections[dbfrom].cursor()    # to construct the connection instance
+    con = connections[dbfrom].connection
+    tempfile = StringIO()
+    for line in con.iterdump():
+        tempfile.write('%s\n' % line)
+    tempfile.seek(0)
+    if dbto:
+        connections[dbto].cursor().executescript(tempfile.read())
+    tempfile.seek(0)
+    return tempfile
+
+
+
 def setup_as_lib():
     """
     this is a hackish trick.
@@ -28,17 +46,7 @@ def setup_as_lib():
     import settings
     django.core.management.setup_environ(settings)
 
-    from django.db import connections
-    connections['disk'].cursor()    # to construct the connection instance
-    con = connections['disk'].connection
-    tempfile = StringIO()
-    for line in con.iterdump():
-        tempfile.write('%s\n' % line)
-    tempfile.seek(0)
-
-    # Use in memory and import from tempfile
-    connections['default'].cursor().executescript(tempfile.read())
-
+    copydb('disk', 'default')
     call_command('syncdb', verbosity=0, interactive=False)
 
 
