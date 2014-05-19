@@ -727,16 +727,18 @@ class Mixture(models.Model):
         if abs(self.total_z - Decimal('1.0')) > Decimal('.0001'):
             raise ValidationError('The mixture fractions should sum 1.0')
 
-    def get_envelope(self, setup):
+    def get_envelope(self, setup, label=None):
         """Get the envelope object for this mixture, calculated using
         the setup EOS with its selected interaction parameters
         mode.
         """
         return EosEnvelope.objects.get_or_create(mixture=self,
-                                                 setup=setup)[0]
+                                                 setup=setup,
+                                                 label=label)[0]
 
     def experimental_envelope(self, t, p,
-                              rho=None, t_cri=None, p_cri=None, rho_cri=None):
+                              rho=None, t_cri=None, p_cri=None, rho_cri=None,
+                              label=None):
         """Create an associated :class:`ExperimentalEnvelope`
            associated to this mixture
 
@@ -755,7 +757,8 @@ class Mixture(models.Model):
                                                    t=t, p=p, rho=rho,
                                                    p_cri=p_cri,
                                                    t_cri=t_cri,
-                                                   rho_cri=rho_cri)
+                                                   rho_cri=rho_cri,
+                                                   label=label)
 
 
     def get_flash(self, setup, t, p):
@@ -891,7 +894,6 @@ class ExperimentalEnvelope(Envelope):
         ax.set_ylabel("Pressure [bar]")
         fig.frameon = False
         return fig
-
 
 
 
