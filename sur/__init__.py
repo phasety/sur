@@ -55,3 +55,4 @@ if not os.environ.get('DJANGO_SETTINGS_MODULE', None):
 
     # automatically import every model
     from sur.models import *
+    from sur.plots import *
