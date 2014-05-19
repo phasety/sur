@@ -51,14 +51,14 @@ def test_pr_from_isobutane_constants():
 def test_pr_from_npentante_constants():
     constants = array([469.7,  33.7,  0.251506])
     c, p = PR.from_constants(*constants)
-    assert_allclose(c, array([469.7, 33.7, 0.25151, 0.356230]), rtol=1e-4)
+    assert_allclose(c, array([469.7, 33.7, 0.25151, 0.1097920]), rtol=1e-4)
     assert_allclose(p, array([20.6929, 0.090154, 0.745454]), rtol=1e-4)
 
 
 def test_pr_from_co2_constants():
     constants = array([304.21, 73.83, 0.22362])
     c, p = PR.from_constants(*constants)
-    assert_allclose(c, array([304.21, 73.83, 0.22362, 0.105313]), rtol=1e-4)
+    assert_allclose(c, array([304.21, 73.83, 0.22362, 0.109792]), rtol=1e-4)
     assert_allclose(p, array([3.9621, 0.026652, 0.706023]), rtol=1e-4)
 
 

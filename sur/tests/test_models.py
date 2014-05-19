@@ -428,6 +428,22 @@ class TestInteraction(TestCase):
                            np.array([[0., 0.9], [0.9, 0.]]))
 
 
+class TestGetInteractionTstart(TestCase):
+    def setUp(self):
+        self.ethane = Compound.objects.get(name='ETHANE')
+        self.co2 = Compound.objects.find('co2')[0]
+
+    def test_auto_tstart(self):
+        m = Mixture()
+        m.add(self.ethane, 0.5)
+        m.add(self.co2, 0.5)
+
+        assert self.ethane < self.co2
+        s = EosSetup.objects.create(eos='RKPR', kij_mode=EosSetup.T_DEP)
+        assert_array_equal(s.tstar(m), np.array([[0., self.ethane.tc],
+                                                 [self.ethane.tc, 0.]]))
+
+
 class TestSetInteractionFunction(TestCase):
 
     def setUp(self):

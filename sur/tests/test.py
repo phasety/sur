@@ -1,5 +1,5 @@
 import numpy
-import envelope
+import envelope_sp as envelope
 
 comp = numpy.ones(10)
 tc = numpy.random.random((10,))

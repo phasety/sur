@@ -273,7 +273,8 @@ class EosSetup(models.Model):
                 k = model_class.objects.find(c1, c2, setup=self)[0].value
                 m[x, y] = k
             except:
-                pass
+                if model_class == TstarInteractionParameter:
+                    m[x, y] = min((c1, c2)).tc
 
         # 0 1 2    0 0 0
         # 0 0 0 +  1 0 0
