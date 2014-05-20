@@ -858,6 +858,14 @@ class Envelope(models.Model):
         fig.frameon = False
         return fig
 
+    def as_json(self):
+        cols = [map(str, c) for c in zip(self.p, self.t, self.rho)]
+        return json.dumps(cols)
+
+    def cri_as_json(self):
+        cols = [map(str, c) for c in zip(self.p_cri, self.t_cri, self.rho_cri)]
+        return json.dumps(cols)
+
 
 class ExperimentalEnvelope(Envelope):
 
@@ -894,6 +902,8 @@ class ExperimentalEnvelope(Envelope):
         ax.set_ylabel("Pressure [bar]")
         fig.frameon = False
         return fig
+
+
 
 
 
