@@ -9,12 +9,12 @@ multicompound mixtures.
 Phasety 2013
 """
 
-DISTNAME = 'envelope-sur'
+DISTNAME = 'sur'
 DESCRIPTION = 'Envelope-sur package'
 LONG_DESCRIPTION = descr
 MAINTAINER  = u'Martín Gaitán',
 MAINTAINER_EMAIL = 'gaitan@gmail.com',
-URL = 'http://envelope.phasety.com'
+URL = 'http://sur.phasety.com'
 LICENSE = 'Freeware'
 DOWNLOAD_URL = URL
 PACKAGE_NAME = 'sur'
