@@ -247,8 +247,16 @@ class EosSetup(models.Model):
                                setup=self, user=self.user)
 
     def set_interaction_matrix(self, kind, mixture, matrix):
+        """set a matrix as the one returned by
+        setup.kij(mixture) or analogs methods.
 
-	matrix = np.loadtxt(StringIO(matrix.replace(',', '.')))
+        kind -- 'lij', 'k0', 'tstar', 'kij'
+        mixture -- the Mixture
+        matrix -- could be a string (multiline) or a N x N array
+        """
+
+    if not isinstance(matrix, np.ndarray):
+	   matrix = np.loadtxt(StringIO(matrix.replace(',', '.')))
 	size = len(mixture)
 	if matrix.shape != (size,size):
 	    raise ValueError('matrix must be same size than mixture')
@@ -859,11 +867,11 @@ class Envelope(models.Model):
         return fig
 
     def as_json(self):
-        cols = [map(str, c) for c in zip(self.p, self.t, self.rho)]
+        cols = [map(str, c) for c in zip(self.p, self.t)] #, self.rho)]
         return json.dumps(cols)
 
     def cri_as_json(self):
-        cols = [map(str, c) for c in zip(self.p_cri, self.t_cri, self.rho_cri)]
+        cols = [map(str, c) for c in zip(self.p_cri, self.t_cri)] #, self.rho_cri)]
         return json.dumps(cols)
 
 
