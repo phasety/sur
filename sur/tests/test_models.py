@@ -7,7 +7,7 @@ from numpy.testing import assert_array_equal
 
 from sur.models import (Compound, Mixture, MixtureFraction,
                         K0InteractionParameter, TstarInteractionParameter,
-                        KijInteractionParameter,
+                        KijInteractionParameter, LijInteractionParameter,
                         EosEnvelope, set_interaction, EosSetup)
 from django.db.utils import IntegrityError
 from django.core.exceptions import ValidationError
@@ -644,3 +644,107 @@ class TestFlash(TestCase):
         assert self.m.clean() is None
         # not raises
         self.m.get_flash(s, 10., 20.)
+
+
+
+class TestSetInteractionMatrix(TestCase):
+
+    def setUp(self):
+        self.GC = Mixture()
+        elementos = ['methane', 'n-butane', 'n-heptane']
+        fracciones = [0.5, 0.2, 0.3]
+        for elemento, fraccion in zip(elementos, fracciones):
+            self.GC[elemento] = fraccion
+        self.GC.sort(True)
+        self.setup = EosSetup.objects.create(eos='RKPR', kij_mode=EosSetup.T_DEP,  lij_mode=EosSetup.CONSTANTS)
+        self.setup.set_interaction('k0', 'methane',
+                                   'n-butane', 0.02613)
+        self.setup.set_interaction('k0', 'methane',
+                                   'n-heptane', 0.05613)
+
+    def test_matrix_could_be_text(self):
+        setup = EosSetup.objects.create(eos='RKPR',
+                                kij_mode=EosSetup.T_DEP,
+                                lij_mode=EosSetup.CONSTANTS)
+        matrix = """0.  0.02 0.05
+                    0.02  0   0
+                    0.05  0   0"""
+        setup.set_interaction_matrix('k0', self.GC, matrix)
+
+        assert_array_equal(setup.k0(self.GC), np.array([[0., .02, 0.05],
+                                                        [0.02, 0, 0],
+                                                        [0.05, 0, 0]]))
+
+    def test_text_matrix_replaces_semicolon(self):
+        setup = EosSetup.objects.create(eos='RKPR',
+                                kij_mode=EosSetup.T_DEP,
+                                lij_mode=EosSetup.CONSTANTS)
+        matrix = """0  0,02 0,05
+                    0,02  0   0
+                    0,05  0   0"""
+        setup.set_interaction_matrix('k0', self.GC, matrix)
+
+        assert_array_equal(setup.k0(self.GC), np.array([[0., .02, 0.05],
+                                                        [0.02, 0, 0],
+                                                        [0.05, 0, 0]]))
+
+
+    def test_set_matrix_could_be_ndarray(self):
+        setup = EosSetup.objects.create(eos='RKPR',
+                                kij_mode=EosSetup.T_DEP,
+                                lij_mode=EosSetup.CONSTANTS)
+        matrix = np.array([[0., .02, 0.05],
+                           [0.02, 0, 0],
+                           [0.05, 0, 0]])
+        setup.set_interaction_matrix('k0', self.GC, matrix)
+        assert_array_equal(setup.k0(self.GC), matrix)
+
+
+    def test_set_lij_matrix(self):
+
+        setup = EosSetup.objects.create(eos='RKPR',
+                                        kij_mode=EosSetup.T_DEP,
+                                        lij_mode=EosSetup.CONSTANTS)
+        matrix = np.array([[0., .02, 0.05],
+                           [0.02, 0, 0],
+                           [0.05, 0, 0]])
+        setup.set_interaction_matrix('lij', self.GC, matrix)
+        assert_array_equal(setup.lij(self.GC), matrix)
+
+
+    def test_complex_lij_(self):
+        GC= Mixture()
+        elementos= ['methane', 'n-butane', 'n-heptane', 'n-decane', 'n-tetradecane']
+        fracciones= [0.80, 0.14, 0.04, 0.014, 0.006]
+        for elemento, fraccion in zip(elementos, fracciones):
+            GC[elemento]= fraccion
+        GC.sort(True)
+        setup1 = EosSetup.objects.create(eos='RKPR',
+                                         kij_mode=EosSetup.T_DEP,
+                                         lij_mode=EosSetup.CONSTANTS)
+        setup1.set_interaction('k0', 'methane', 'n-butane', 0.02613)
+        setup1.set_interaction('k0', 'methane', 'n-heptane', 0.05613)
+        setup1.set_interaction('k0', 'methane', 'n-decane', 0.08224)
+        setup1.set_interaction('k0', 'methane', 'n-tetradecane', 0.10738)
+
+        setup1.set_interaction('lij', 'methane', 'n-butane', -0.06565)
+        setup1.set_interaction('lij', 'methane', 'n-heptane', -0.11875)
+        setup1.set_interaction('lij', 'methane', 'n-decane', -0.14551)
+        setup1.set_interaction('lij', 'methane', 'n-tetradecane', -0.13602)
+        setup1.set_interaction('lij', 'n-butane', 'n-heptane', -0.01754)
+        setup1.set_interaction('lij', 'n-butane', 'n-decane', -0.02433)
+        setup1.set_interaction('lij', 'n-butane', 'n-tetradecane', -0.02203)
+        setup1.set_interaction('lij', 'n-heptane', 'n-decane', -0.00586)
+        setup1.set_interaction('lij', 'n-heptane', 'n-tetradecane', -0.00388)
+        setup1.set_interaction('lij', 'n-decane', 'n-tetradecane', 0.00188)
+
+        setup_lij_menos20 = EosSetup.objects.create(eos='RKPR', kij_mode=EosSetup.T_DEP,
+                                                    lij_mode=EosSetup.CONSTANTS)
+
+        setup_lij_menos20.set_interaction_matrix('k0', GC, setup1.k0(GC))
+        assert_array_equal(setup1.k0(GC) - setup_lij_menos20.k0(GC),
+                           np.zeros((5,5)))
+
+        setup_lij_menos20.set_interaction_matrix('lij', GC, setup1.lij(GC))
+        assert_array_equal(setup1.lij(GC) - setup_lij_menos20.lij(GC),
+                           np.zeros((5,5)))
