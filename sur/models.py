@@ -241,7 +241,7 @@ class EosSetup(models.Model):
             return u"%s %s" % (self.name, mode)
         return mode
 
-    def set_interaction	(self, kind, compound1, compound2, value):
+    def set_interaction(self, kind, compound1, compound2, value):
         """create or update an interaction parameter"""
         return set_interaction(kind, compound1, compound2, value,
                                setup=self, user=self.user)
@@ -254,19 +254,16 @@ class EosSetup(models.Model):
         mixture -- the Mixture
         matrix -- could be a string (multiline) or a N x N array
         """
-
-    if not isinstance(matrix, np.ndarray):
-	   matrix = np.loadtxt(StringIO(matrix.replace(',', '.')))
-	size = len(mixture)
-	if matrix.shape != (size,size):
-	    raise ValueError('matrix must be same size than mixture')
-	for ((x, c1), (y, c2)) in combinations(enumerate(mixture.compounds), 2):
+        if not isinstance(matrix, np.ndarray):
+            matrix = np.loadtxt(StringIO(matrix.replace(',', '.')))
+        size = len(mixture)
+        if matrix.shape != (size, size):
+            raise ValueError('matrix must be same size than mixture')
+        for ((x, c1), (y, c2)) in combinations(enumerate(mixture.compounds), 2):
             try:
-		self.set_interaction(kind, c1, c2, matrix[x,y])
+                self.set_interaction(kind, c1, c2, matrix[x, y])
             except:
                 pass
-
-
 
     def _get_interaction_matrix(self, model_class, mixture, **kwargs):
         """
@@ -768,7 +765,6 @@ class Mixture(models.Model):
                                                    rho_cri=rho_cri,
                                                    label=label)
 
-
     def get_flash(self, setup, t, p):
         """
         Get the flash on (t, p) for this mixture, calculated using
@@ -825,7 +821,8 @@ class Envelope(models.Model):
         :param critical_point: Define the marker for the critical point. If it's
                                None, the point won't be plotted.
         :type critical_point: str or None
-        :lengends: show legends. See http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.legend
+        :lengends: show legends.
+                   See http://matplotlib.org/api/pyplot_api.html#matplotlib.pyplot.legend
 
         :returns: a :class:`Figure` instance
 
@@ -867,11 +864,11 @@ class Envelope(models.Model):
         return fig
 
     def as_json(self):
-        cols = [map(str, c) for c in zip(self.p, self.t)] #, self.rho)]
+        cols = [map(str, c) for c in zip(self.p, self.t)]   # self.rho)]
         return json.dumps(cols)
 
     def cri_as_json(self):
-        cols = [map(str, c) for c in zip(self.p_cri, self.t_cri)] #, self.rho_cri)]
+        cols = [map(str, c) for c in zip(self.p_cri, self.t_cri)]   # self.rho_cri)]
         return json.dumps(cols)
 
 
@@ -910,9 +907,6 @@ class ExperimentalEnvelope(Envelope):
         ax.set_ylabel("Pressure [bar]")
         fig.frameon = False
         return fig
-
-
-
 
 
 class EosEnvelope(Envelope):

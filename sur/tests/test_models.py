@@ -266,7 +266,7 @@ class TestMixtureAdd(TestCase):
         with self.assertRaises(ValueError) as v:
             self.m.add('methane', '0.6')
         self.assertEqual(v.exception.message, 'Add this fraction would exceed 1.0. '
-                                              'Max fraction allowed is 0.4000')
+                                              'Max fraction allowed is 0.400000')
 
     def test_add_without_fraction_add_remaining(self):
         self.m.add('ethane', '0.6')
@@ -278,17 +278,16 @@ class TestMixtureAdd(TestCase):
 class TestInteraction(TestCase):
 
     def setUp(self):
+        K0InteractionParameter.objects.all().delete()
+        KijInteractionParameter.objects.all().delete()
+        User.objects.all().delete()
+
         self.k = K0InteractionParameter.objects.create(eos='RKPR', value=0.4)
         self.ethane = Compound.objects.get(name='ETHANE')
         self.methane = Compound.objects.get(name='METHANE')
         self.co2 = Compound.objects.get(name='CARBON DIOXIDE')
         self.k.compounds.add(self.ethane)
         self.k.compounds.add(self.co2)
-
-    def tearDown(self):
-        K0InteractionParameter.objects.all().delete()
-        KijInteractionParameter.objects.all().delete()
-        User.objects.all().delete()
 
     def test_find_order_doesnt_import(self):
         found1 = K0InteractionParameter.objects.find(self.ethane, eos='RKPR')[0]
@@ -304,10 +303,12 @@ class TestInteraction(TestCase):
                       e.exception.message)
 
     def test_can_add_another_k0_for_one_shared_compounds(self):
-        other_k = K0InteractionParameter.objects.create(eos='RKPR', value=0.1)
+        other_k = K0InteractionParameter.objects.create(eos='RKPR',
+                                                        value=0.1)
         other_k.compounds.add(self.ethane)
         other_k.compounds.add(self.methane)
-        found1 = K0InteractionParameter.objects.find(self.ethane, eos='RKPR')
+        found1 = K0InteractionParameter.objects.find(self.ethane,
+                                                     eos='RKPR')
         self.assertEqual(found1.count(), 2)
 
     def test_cant_add_another_global_k0_for_both_shared_compounds(self):
