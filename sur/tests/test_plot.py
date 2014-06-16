@@ -43,7 +43,6 @@ def test_one_critical_point():
     s = EosSetup.objects.create(eos='RKPR', kij_mode='constants', lij_mode='constants')
     s.set_interaction('kij', 'methane', 'co2', .1)
     s.set_interaction('kij', 'co2', 'n-decane',  0.091)
-    s.set_interaction('lij', 'co2', 'n-decane',  -0.90)
     env = m.get_envelope(s)
     env.plot()
     assert_fig('one_critical')
