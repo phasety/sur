@@ -1001,6 +1001,12 @@ class EosFlash(Flash):
     liquid_mixture = models.ForeignKey('Mixture', null=True,    # remove null
                                        related_name='eos_flashes_as_liquid')
 
+    input_txt = models.TextField(editable=False, null=True)
+    output_txt = models.TextField(editable=False, null=True)
+
+
+
+
     # TO DO: refactor with this constraint enabled
     # class Meta:
     #    unique_together = (('t', 'p', 'mixture', 'eos', 'mode'),)
