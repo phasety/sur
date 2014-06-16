@@ -112,6 +112,10 @@ def flash(fi):
                        interactions=fi.interactions)
     output = exec_fortran('FlashSur', path)
 
+    # to debug
+    fi.input_txt = open(os.path.join(path, 'flashIN.txt')).read()
+    fi.output_txt = output
+
     output = [float(n) for n in output.replace('\r\n', '').split()]
 
     n = len(fi.mixture)
