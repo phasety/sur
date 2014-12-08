@@ -16,7 +16,7 @@ except ImportError:
 import numpy as np
 from django.template.loader import render_to_string
 from eos import get_eos
-from . import data
+from sur import data
 
 
 def exec_fortran(bin, path, as_out_txt=None, timeout=10):

@@ -6,7 +6,7 @@ Envelope Sur.
 A basic envelope and flash calculator and plotter for
 multicompound mixtures.
 
-Phasety 2013
+Phasety 2013 - 2015
 """
 
 DISTNAME = 'sur'
@@ -19,8 +19,8 @@ LICENSE = 'Freeware'
 DOWNLOAD_URL = URL
 PACKAGE_NAME = 'sur'
 EXTRA_INFO  = dict(
-    install_requires=['django', 'django-picklefield', 'numpy', 'quantities'],
-    classifiers=['Development Status :: 1 - Planning',
+    install_requires=['django', 'django-picklefield', 'numpy', 'matplotlib', 'quantities'],
+    classifiers=['Development Status :: 3 - Alpha',
                  'Intended Audience :: Developers',
                  'Intended Audience :: Science/Research',
                  'License :: OSI Approved :: BSD License',

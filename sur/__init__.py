@@ -41,10 +41,13 @@ def setup_as_lib():
     if ROOT not in sys.path:
         sys.path.append(ROOT)
 
-    import django.core.management
+    # import django.core.management
     from django.core.management import call_command
-    import settings
-    django.core.management.setup_environ(settings)
+
+    os.environ.setdefault("DJANGO_SETTINGS_MODULE", "sur.settings")
+
+    # import settings
+    # django.core.management.setup_environ(settings)
 
     copydb('disk', 'default')
     call_command('syncdb', verbosity=0, interactive=False)
