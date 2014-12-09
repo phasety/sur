@@ -2,28 +2,13 @@ import os
 import sys
 from StringIO import StringIO
 
+default_app_config = 'sur.apps.SurConfig'
+
 
 ROOT = os.path.abspath(os.path.dirname(__file__))
 DATA = os.path.abspath(os.path.join(ROOT, '..', 'data'))
 
 data = lambda a: os.path.join(DATA, a)
-
-
-def copydb(dbfrom='disk', dbto='default'):
-    """read the database and return a tempfile"""
-    from django.db import connections
-
-
-    connections[dbfrom].cursor()    # to construct the connection instance
-    con = connections[dbfrom].connection
-    tempfile = StringIO()
-    for line in con.iterdump():
-        tempfile.write('%s\n' % line)
-    tempfile.seek(0)
-    if dbto:
-        connections[dbto].cursor().executescript(tempfile.read())
-    tempfile.seek(0)
-    return tempfile
 
 
 
@@ -43,14 +28,12 @@ def setup_as_lib():
 
     # import django.core.management
     from django.core.management import call_command
+    from django import setup
 
     os.environ.setdefault("DJANGO_SETTINGS_MODULE", "sur.settings")
-
-    # import settings
-    # django.core.management.setup_environ(settings)
-
-    copydb('disk', 'default')
-    call_command('syncdb', verbosity=0, interactive=False)
+    setup()
+    call_command('migrate', verbosity=0, interactive=False)
+    call_command('loaddata', data('initial_data.json'), verbosity=0, interactive=False)
 
 
 if not os.environ.get('DJANGO_SETTINGS_MODULE', None):
