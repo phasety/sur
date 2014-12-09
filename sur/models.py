@@ -984,7 +984,9 @@ class Flash(models.Model):
 
     rho_l = models.FloatField(verbose_name='Density of liquid', null=True)  # remove null
     rho_v = models.FloatField(verbose_name='Density of vapour', null=True)  # remove null
-    beta = models.FloatField(verbose_name='Vapour fraction', null=True)     # remove null
+    beta_mol = models.FloatField(verbose_name='Vapour phase mol fraction', null=True)     # remove null
+    beta_vol = models.FloatField(verbose_name='Vapour phase volume fraction', null=True)     # remove null
+
                              # validators=[MinValueValidator(0.),
                              #            MaxValueValidator(1.)])
 
@@ -1014,9 +1016,9 @@ class EosFlash(Flash):
     #    unique_together = (('t', 'p', 'mixture', 'eos', 'mode'),)
 
     def clean(self):
-        z_calculated = self.y * self.beta + self.x * (1 - self.beta)
+        z_calculated = self.y * self.beta_mol + self.x * (1 - self.beta_mol)
         if not np.allclose(self.mixture.z, z_calculated):
-            raise ValidationError('Not all Zi != Yi*beta + Xi*(1 - beta)')
+            raise ValidationError('Not all Zi != Yi*beta_mol + Xi*(1 - beta_mol)')
 
     def get_eos(self):
         return get_eos(self.eos)
@@ -1055,7 +1057,7 @@ class EosFlash(Flash):
                                  lij=m.lij(self.eos))
         self.x, self.y, self.rho_l, self.rho_v, self.beta = flash_result
         """
-        self.x, self.y, self.rho_l, self.rho_v, self.beta = flash_routine(self)
+        self.x, self.y, self.rho_l, self.rho_v, self.beta_mol, self.beta_vol = flash_routine(self)
 
     def save(self, *args, **kwargs):
         if not self.id:

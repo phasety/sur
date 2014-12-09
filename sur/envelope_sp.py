@@ -119,8 +119,8 @@ def flash(fi):
     output = [float(n) for n in output.replace('\r\n', '').split()]
     print((output, len(output)))
     n = len(fi.mixture)
-    x, y, (rho_x, rho_y, beta_molar, beta_volumetric) = output[:n], output[n:-4], output[-4:]
+    x, y, (rho_x, rho_y, beta_mol, beta_vol) = output[:n], output[n:-4], output[-4:]
 
     x = np.array(x)
     y = np.array(y)
-    return x / x.sum(), y / y.sum(), rho_x, rho_y, beta_molar, beta_volumetric
+    return x / x.sum(), y / y.sum(), rho_x, rho_y, beta_mol, beta_vol
