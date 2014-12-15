@@ -40,7 +40,8 @@ def assert_fig(expected, extensions=['png']):
 def test_one_critical_point():
     m = Mixture()
     m.add_many("methane co2 n-decane", "0.25 0.50 0.25")
-    s = EosSetup.objects.create(eos='RKPR', kij_mode='constants', lij_mode='constants')
+    s = EosSetup.objects.create(eos='RKPR', kij_mode='constants',
+                                lij_mode='constants')
     s.set_interaction('kij', 'methane', 'co2', .1)
     s.set_interaction('kij', 'co2', 'n-decane',  0.091)
     env = m.get_envelope(s)
