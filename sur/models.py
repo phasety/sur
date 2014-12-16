@@ -52,7 +52,7 @@ class CompoundManager(models.Manager):
         q_formula = Q(**lookup('formula'))
         q_alias = Q(**lookup('aliases__name'))
 
-        return self.filter(tc__gt=0, pc__gt=0, vc__gt=0).\
+        return self.filter(tc__gt=0, pc__gt=0).\
             filter(q_name | q_formula | q_alias).distinct()
 
 
@@ -84,7 +84,7 @@ class Compound(models.Model):
     tc_unit = t_unit()
     pc = models.FloatField(verbose_name='Critical Pressure')
     pc_unit = p_unit()
-    vc = models.FloatField(verbose_name='Critical Volume')
+    vc = models.FloatField(verbose_name='Critical Volume', null=True, blank=True)
     vc_unit = v_unit()
     acentric_factor = models.FloatField(null=True, blank=True)
     a = models.FloatField(null=True, blank=True)
