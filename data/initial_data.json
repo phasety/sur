@@ -38215,6 +38215,28 @@
   }, 
   {
     "fields": {
+      "a": null, 
+      "delta1": 1.42007, 
+      "c": null, 
+      "vc": null, 
+      "name": "n-tetratriacontane", 
+      "weight": 478.3638, 
+      "formula": "C34H70", 
+      "formula_extended": null, 
+      "acentric_factor": 1.432, 
+      "pc": 7.12, 
+      "b": null, 
+      "tc_unit": "K", 
+      "vc_unit": "L/mol", 
+      "pc_unit": "bar", 
+      "tc": 864.8, 
+      "d": null
+    }, 
+    "model": "sur.compound", 
+    "pk": 1747
+  }, 
+  {
+    "fields": {
       "a": 0.10938, 
       "delta1": null, 
       "c": 1020.0, 
@@ -38281,6 +38303,72 @@
   }, 
   {
     "fields": {
+      "a": null, 
+      "delta1": 1.35, 
+      "c": null, 
+      "vc": null, 
+      "name": "n-octatriacontane", 
+      "weight": 534.4066, 
+      "formula": "C38H78", 
+      "formula_extended": null, 
+      "acentric_factor": 1.5708, 
+      "pc": 6.4184, 
+      "b": null, 
+      "tc_unit": "K", 
+      "vc_unit": "L/mol", 
+      "pc_unit": "bar", 
+      "tc": 882.0141, 
+      "d": null
+    }, 
+    "model": "sur.compound", 
+    "pk": 1748
+  }, 
+  {
+    "fields": {
+      "a": null, 
+      "delta1": 1.35, 
+      "c": null, 
+      "vc": null, 
+      "name": "n-tetracontane", 
+      "weight": 562.428, 
+      "formula": "C40H82", 
+      "formula_extended": null, 
+      "acentric_factor": 1.64, 
+      "pc": 6.12, 
+      "b": null, 
+      "tc_unit": "K", 
+      "vc_unit": "L/mol", 
+      "pc_unit": "bar", 
+      "tc": 889.6, 
+      "d": null
+    }, 
+    "model": "sur.compound", 
+    "pk": 1749
+  }, 
+  {
+    "fields": {
+      "a": null, 
+      "delta1": 1.35, 
+      "c": null, 
+      "vc": null, 
+      "name": "n-dotetracontane", 
+      "weight": 590.4494, 
+      "formula": "C42H86", 
+      "formula_extended": null, 
+      "acentric_factor": 1.7101, 
+      "pc": 5.8405, 
+      "b": null, 
+      "tc_unit": "K", 
+      "vc_unit": "L/mol", 
+      "pc_unit": "bar", 
+      "tc": 896.6253, 
+      "d": null
+    }, 
+    "model": "sur.compound", 
+    "pk": 1750
+  }, 
+  {
+    "fields": {
       "a": 0.086219, 
       "delta1": null, 
       "c": 688.9, 
@@ -38325,6 +38413,28 @@
   }, 
   {
     "fields": {
+      "a": null, 
+      "delta1": 1.35, 
+      "c": null, 
+      "vc": null, 
+      "name": "n-tetratetracontane", 
+      "weight": 618.4708, 
+      "formula": "C44H90", 
+      "formula_extended": null, 
+      "acentric_factor": 1.7797, 
+      "pc": 5.5891, 
+      "b": null, 
+      "tc_unit": "K", 
+      "vc_unit": "L/mol", 
+      "pc_unit": "bar", 
+      "tc": 903.1225, 
+      "d": null
+    }, 
+    "model": "sur.compound", 
+    "pk": 1751
+  }, 
+  {
+    "fields": {
       "a": 0.13004, 
       "delta1": null, 
       "c": 1025.0, 
@@ -38344,6 +38454,182 @@
     }, 
     "model": "sur.compound", 
     "pk": 1590
+  }, 
+  {
+    "fields": {
+      "a": null, 
+      "delta1": 1.35, 
+      "c": null, 
+      "vc": null, 
+      "name": "n-hexatetracontane", 
+      "weight": 646.4922, 
+      "formula": "C46H94", 
+      "formula_extended": null, 
+      "acentric_factor": 1.849, 
+      "pc": 5.36, 
+      "b": null, 
+      "tc_unit": "K", 
+      "vc_unit": "L/mol", 
+      "pc_unit": "bar", 
+      "tc": 909.2, 
+      "d": null
+    }, 
+    "model": "sur.compound", 
+    "pk": 1752
+  }, 
+  {
+    "fields": {
+      "a": null, 
+      "delta1": 1.35, 
+      "c": null, 
+      "vc": null, 
+      "name": "n-octatetracontane", 
+      "weight": 674.5136, 
+      "formula": "C48H98", 
+      "formula_extended": null, 
+      "acentric_factor": 1.9189, 
+      "pc": 5.1466, 
+      "b": null, 
+      "tc_unit": "K", 
+      "vc_unit": "L/mol", 
+      "pc_unit": "bar", 
+      "tc": 914.7777, 
+      "d": null
+    }, 
+    "model": "sur.compound", 
+    "pk": 1753
+  }, 
+  {
+    "fields": {
+      "a": null, 
+      "delta1": 1.35, 
+      "c": null, 
+      "vc": null, 
+      "name": "n-pentacontane", 
+      "weight": 702.535, 
+      "formula": "C50H102", 
+      "formula_extended": null, 
+      "acentric_factor": 1.9886, 
+      "pc": 4.9508, 
+      "b": null, 
+      "tc_unit": "K", 
+      "vc_unit": "L/mol", 
+      "pc_unit": "bar", 
+      "tc": 920.0247, 
+      "d": null
+    }, 
+    "model": "sur.compound", 
+    "pk": 1754
+  }, 
+  {
+    "fields": {
+      "a": null, 
+      "delta1": 1.35, 
+      "c": null, 
+      "vc": null, 
+      "name": "n-dopentacontane", 
+      "weight": 730.5564, 
+      "formula": "C52H106", 
+      "formula_extended": null, 
+      "acentric_factor": 2.0582, 
+      "pc": 4.7695, 
+      "b": null, 
+      "tc_unit": "K", 
+      "vc_unit": "L/mol", 
+      "pc_unit": "bar", 
+      "tc": 924.9342, 
+      "d": null
+    }, 
+    "model": "sur.compound", 
+    "pk": 1755
+  }, 
+  {
+    "fields": {
+      "a": null, 
+      "delta1": 1.35, 
+      "c": null, 
+      "vc": null, 
+      "name": "n-tetrapentacontane", 
+      "weight": 758.5778, 
+      "formula": "C54H110", 
+      "formula_extended": null, 
+      "acentric_factor": 2.128, 
+      "pc": 4.6, 
+      "b": null, 
+      "tc_unit": "K", 
+      "vc_unit": "L/mol", 
+      "pc_unit": "bar", 
+      "tc": 929.5, 
+      "d": null
+    }, 
+    "model": "sur.compound", 
+    "pk": 1756
+  }, 
+  {
+    "fields": {
+      "a": null, 
+      "delta1": 1.35, 
+      "c": null, 
+      "vc": null, 
+      "name": "n-hexapentacontane", 
+      "weight": 786.5992, 
+      "formula": "C56H114", 
+      "formula_extended": null, 
+      "acentric_factor": 2.1974, 
+      "pc": 4.4443, 
+      "b": null, 
+      "tc_unit": "K", 
+      "vc_unit": "L/mol", 
+      "pc_unit": "bar", 
+      "tc": 933.8636, 
+      "d": null
+    }, 
+    "model": "sur.compound", 
+    "pk": 1757
+  }, 
+  {
+    "fields": {
+      "a": null, 
+      "delta1": 1.35, 
+      "c": null, 
+      "vc": null, 
+      "name": "n-octapentacontane", 
+      "weight": 814.6206, 
+      "formula": "C58H118", 
+      "formula_extended": null, 
+      "acentric_factor": 2.267, 
+      "pc": 4.298, 
+      "b": null, 
+      "tc_unit": "K", 
+      "vc_unit": "L/mol", 
+      "pc_unit": "bar", 
+      "tc": 937.9356, 
+      "d": null
+    }, 
+    "model": "sur.compound", 
+    "pk": 1758
+  }, 
+  {
+    "fields": {
+      "a": null, 
+      "delta1": 1.35, 
+      "c": null, 
+      "vc": null, 
+      "name": "n-hexacontane", 
+      "weight": 842.642, 
+      "formula": "C60H122", 
+      "formula_extended": null, 
+      "acentric_factor": 2.337, 
+      "pc": 4.16, 
+      "b": null, 
+      "tc_unit": "K", 
+      "vc_unit": "L/mol", 
+      "pc_unit": "bar", 
+      "tc": 941.8, 
+      "d": null
+    }, 
+    "model": "sur.compound", 
+    "pk": 1759
   }, 
   {
     "fields": {
