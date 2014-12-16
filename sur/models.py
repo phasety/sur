@@ -166,15 +166,12 @@ class Compound(models.Model):
     def __unicode__(self):
         return self.name
 
-    def create_alias(self, alias, permanent=True):
+    def create_alias(self, alias):
         """
-        Create an alias for this compound. if ``permanent`` is True
-        it's is written to disk to persist over sessions
+        Create an alias for this compound.
         """
         a = Alias(compound=self, name=alias)
         a.save()
-        if permanent:
-            a.save(using='disk')
 
     def calculate_weight(self):
         """
