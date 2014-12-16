@@ -38416,7 +38416,147 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.10934, 
+      "value": -0.007053, 
+      "compounds": [
+        3, 
+        73
+      ]
+    }, 
+    "model": "sur.k0interactionparameter", 
+    "pk": 41
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": -0.002923, 
+      "compounds": [
+        3, 
+        70
+      ]
+    }, 
+    "model": "sur.k0interactionparameter", 
+    "pk": 40
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": -0.011458, 
+      "compounds": [
+        3, 
+        1173
+      ]
+    }, 
+    "model": "sur.k0interactionparameter", 
+    "pk": 39
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": -0.016498, 
+      "compounds": [
+        3, 
+        1174
+      ]
+    }, 
+    "model": "sur.k0interactionparameter", 
+    "pk": 38
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": -0.004235, 
+      "compounds": [
+        3, 
+        71
+      ]
+    }, 
+    "model": "sur.k0interactionparameter", 
+    "pk": 37
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": -0.001302, 
+      "compounds": [
+        3, 
+        69
+      ]
+    }, 
+    "model": "sur.k0interactionparameter", 
+    "pk": 36
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": -0.008492, 
+      "compounds": [
+        3, 
+        1172
+      ]
+    }, 
+    "model": "sur.k0interactionparameter", 
+    "pk": 35
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": -0.005764, 
+      "compounds": [
+        3, 
+        72
+      ]
+    }, 
+    "model": "sur.k0interactionparameter", 
+    "pk": 34
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.109992, 
+      "compounds": [
+        1, 
+        1174
+      ]
+    }, 
+    "model": "sur.k0interactionparameter", 
+    "pk": 33
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.109672, 
+      "compounds": [
+        1, 
+        1173
+      ]
+    }, 
+    "model": "sur.k0interactionparameter", 
+    "pk": 32
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.109343, 
       "compounds": [
         1, 
         1172
@@ -38430,7 +38570,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.10913, 
+      "value": 0.109127, 
       "compounds": [
         1, 
         73
@@ -38444,7 +38584,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.10889, 
+      "value": 0.108894, 
       "compounds": [
         1, 
         72
@@ -38458,7 +38598,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.10856, 
+      "value": 0.108558, 
       "compounds": [
         1, 
         71
@@ -38486,7 +38626,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.10769, 
+      "value": 0.107685, 
       "compounds": [
         1, 
         69
@@ -38500,7 +38640,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.10717, 
+      "value": 0.107174, 
       "compounds": [
         1, 
         68
@@ -38514,7 +38654,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.10648, 
+      "value": 0.106478, 
       "compounds": [
         1, 
         67
@@ -38528,7 +38668,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.10566, 
+      "value": 0.105659, 
       "compounds": [
         1, 
         66
@@ -38542,7 +38682,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.10459, 
+      "value": 0.104594, 
       "compounds": [
         1, 
         65
@@ -38556,7 +38696,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.10336, 
+      "value": 0.103358, 
       "compounds": [
         1, 
         64
@@ -38570,7 +38710,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.10199, 
+      "value": 0.101994, 
       "compounds": [
         1, 
         62
@@ -38584,7 +38724,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.10025, 
+      "value": 0.100248, 
       "compounds": [
         1, 
         61
@@ -38598,7 +38738,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.09815, 
+      "value": 0.098145, 
       "compounds": [
         1, 
         60
@@ -38612,7 +38752,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.09593, 
+      "value": 0.095928, 
       "compounds": [
         1, 
         59
@@ -38626,7 +38766,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.09292, 
+      "value": 0.092924, 
       "compounds": [
         1, 
         58
@@ -38640,7 +38780,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.08949, 
+      "value": 0.089489, 
       "compounds": [
         1, 
         57
@@ -38654,7 +38794,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.08508, 
+      "value": 0.085084, 
       "compounds": [
         1, 
         56
@@ -38668,7 +38808,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.07995, 
+      "value": 0.079951, 
       "compounds": [
         1, 
         55
@@ -38682,7 +38822,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.07472, 
+      "value": 0.074716, 
       "compounds": [
         1, 
         54
@@ -38696,7 +38836,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.06853, 
+      "value": 0.068534, 
       "compounds": [
         1, 
         51
@@ -38710,7 +38850,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.06183, 
+      "value": 0.061832, 
       "compounds": [
         1, 
         41
@@ -38724,7 +38864,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.05464, 
+      "value": 0.054644, 
       "compounds": [
         1, 
         23
@@ -38738,7 +38878,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.04678, 
+      "value": 0.046782, 
       "compounds": [
         1, 
         14
@@ -38752,7 +38892,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.03865, 
+      "value": 0.038646, 
       "compounds": [
         1, 
         9
@@ -38780,7 +38920,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.03022, 
+      "value": 0.030221, 
       "compounds": [
         1, 
         6
@@ -38808,7 +38948,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.02178, 
+      "value": 0.021776, 
       "compounds": [
         1, 
         5
@@ -38822,7 +38962,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.01, 
+      "value": 0.013831, 
       "compounds": [
         1, 
         3
@@ -43286,7 +43426,2849 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.00181, 
+      "value": 0.026575, 
+      "compounds": [
+        54, 
+        57
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 292
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.107159, 
+      "compounds": [
+        54, 
+        1173
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 291
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.084723, 
+      "compounds": [
+        54, 
+        66
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 290
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.075931, 
+      "compounds": [
+        54, 
+        64
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 289
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.014033, 
+      "compounds": [
+        54, 
+        56
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 288
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.080626, 
+      "compounds": [
+        54, 
+        65
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 287
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.048118, 
+      "compounds": [
+        54, 
+        59
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 286
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.038035, 
+      "compounds": [
+        54, 
+        58
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 285
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.091507, 
+      "compounds": [
+        54, 
+        68
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 284
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.09908, 
+      "compounds": [
+        54, 
+        71
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 283
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.096841, 
+      "compounds": [
+        54, 
+        70
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 282
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.088325, 
+      "compounds": [
+        54, 
+        67
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 281
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.064194, 
+      "compounds": [
+        54, 
+        61
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 280
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.101078, 
+      "compounds": [
+        54, 
+        72
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 279
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.070509, 
+      "compounds": [
+        54, 
+        62
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 278
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.09433, 
+      "compounds": [
+        54, 
+        69
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 277
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.056794, 
+      "compounds": [
+        54, 
+        60
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 276
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.11105, 
+      "compounds": [
+        54, 
+        1174
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 275
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.001009, 
+      "compounds": [
+        54, 
+        55
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 274
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.104457, 
+      "compounds": [
+        54, 
+        1172
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 273
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.102862, 
+      "compounds": [
+        54, 
+        73
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 272
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.049878, 
+      "compounds": [
+        51, 
+        59
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 271
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.104745, 
+      "compounds": [
+        51, 
+        1173
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 270
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.100443, 
+      "compounds": [
+        51, 
+        73
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 269
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.09675, 
+      "compounds": [
+        51, 
+        71
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 268
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.040975, 
+      "compounds": [
+        51, 
+        58
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 267
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": -0.001026, 
+      "compounds": [
+        51, 
+        54
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 266
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.079385, 
+      "compounds": [
+        51, 
+        65
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 265
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.089529, 
+      "compounds": [
+        51, 
+        68
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 264
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.098691, 
+      "compounds": [
+        51, 
+        72
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 263
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.06433, 
+      "compounds": [
+        51, 
+        61
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 262
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.075057, 
+      "compounds": [
+        51, 
+        64
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 261
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.094595, 
+      "compounds": [
+        51, 
+        70
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 260
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.070085, 
+      "compounds": [
+        51, 
+        62
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 259
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.086541, 
+      "compounds": [
+        51, 
+        67
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 258
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.108788, 
+      "compounds": [
+        51, 
+        1174
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 257
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.009402, 
+      "compounds": [
+        51, 
+        55
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 256
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.092199, 
+      "compounds": [
+        51, 
+        69
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 255
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.083183, 
+      "compounds": [
+        51, 
+        66
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 254
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.031013, 
+      "compounds": [
+        51, 
+        57
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 253
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.020304, 
+      "compounds": [
+        51, 
+        56
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 252
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.05764, 
+      "compounds": [
+        51, 
+        60
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 251
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.102024, 
+      "compounds": [
+        51, 
+        1172
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 250
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.06498, 
+      "compounds": [
+        41, 
+        61
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 249
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.101158, 
+      "compounds": [
+        41, 
+        1172
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 248
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.0784, 
+      "compounds": [
+        41, 
+        65
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 247
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.005544, 
+      "compounds": [
+        41, 
+        54
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 246
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.096476, 
+      "compounds": [
+        41, 
+        72
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 245
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.04462, 
+      "compounds": [
+        41, 
+        58
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 244
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.08775, 
+      "compounds": [
+        41, 
+        68
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 243
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.0946, 
+      "compounds": [
+        41, 
+        71
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 242
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.070057, 
+      "compounds": [
+        41, 
+        62
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 241
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.074493, 
+      "compounds": [
+        41, 
+        64
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 240
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.098184, 
+      "compounds": [
+        41, 
+        73
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 239
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.026105, 
+      "compounds": [
+        41, 
+        56
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 238
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.035819, 
+      "compounds": [
+        41, 
+        57
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 237
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.103631, 
+      "compounds": [
+        41, 
+        1173
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 236
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.081867, 
+      "compounds": [
+        41, 
+        66
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 235
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.052383, 
+      "compounds": [
+        41, 
+        59
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 234
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.059133, 
+      "compounds": [
+        41, 
+        60
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 233
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.107403, 
+      "compounds": [
+        41, 
+        1174
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 232
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": -0.004071, 
+      "compounds": [
+        41, 
+        51
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 231
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.090262, 
+      "compounds": [
+        41, 
+        69
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 230
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.015824, 
+      "compounds": [
+        41, 
+        55
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 229
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.092536, 
+      "compounds": [
+        41, 
+        70
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 228
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.084966, 
+      "compounds": [
+        41, 
+        67
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 227
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.096043, 
+      "compounds": [
+        23, 
+        1172
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 226
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": -0.00874, 
+      "compounds": [
+        23, 
+        51
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 225
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.103519, 
+      "compounds": [
+        23, 
+        1174
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 224
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.086053, 
+      "compounds": [
+        23, 
+        70
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 223
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.048354, 
+      "compounds": [
+        23, 
+        60
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 222
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": -0.00781, 
+      "compounds": [
+        23, 
+        54
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 221
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.073899, 
+      "compounds": [
+        23, 
+        66
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 220
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.09897, 
+      "compounds": [
+        23, 
+        1173
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 219
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.023215, 
+      "compounds": [
+        23, 
+        57
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 218
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.092567, 
+      "compounds": [
+        23, 
+        73
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 217
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.054852, 
+      "compounds": [
+        23, 
+        61
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 216
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.077418, 
+      "compounds": [
+        23, 
+        67
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 215
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": -0.007693, 
+      "compounds": [
+        23, 
+        41
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 214
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.083451, 
+      "compounds": [
+        23, 
+        69
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 213
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.088423, 
+      "compounds": [
+        23, 
+        71
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 212
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.080586, 
+      "compounds": [
+        23, 
+        68
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 211
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.032554, 
+      "compounds": [
+        23, 
+        58
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 210
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.090587, 
+      "compounds": [
+        23, 
+        72
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 209
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.065546, 
+      "compounds": [
+        23, 
+        64
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 208
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.040943, 
+      "compounds": [
+        23, 
+        59
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 207
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.069967, 
+      "compounds": [
+        23, 
+        65
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 206
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.060544, 
+      "compounds": [
+        23, 
+        62
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 205
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.013098, 
+      "compounds": [
+        23, 
+        56
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 204
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.002572, 
+      "compounds": [
+        23, 
+        55
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 203
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": -0.010262, 
+      "compounds": [
+        14, 
+        23
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 202
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.091523, 
+      "compounds": [
+        14, 
+        1173
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 201
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.097127, 
+      "compounds": [
+        14, 
+        1174
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 200
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.083922, 
+      "compounds": [
+        14, 
+        73
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 199
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": -0.01109, 
+      "compounds": [
+        14, 
+        55
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 198
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.053398, 
+      "compounds": [
+        14, 
+        64
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 197
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.047904, 
+      "compounds": [
+        14, 
+        62
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 196
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": -0.014354, 
+      "compounds": [
+        14, 
+        51
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 195
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.034767, 
+      "compounds": [
+        14, 
+        60
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 194
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.073443, 
+      "compounds": [
+        14, 
+        69
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 193
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.041722, 
+      "compounds": [
+        14, 
+        61
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 192
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.081621, 
+      "compounds": [
+        14, 
+        72
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 191
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": -0.013334, 
+      "compounds": [
+        14, 
+        41
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 190
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.088014, 
+      "compounds": [
+        14, 
+        1172
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 189
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.079124, 
+      "compounds": [
+        14, 
+        71
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 188
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.066627, 
+      "compounds": [
+        14, 
+        67
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 187
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.018345, 
+      "compounds": [
+        14, 
+        58
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 186
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.076407, 
+      "compounds": [
+        14, 
+        70
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 185
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.058296, 
+      "compounds": [
+        14, 
+        65
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 184
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.070197, 
+      "compounds": [
+        14, 
+        68
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 183
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": -0.013449, 
+      "compounds": [
+        14, 
+        54
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 182
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": -0.000983, 
+      "compounds": [
+        14, 
+        56
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 181
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.062681, 
+      "compounds": [
+        14, 
+        66
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 180
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.026977, 
+      "compounds": [
+        14, 
+        59
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 179
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.008952, 
+      "compounds": [
+        14, 
+        57
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 178
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": -0.017152, 
+      "compounds": [
+        9, 
+        55
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 177
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": -0.0194, 
+      "compounds": [
+        9, 
+        54
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 176
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.08825, 
+      "compounds": [
+        9, 
+        1174
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 175
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.077568, 
+      "compounds": [
+        9, 
+        1172
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 174
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": -0.016354, 
+      "compounds": [
+        9, 
+        23
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 173
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.012604, 
+      "compounds": [
+        9, 
+        59
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 172
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.070329, 
+      "compounds": [
+        9, 
+        72
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 171
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.064529, 
+      "compounds": [
+        9, 
+        70
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 170
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": -0.014022, 
+      "compounds": [
+        9, 
+        56
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 169
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.033859, 
+      "compounds": [
+        9, 
+        62
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 168
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.057705, 
+      "compounds": [
+        9, 
+        68
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 167
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.04484, 
+      "compounds": [
+        9, 
+        65
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 166
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.061262, 
+      "compounds": [
+        9, 
+        69
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 165
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.039632, 
+      "compounds": [
+        9, 
+        64
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 164
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.004179, 
+      "compounds": [
+        9, 
+        58
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 163
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": -0.011672, 
+      "compounds": [
+        9, 
+        14
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 162
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.053816, 
+      "compounds": [
+        9, 
+        67
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 161
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.067542, 
+      "compounds": [
+        9, 
+        71
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 160
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.072916, 
+      "compounds": [
+        9, 
+        73
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 159
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": -0.019291, 
+      "compounds": [
+        9, 
+        41
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 158
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.081626, 
+      "compounds": [
+        9, 
+        1173
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 157
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.027456, 
+      "compounds": [
+        9, 
+        61
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 156
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.020376, 
+      "compounds": [
+        9, 
+        60
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 155
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": -0.004773, 
+      "compounds": [
+        9, 
+        57
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 154
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": -0.020252, 
+      "compounds": [
+        9, 
+        51
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 153
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.049547, 
+      "compounds": [
+        9, 
+        66
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 152
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.006923, 
+      "compounds": [
+        6, 
+        62
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 151
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.044794, 
+      "compounds": [
+        6, 
+        72
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 150
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": -0.021016, 
+      "compounds": [
+        6, 
+        41
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 149
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.034891, 
+      "compounds": [
+        6, 
+        69
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 148
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": -0.02353, 
+      "compounds": [
+        6, 
+        51
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 147
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.000836, 
+      "compounds": [
+        6, 
+        61
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 146
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": -0.005663, 
+      "compounds": [
+        6, 
+        60
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 145
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": -0.011538, 
+      "compounds": [
+        6, 
+        14
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 144
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.050442, 
+      "compounds": [
+        6, 
+        1172
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 143
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": -0.023621, 
+      "compounds": [
+        6, 
+        55
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 142
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.055512, 
+      "compounds": [
+        6, 
+        1173
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 141
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": -0.016886, 
+      "compounds": [
+        6, 
+        23
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 140
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.047698, 
+      "compounds": [
+        6, 
+        73
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 139
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.064316, 
+      "compounds": [
+        6, 
+        1174
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 138
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.041707, 
+      "compounds": [
+        6, 
+        71
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 137
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.038416, 
+      "compounds": [
+        6, 
+        70
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 136
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": -0.012501, 
+      "compounds": [
+        6, 
+        59
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 135
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.022586, 
+      "compounds": [
+        6, 
+        66
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 134
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": -0.018979, 
+      "compounds": [
+        6, 
+        57
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 133
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": -0.021705, 
+      "compounds": [
+        6, 
+        56
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 132
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": -0.005645, 
+      "compounds": [
+        6, 
+        9
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 131
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.031102, 
+      "compounds": [
+        6, 
+        68
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 130
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": -0.02434, 
+      "compounds": [
+        6, 
+        54
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 129
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.017783, 
+      "compounds": [
+        6, 
+        65
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 128
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.01257, 
+      "compounds": [
+        6, 
+        64
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 127
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": -0.015811, 
+      "compounds": [
+        6, 
+        58
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 126
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.027013, 
+      "compounds": [
+        6, 
+        67
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 125
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": -0.020603, 
+      "compounds": [
+        5, 
+        58
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 124
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.013616, 
+      "compounds": [
+        5, 
+        68
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 123
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.022868, 
+      "compounds": [
+        5, 
+        71
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 122
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.016903, 
+      "compounds": [
+        5, 
+        69
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 121
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": -0.025176, 
+      "compounds": [
+        5, 
+        41
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 120
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": -0.01671, 
+      "compounds": [
+        5, 
+        14
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 119
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.010094, 
+      "compounds": [
+        5, 
+        67
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 118
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": -0.011684, 
+      "compounds": [
+        5, 
+        61
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 117
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.02817, 
+      "compounds": [
+        5, 
+        73
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 116
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": -0.023406, 
+      "compounds": [
+        5, 
+        57
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 115
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.03519, 
+      "compounds": [
+        5, 
+        1173
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 114
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.006314, 
+      "compounds": [
+        5, 
+        66
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 113
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": -0.005297, 
+      "compounds": [
+        5, 
+        6
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 112
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": -0.028016, 
+      "compounds": [
+        5, 
+        54
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 111
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": -0.014584, 
+      "compounds": [
+        5, 
+        60
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 110
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.04332, 
+      "compounds": [
+        5, 
+        1174
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 109
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": -0.027329, 
+      "compounds": [
+        5, 
+        51
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 108
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": -0.011082, 
+      "compounds": [
+        5, 
+        9
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 107
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": -0.021561, 
+      "compounds": [
+        5, 
+        23
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 106
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.03062, 
+      "compounds": [
+        5, 
+        1172
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 105
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": -0.027407, 
+      "compounds": [
+        5, 
+        55
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 104
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": -0.02577, 
+      "compounds": [
+        5, 
+        56
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 103
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.019979, 
+      "compounds": [
+        5, 
+        70
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 102
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": -0.006752, 
+      "compounds": [
+        5, 
+        62
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 101
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.002253, 
+      "compounds": [
+        5, 
+        65
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 100
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": -0.0176, 
+      "compounds": [
+        5, 
+        59
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 99
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": -0.0021, 
+      "compounds": [
+        5, 
+        64
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 98
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.025592, 
+      "compounds": [
+        5, 
+        72
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 97
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.019738, 
+      "compounds": [
+        3, 
+        1173
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 96
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.026496, 
+      "compounds": [
+        3, 
+        1174
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 95
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.000564, 
+      "compounds": [
+        2, 
+        1174
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 94
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": -0.011464, 
+      "compounds": [
+        2, 
+        1173
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 93
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": -0.0117, 
+      "compounds": [
+        2, 
+        3
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 92
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": -0.032369, 
+      "compounds": [
+        1, 
+        1173
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 91
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": -0.024468, 
+      "compounds": [
+        1, 
+        1174
+      ]
+    }, 
+    "model": "sur.lijinteractionparameter", 
+    "pk": 90
+  }, 
+  {
+    "fields": {
+      "eos": "RKPR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.015906, 
       "compounds": [
         3, 
         1172
@@ -43300,7 +46282,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.0002, 
+      "value": 0.013839, 
       "compounds": [
         3, 
         73
@@ -43314,7 +46296,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.00155, 
+      "value": 0.011654, 
       "compounds": [
         3, 
         72
@@ -43328,7 +46310,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.00346, 
+      "value": 0.009335, 
       "compounds": [
         3, 
         71
@@ -43342,7 +46324,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.00553, 
+      "value": 0.006864, 
       "compounds": [
         3, 
         70
@@ -43356,7 +46338,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.00777, 
+      "value": 0.004224, 
       "compounds": [
         3, 
         69
@@ -43370,7 +46352,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.01019, 
+      "value": 0.001396, 
       "compounds": [
         3, 
         68
@@ -43384,7 +46366,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.0128, 
+      "value": -0.001639, 
       "compounds": [
         3, 
         67
@@ -43398,7 +46380,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.01557, 
+      "value": -0.004899, 
       "compounds": [
         3, 
         66
@@ -43412,7 +46394,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.01852, 
+      "value": -0.008395, 
       "compounds": [
         3, 
         65
@@ -43426,7 +46408,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.02162, 
+      "value": -0.012132, 
       "compounds": [
         3, 
         64
@@ -43440,7 +46422,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.02483, 
+      "value": -0.014681, 
       "compounds": [
         3, 
         62
@@ -43454,7 +46436,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.02811, 
+      "value": -0.017427, 
       "compounds": [
         3, 
         61
@@ -43468,7 +46450,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.0314, 
+      "value": -0.020318, 
       "compounds": [
         3, 
         60
@@ -43482,7 +46464,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.0346, 
+      "value": -0.023269, 
       "compounds": [
         3, 
         59
@@ -43496,7 +46478,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.03761, 
+      "value": -0.026159, 
       "compounds": [
         3, 
         58
@@ -43510,7 +46492,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.04027, 
+      "value": -0.028818, 
       "compounds": [
         3, 
         57
@@ -43524,7 +46506,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.04242, 
+      "value": -0.031032, 
       "compounds": [
         3, 
         56
@@ -43538,7 +46520,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.04387, 
+      "value": -0.032553, 
       "compounds": [
         3, 
         55
@@ -43552,7 +46534,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.04439, 
+      "value": -0.033116, 
       "compounds": [
         3, 
         54
@@ -43566,7 +46548,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.0438, 
+      "value": -0.032481, 
       "compounds": [
         3, 
         51
@@ -43580,7 +46562,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.04189, 
+      "value": -0.030478, 
       "compounds": [
         3, 
         41
@@ -43594,7 +46576,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.03853, 
+      "value": -0.027072, 
       "compounds": [
         3, 
         23
@@ -43608,7 +46590,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.03368, 
+      "value": -0.022404, 
       "compounds": [
         3, 
         14
@@ -43622,7 +46604,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.0274, 
+      "value": -0.01682, 
       "compounds": [
         3, 
         9
@@ -43650,7 +46632,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.01991, 
+      "value": -0.010835, 
       "compounds": [
         3, 
         6
@@ -43678,7 +46660,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.01158, 
+      "value": -0.005045, 
       "compounds": [
         3, 
         5
@@ -43692,7 +46674,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.02071, 
+      "value": -0.018614, 
       "compounds": [
         2, 
         1172
@@ -43706,7 +46688,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.02311, 
+      "value": -0.022513, 
       "compounds": [
         2, 
         73
@@ -43720,7 +46702,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.02584, 
+      "value": -0.026642, 
       "compounds": [
         2, 
         72
@@ -43734,7 +46716,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.02895, 
+      "value": -0.031013, 
       "compounds": [
         2, 
         71
@@ -43748,7 +46730,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.03248, 
+      "value": -0.035632, 
       "compounds": [
         2, 
         70
@@ -43762,7 +46744,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.03651, 
+      "value": -0.040505, 
       "compounds": [
         2, 
         69
@@ -43776,7 +46758,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.04107, 
+      "value": -0.045635, 
       "compounds": [
         2, 
         68
@@ -43790,7 +46772,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.04622, 
+      "value": -0.051018, 
       "compounds": [
         2, 
         67
@@ -43804,7 +46786,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.05201, 
+      "value": -0.056644, 
       "compounds": [
         2, 
         66
@@ -43818,7 +46800,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.05846, 
+      "value": -0.062494, 
       "compounds": [
         2, 
         65
@@ -43832,7 +46814,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.06559, 
+      "value": -0.068539, 
       "compounds": [
         2, 
         64
@@ -43846,7 +46828,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.07337, 
+      "value": -0.072867, 
       "compounds": [
         2, 
         62
@@ -43860,7 +46842,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.08172, 
+      "value": -0.077228, 
       "compounds": [
         2, 
         61
@@ -43874,7 +46856,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.09047, 
+      "value": -0.081534, 
       "compounds": [
         2, 
         60
@@ -43888,7 +46870,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.09938, 
+      "value": -0.085676, 
       "compounds": [
         2, 
         59
@@ -43902,7 +46884,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.10806, 
+      "value": -0.089515, 
       "compounds": [
         2, 
         58
@@ -43916,7 +46898,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.11604, 
+      "value": -0.092883, 
       "compounds": [
         2, 
         57
@@ -43930,7 +46912,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.12266, 
+      "value": -0.09558, 
       "compounds": [
         2, 
         56
@@ -43944,7 +46926,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.1272, 
+      "value": -0.09738, 
       "compounds": [
         2, 
         55
@@ -43958,7 +46940,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.12888, 
+      "value": -0.098037, 
       "compounds": [
         2, 
         54
@@ -43972,7 +46954,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.12699, 
+      "value": -0.097296, 
       "compounds": [
         2, 
         51
@@ -43986,7 +46968,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.121, 
+      "value": -0.094914, 
       "compounds": [
         2, 
         41
@@ -44000,7 +46982,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.1108, 
+      "value": -0.090688, 
       "compounds": [
         2, 
         23
@@ -44014,7 +46996,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.09677, 
+      "value": -0.084486, 
       "compounds": [
         2, 
         14
@@ -44028,7 +47010,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.07988, 
+      "value": -0.076288, 
       "compounds": [
         2, 
         9
@@ -44056,7 +47038,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.06162, 
+      "value": -0.066217, 
       "compounds": [
         2, 
         6
@@ -44084,7 +47066,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.04378, 
+      "value": -0.054568, 
       "compounds": [
         2, 
         5
@@ -44098,7 +47080,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.3775, 
+      "value": -0.037751, 
       "compounds": [
         1, 
         1172
@@ -44126,7 +47108,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.0444, 
+      "value": -0.044399, 
       "compounds": [
         1, 
         72
@@ -44140,7 +47122,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.04828, 
+      "value": -0.048282, 
       "compounds": [
         1, 
         71
@@ -44154,7 +47136,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.05259, 
+      "value": -0.052587, 
       "compounds": [
         1, 
         70
@@ -44168,7 +47150,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.05735, 
+      "value": -0.057347, 
       "compounds": [
         1, 
         69
@@ -44182,7 +47164,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.0626, 
+      "value": -0.062596, 
       "compounds": [
         1, 
         68
@@ -44196,7 +47178,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.06836, 
+      "value": -0.068358, 
       "compounds": [
         1, 
         67
@@ -44210,7 +47192,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.07465, 
+      "value": -0.074649, 
       "compounds": [
         1, 
         66
@@ -44224,7 +47206,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.08147, 
+      "value": -0.081468, 
       "compounds": [
         1, 
         65
@@ -44238,7 +47220,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.08879, 
+      "value": -0.088788, 
       "compounds": [
         1, 
         64
@@ -44252,7 +47234,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.09655, 
+      "value": -0.096551, 
       "compounds": [
         1, 
         62
@@ -44266,7 +47248,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.10465, 
+      "value": -0.104652, 
       "compounds": [
         1, 
         61
@@ -44280,7 +47262,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.11293, 
+      "value": -0.112927, 
       "compounds": [
         1, 
         60
@@ -44294,7 +47276,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.12114, 
+      "value": -0.121142, 
       "compounds": [
         1, 
         59
@@ -44322,7 +47304,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.13603, 
+      "value": -0.136031, 
       "compounds": [
         1, 
         57
@@ -44336,7 +47318,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.14179, 
+      "value": -0.141796, 
       "compounds": [
         1, 
         56
@@ -44350,7 +47332,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.1457, 
+      "value": -0.145703, 
       "compounds": [
         1, 
         55
@@ -44378,7 +47360,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.14552, 
+      "value": -0.145519, 
       "compounds": [
         1, 
         51
@@ -44392,7 +47374,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.14036, 
+      "value": -0.140363, 
       "compounds": [
         1, 
         41
@@ -44406,7 +47388,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.13141, 
+      "value": -0.131416, 
       "compounds": [
         1, 
         23
@@ -44420,7 +47402,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.11875, 
+      "value": -0.118756, 
       "compounds": [
         1, 
         14
@@ -44434,7 +47416,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.10288, 
+      "value": -0.102881, 
       "compounds": [
         1, 
         9
@@ -44462,7 +47444,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.08474, 
+      "value": -0.084739, 
       "compounds": [
         1, 
         6
@@ -44490,7 +47472,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.06565, 
+      "value": -0.065653, 
       "compounds": [
         1, 
         5
@@ -44504,7 +47486,7 @@
       "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.04225, 
+      "value": -0.047134, 
       "compounds": [
         1, 
         3
