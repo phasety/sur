@@ -643,8 +643,9 @@ class TestFlash(TestCase):
         self.m[self.methane] = 0.6   # total_z = 1.0
         assert self.m.clean() is None
         # not raises
-        self.m.get_flash(s, 10., 20.)
-
+        flash = self.m.get_flash(s, 10., 20.)
+        assert_array_equal(flash.x, np.array([0., 1., 0]))
+        assert_array_equal(flash.y, np.array([ 0.142857,  0,  0.857143]))
 
 
 class TestSetInteractionMatrix(TestCase):
