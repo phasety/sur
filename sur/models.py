@@ -4,7 +4,6 @@ from decimal import Decimal
 from itertools import combinations
 # from functools import partial
 from StringIO import StringIO
-
 from django.db import models
 from django.db.models import Q
 # from django.core.validators import MaxValueValidator, MinValueValidator
@@ -762,14 +761,15 @@ class Mixture(models.Model):
                                                    rho_cri=rho_cri,
                                                    label=label)
 
-    def get_flash(self, setup, t, p):
+    def get_flash(self, setup, t, p=None, v=None):
         """
-        Get the flash on (t, p) for this mixture, calculated using
+        Get the flash on (t, p) or (t,v) for this mixture, calculated using
         the setup EOS with its selected interaction parameters
         mode.
         """
         return EosFlash.objects.get_or_create(t=t,
                                               p=p,
+                                              v=v,
                                               mixture=self,
                                               setup=setup)[0]
 
@@ -977,7 +977,8 @@ class Flash(models.Model):
 
     mixture = models.ForeignKey('Mixture', related_name='%(class)ses')
     t = models.FloatField(verbose_name='Temperature of the flash')
-    p = models.FloatField(verbose_name='Pressure of the flash')
+    p = models.FloatField(verbose_name='Pressure of the flash', null=True)
+    v = models.FloatField(verbose_name='Volume of the flash', null=True)
 
     rho_l = models.FloatField(verbose_name='Density of liquid', null=True)  # remove null
     rho_v = models.FloatField(verbose_name='Density of vapour', null=True)  # remove null
@@ -1054,7 +1055,11 @@ class EosFlash(Flash):
                                  lij=m.lij(self.eos))
         self.x, self.y, self.rho_l, self.rho_v, self.beta = flash_result
         """
-        self.x, self.y, self.rho_l, self.rho_v, self.beta_mol, self.beta_vol = flash_routine(self)
+        self.x, self.y, self.rho_l, self.rho_v, self.beta_mol, self.beta_vol, p, v = flash_routine(self)
+        if self.p:
+            self.v = v
+        elif self.v:
+            self.p = p
 
     def save(self, *args, **kwargs):
         if not self.id:
