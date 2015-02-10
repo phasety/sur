@@ -44,7 +44,7 @@ def exec_fortran(bin, path, as_out_txt=None, timeout=10):
     return output
 
 
-def write_input(mixture, eos, t=None, p=None, as_data=False, interactions=None):
+def write_input(mixture, eos, t=None, p=None, v=None, as_data=False, interactions=None):
     """
     if t and p are given, return the path of the folder with
     a written flashIN.txt
@@ -63,7 +63,7 @@ def write_input(mixture, eos, t=None, p=None, as_data=False, interactions=None):
     if as_data:
         return data
 
-    input_file = 'flashIN.txt' if t and p else 'envelIN.txt'
+    input_file = 'flashIN.txt' if t and (p or v) else 'envelIN.txt'
     path = tempfile.mkdtemp()
     with open(os.path.join(path, input_file), 'w') as fh:
         fh.write(data)
@@ -80,6 +80,7 @@ def envelope(env):
     env.output_txt = output
 
     output = output.split('\n')
+    import ipdb; ipdb.set_trace()
 
     mark = "    T(K)        P(bar)        D(mol/L)"
     for start, line in enumerate(output):
@@ -108,19 +109,18 @@ def envelope(env):
 
 
 def flash(fi):
-    path = write_input(fi.mixture, fi.setup.eos, fi.t, fi.p,
+    path = write_input(fi.mixture, fi.setup.eos, fi.t, fi.p, fi.v,
                        interactions=fi.interactions)
     output = exec_fortran('FlashSur', path)
 
     # to debug
     fi.input_txt = open(os.path.join(path, 'flashIN.txt')).read()
     fi.output_txt = output
-
     output = [float(n) for n in output.replace('\r\n', '').split()]
     print((output, len(output)))
     n = len(fi.mixture)
-    x, y, (rho_x, rho_y, beta_mol, beta_vol) = output[:n], output[n:-4], output[-4:]
+    x, y, (rho_x, rho_y, beta_mol, beta_vol, p, v) = output[:n], output[n:-6], output[-6:]
 
     x = np.array(x)
     y = np.array(y)
-    return x / x.sum(), y / y.sum(), rho_x, rho_y, beta_mol, beta_vol
+    return x / x.sum(), y / y.sum(), rho_x, rho_y, beta_mol, beta_vol, p, v

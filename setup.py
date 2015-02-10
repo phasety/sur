@@ -19,7 +19,7 @@ LICENSE = 'Freeware'
 DOWNLOAD_URL = URL
 PACKAGE_NAME = 'sur'
 EXTRA_INFO  = dict(
-    install_requires=['django', 'django-picklefield', 'numpy', 'matplotlib', 'quantities'],
+    install_requires=['django', 'one', 'django-picklefield', 'numpy', 'matplotlib', 'quantities'],
     classifiers=['Development Status :: 3 - Alpha',
                  'Intended Audience :: Developers',
                  'Intended Audience :: Science/Research',

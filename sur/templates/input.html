@@ -1,7 +1,10 @@
-{{ mixture|length }}		NC
+{{ mixture|length }}		NC{% if t and p %}
+TP                Spec    TP:TPz(K,bar) ; TV:Tvz(K,L/mol){% elif t and v %}TV              Spec    TP:TPz(K,bar) ; TV:Tvz(K,L/mol){% endif %}
 {% for fraction in mixture.z %}{{fraction}}  {% endfor %}		z1,z2...zNC{% if t and p %}
 {{ t }}		T(K)
-{{ p }}		P(bar){% endif %}
+{{ p }}		P(bar){% elif t and v %}
+{{ t }}     T(K)
+{{ v }}     v(L/mol){% endif %}
 {{ eos.MODEL_ID }}				NMODEL (1:SRK / 2:PR / 3:RKPR)
 0  {{ nTdep }}			ncomb, nTdep
 {% for c in compounds %}{{ c.name }}({{ forloop.counter }})
@@ -11,4 +14,4 @@
 {{ c.k0_ }}          k0{% endif %}{% if c.tstar_ %}
 {{ c.tstar_ }}       tstar{% endif %}
 {{ c.lij_ }} 		lij{% endif %}
-{% endfor %}
+{% endfor %}{% if t and p or v %}0.0{% endif %}
