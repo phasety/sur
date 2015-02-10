@@ -80,7 +80,6 @@ def envelope(env):
     env.output_txt = output
 
     output = output.split('\n')
-    import ipdb; ipdb.set_trace()
 
     mark = "    T(K)        P(bar)        D(mol/L)"
     for start, line in enumerate(output):
