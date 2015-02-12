@@ -1,5 +1,6 @@
 {{ mixture|length }}		NC{% if t and p %}
-TP                Spec    TP:TPz(K,bar) ; TV:Tvz(K,L/mol){% elif t and v %}TV              Spec    TP:TPz(K,bar) ; TV:Tvz(K,L/mol){% endif %}
+TP                Spec    TP:TPz(K,bar) ; TV:Tvz(K,L/mol){% elif t and v %}
+TV              Spec    TP:TPz(K,bar) ; TV:Tvz(K,L/mol){% endif %}
 {% for fraction in mixture.z %}{{fraction}}  {% endfor %}		z1,z2...zNC{% if t and p %}
 {{ t }}		T(K)
 {{ p }}		P(bar){% elif t and v %}

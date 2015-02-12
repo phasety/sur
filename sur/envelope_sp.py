@@ -115,8 +115,8 @@ def flash(fi):
     # to debug
     fi.input_txt = open(os.path.join(path, 'flashIN.txt')).read()
     fi.output_txt = output
+    import ipdb; ipdb.set_trace()
     output = [float(n) for n in output.replace('\r\n', '').split()]
-    print((output, len(output)))
     n = len(fi.mixture)
     x, y, (rho_x, rho_y, beta_mol, beta_vol, p, v) = output[:n], output[n:-6], output[-6:]
 
