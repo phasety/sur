@@ -280,6 +280,8 @@ class TestInteraction(TestCase):
     def setUp(self):
         K0InteractionParameter.objects.all().delete()
         KijInteractionParameter.objects.all().delete()
+        LijInteractionParameter.objects.all().delete()
+
         User.objects.all().delete()
 
         self.k = K0InteractionParameter.objects.create(eos='RKPR', value=0.4)
@@ -318,6 +320,28 @@ class TestInteraction(TestCase):
             other_k.compounds.add(self.co2)
         self.assertIn('Already exists a parameter matching these condition',
                       e.exception.message)
+
+    def test_cant_add_another_global_Lij_for_both_shared_compounds(self):
+        lij = LijInteractionParameter.objects.create(eos='PR', value=0.1)
+        lij.compounds.add(self.ethane)
+        lij.compounds.add(self.co2)
+        lij2 = LijInteractionParameter.objects.create(eos='PR', value=0.2)
+        lij2.compounds.add(self.ethane)
+        with self.assertRaises(IntegrityError) as e:
+            lij2.compounds.add(self.co2)
+        self.assertIn('Already exists a parameter matching these condition',
+                      e.exception.message)
+
+    def test_cant_add_another_global_Lij_for_both_shared_compounds_with_direct_assignement(self):
+        lij = LijInteractionParameter.objects.create(eos='PR', value=0.1)
+        lij.compounds.add(self.ethane)
+        lij.compounds.add(self.co2)
+        lij2 = LijInteractionParameter.objects.create(eos='PR', value=0.2)
+        with self.assertRaises(IntegrityError) as e:
+            lij2.compounds = [self.ethane, self.co2]
+        self.assertIn('Already exists a parameter matching these condition',
+                      e.exception.message)
+
 
     def test_can_add_per_user_k0_for_existent_global_compounds(self):
         user = User.objects.create(username='tin')
