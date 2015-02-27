@@ -671,6 +671,17 @@ class TestFlash(TestCase):
         assert_array_equal(flash.x, np.array([0., 1., 0]))
         assert_array_equal(flash.y, np.array([ 0.142857,  0,  0.857143]))
 
+    def test_multi_flashes(self):
+        s = EosSetup.objects.create(eos='RKPR',
+                                    kij_mode='constants', lij_mode='constants')
+        self.m.add(self.ethane, 0.1)
+        self.m.add(self.co2, 0.3)
+        self.m.add(self.methane, 0.6)
+        flashes = self.m.get_flashes(s, 10., [20., 21.])
+        self.assertEqual(len(flashes), 2)
+        self.assertEqual(flashes[0].p, 20.)
+        self.assertEqual(flashes[1].p, 21.)
+
 
 class TestSetInteractionMatrix(TestCase):
 

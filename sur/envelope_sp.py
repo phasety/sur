@@ -5,6 +5,7 @@ import sys
 import os.path
 import tempfile
 import cStringIO
+from collections import Iterable
 
 try:
     import subprocess32 as subprocess
@@ -44,12 +45,16 @@ def exec_fortran(bin, path, as_out_txt=None, timeout=10):
     return output
 
 
-def write_input(mixture, eos, t=None, p=None, v=None, as_data=False, interactions=None):
+def write_input(mixture, eos, t=None, p=[], v=[], as_data=False, interactions=None):
     """
     if t and p are given, return the path of the folder with
     a written flashIN.txt
     """
     compounds = []
+    if p and not isinstance(p, Iterable):
+        p = [p]
+    if v and not isinstance(v, Iterable):
+        v = [v]
     for i, c in enumerate(mixture.compounds):
         if i > 0:
             for k, matrix in interactions.items():
@@ -122,3 +127,22 @@ def flash(fi):
     x = np.array(x)
     y = np.array(y)
     return x / x.sum(), y / y.sum(), rho_x, rho_y, beta_mol, beta_vol, p, v
+
+
+
+def multiflash(mixture, setup, t, p, v):
+
+    path = write_input(mixture, setup.eos, t, p, v, interactions=setup.get_interactions(mixture))
+    output = exec_fortran('FlashSur', path)
+
+    flashes_data = []
+
+    n = len(mixture)
+    o = output.split()
+    for flash_data in zip(*[iter(o)]*(2*n + 6)):
+        output = [float(n_) for n_ in ' '.join(flash_data).split()]
+        x, y, (rho_x, rho_y, beta_mol, beta_vol, p, v) = output[:n], output[n:-6], output[-6:]
+        x = np.array(x)
+        y = np.array(y)
+        flashes_data.append((x / x.sum(), y / y.sum(), rho_x, rho_y, beta_mol, beta_vol, p, v))
+    return flashes_data

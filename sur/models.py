@@ -18,7 +18,7 @@ import numpy as np
 from matplotlib import pyplot as plt
 
 from envelope_sp import (envelope as envelope_routine, flash as flash_routine,
-                         write_input)
+                         write_input, multiflash)
 from eos import get_eos
 from . import units
 from . import eos
@@ -771,11 +771,26 @@ class Mixture(models.Model):
         the setup EOS with its selected interaction parameters
         mode.
         """
-        return EosFlash.objects.get_or_create(t=t,
-                                              p=p,
-                                              v=v,
-                                              mixture=self,
-                                              setup=setup)[0]
+        flash = EosFlash(t=t, p=p, v=v, mixture=self, setup=setup)
+        flash._calc()
+        flash.save()
+        return flash
+
+
+    def get_flashes(self, setup, t, p=[], v=[]):
+        """
+        Get a serie of flashes on (t, [p1, p2, p3...]) or (t,[v1, v2...]) for this mixture, calculated using
+        the setup EOS with its selected interaction parameters
+        mode. Return a list of flashes
+        """
+        multiflash_data = multiflash(self, setup, t, p, v)
+        flashes = []
+        for flash_data in multiflash_data:
+            flash = EosFlash(t=t, mixture=self, setup=setup)
+            flash.x, flash.y, flash.rho_l, flash.rho_v, flash.beta_mol, flash.beta_vol, flash.p, flash.v = flash_data
+            flash.save()
+            flashes.append(flash)
+        return flashes
 
 
 class Envelope(models.Model):
@@ -1064,13 +1079,6 @@ class EosFlash(Flash):
             self.v = v
         elif self.v:
             self.p = p
-
-    def save(self, *args, **kwargs):
-        if not self.id:
-            # calculate the first time
-            self._calc()
-            # pass
-        super(Flash, self).save(*args, **kwargs)
 
     @property
     def interactions(self):
