@@ -452,6 +452,25 @@ class TestInteraction(TestCase):
         assert_array_equal(s.lij(m),
                            np.array([[0., 0.9], [0.9, 0.]]))
 
+    def test_kij_pr_matrix(self):
+        c24 = Compound.objects.find('c24')[1]
+        c3 = Compound.objects.find('c3')[4]
+
+        lij = KijInteractionParameter.objects.create(eos='PR', value=0.03222)
+        lij.compounds.add(c24)
+        lij.compounds.add(c3)
+
+        assert list(KijInteractionParameter.objects.filter(compounds=c3).\
+            filter(compounds=c24).values('value')) == [{'value': 0.03222}]
+
+        s = EosSetup(eos='PR', kij_mode=EosSetup.T_DEP)
+        m = Mixture()
+        m.add(c3, 0.5)
+        m.add(c24, 0.5)
+        kij_matrix = s.kij(m)
+        assert_array_equal(kij_matrix, np.array([[0., 0.03222], [0.03222, 0.]]))
+
+
 
 class TestGetInteractionTstart(TestCase):
     def setUp(self):
