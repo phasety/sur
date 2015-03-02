@@ -366,7 +366,15 @@ class AbstractInteractionParameter(models.Model):
     setup = models.ForeignKey('EosSetup', null=True)
     user = models.ForeignKey(User, null=True)
 
+    def __str__(self):
+        return "%s %s: %s" % (self.eos, self.compounds.all(), self.value)
+
     def clean(self):
+        eos_choices = [c[0] for c in eos.CHOICES]
+        if self.eos not in eos_choices:
+            raise ValidationError("The EOS given is invalid."
+                                  "Could be %s or %s" % (", ".join(eos_choices[:-1]),
+                                                         eos_choices[-1]))
         if self.setup and self.setup.eos != self.eos:
             raise ValidationError("The EOS for the interaction doesn't "
                                   "match with the EosSetup's one")
