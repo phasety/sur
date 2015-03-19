@@ -1015,6 +1015,56 @@ class Flash(models.Model):
                              # validators=[MinValueValidator(0.),
                              #            MaxValueValidator(1.)])
 
+    def __unicode__(self):
+        if self.p and self.v:
+            return "Flash: T=%s K / P=%s bar / V=%s m3" % (self.t, self.p, self.v)
+        elif self.p:
+            return "Flash: T=%s K / P=%s bar" % (self.t, self.p)
+        elif self.v:
+            return "Flash: T=%s K / V=%s m3" % (self.t, self.v)
+
+
+    @property
+    def x(self):
+        return self.liquid_mixture.z
+
+    @x.setter
+    def x(self, liquid_mixture_composition):
+        size = self.mixture.compounds.count()
+        if len(liquid_mixture_composition) != size:
+            raise ValueError('X must be same size than mixture (%d)' % size)
+
+        try:
+            if self.liquid_mixture:
+                self.liquid_mixture.delete()
+        except Mixture.DoesNotExist:
+            pass
+        m = Mixture()
+        m.add_many(self.mixture.compounds, liquid_mixture_composition)
+        self.liquid_mixture = m
+
+    @property
+    def y(self):
+        return self.vapour_mixture.z
+
+    @y.setter
+    def y(self, vapour_mixture_composition):
+        size = self.mixture.compounds.count()
+        if len(vapour_mixture_composition) != size:
+            raise ValueError('Y must be same size than mixture (%d)' % size)
+
+        try:
+            if self.vapour_mixture:
+                self.vapour_mixture.delete()
+        except Mixture.DoesNotExist:
+            pass
+
+        m = Mixture()
+        m.add_many(self.mixture.compounds,
+                   vapour_mixture_composition)
+        self.vapour_mixture = m
+
+
 
 class ExperimentalFlash(Flash):
     vapour_mixture = models.ForeignKey('Mixture', null=True,
@@ -1091,43 +1141,3 @@ class EosFlash(Flash):
     @property
     def interactions(self):
         return self.setup.get_interactions(self.mixture)
-
-    @property
-    def x(self):
-        return self.liquid_mixture.z
-
-    @x.setter
-    def x(self, liquid_mixture_composition):
-        size = self.mixture.compounds.count()
-        if len(liquid_mixture_composition) != size:
-            raise ValueError('X must be same size than mixture (%d)' % size)
-
-        try:
-            if self.liquid_mixture:
-                self.liquid_mixture.delete()
-        except Mixture.DoesNotExist:
-            pass
-        m = Mixture()
-        m.add_many(self.mixture.compounds, liquid_mixture_composition)
-        self.liquid_mixture = m
-
-    @property
-    def y(self):
-        return self.vapour_mixture.z
-
-    @y.setter
-    def y(self, vapour_mixture_composition):
-        size = self.mixture.compounds.count()
-        if len(vapour_mixture_composition) != size:
-            raise ValueError('Y must be same size than mixture (%d)' % size)
-
-        try:
-            if self.vapour_mixture:
-                self.vapour_mixture.delete()
-        except Mixture.DoesNotExist:
-            pass
-
-        m = Mixture()
-        m.add_many(self.mixture.compounds,
-                   vapour_mixture_composition)
-        self.vapour_mixture = m
