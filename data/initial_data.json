@@ -44431,7 +44431,637 @@
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.09577, 
+      "compounds": [
+        1, 
+        1173
+      ]
+    }, 
+    "model": "sur.kijinteractionparameter", 
+    "pk": 486
+  }, 
+  {
+    "fields": {
+      "eos": "PR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.09807, 
+      "compounds": [
+        1, 
+        1747
+      ]
+    }, 
+    "model": "sur.kijinteractionparameter", 
+    "pk": 487
+  }, 
+  {
+    "fields": {
+      "eos": "PR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.10016, 
+      "compounds": [
+        1, 
+        1174
+      ]
+    }, 
+    "model": "sur.kijinteractionparameter", 
+    "pk": 488
+  }, 
+  {
+    "fields": {
+      "eos": "PR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.10205, 
+      "compounds": [
+        1, 
+        1748
+      ]
+    }, 
+    "model": "sur.kijinteractionparameter", 
+    "pk": 489
+  }, 
+  {
+    "fields": {
+      "eos": "PR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.10375, 
+      "compounds": [
+        1, 
+        1749
+      ]
+    }, 
+    "model": "sur.kijinteractionparameter", 
+    "pk": 490
+  }, 
+  {
+    "fields": {
+      "eos": "PR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.1053, 
+      "compounds": [
+        1, 
+        1750
+      ]
+    }, 
+    "model": "sur.kijinteractionparameter", 
+    "pk": 491
+  }, 
+  {
+    "fields": {
+      "eos": "PR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.1067, 
+      "compounds": [
+        1, 
+        1751
+      ]
+    }, 
+    "model": "sur.kijinteractionparameter", 
+    "pk": 492
+  }, 
+  {
+    "fields": {
+      "eos": "PR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.10796, 
+      "compounds": [
+        1, 
+        1752
+      ]
+    }, 
+    "model": "sur.kijinteractionparameter", 
+    "pk": 493
+  }, 
+  {
+    "fields": {
+      "eos": "PR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.10911, 
+      "compounds": [
+        1, 
+        1753
+      ]
+    }, 
+    "model": "sur.kijinteractionparameter", 
+    "pk": 494
+  }, 
+  {
+    "fields": {
+      "eos": "PR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.11014, 
+      "compounds": [
+        1, 
+        1754
+      ]
+    }, 
+    "model": "sur.kijinteractionparameter", 
+    "pk": 495
+  }, 
+  {
+    "fields": {
+      "eos": "PR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.11108, 
+      "compounds": [
+        1, 
+        1755
+      ]
+    }, 
+    "model": "sur.kijinteractionparameter", 
+    "pk": 496
+  }, 
+  {
+    "fields": {
+      "eos": "PR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.11193, 
+      "compounds": [
+        1, 
+        1756
+      ]
+    }, 
+    "model": "sur.kijinteractionparameter", 
+    "pk": 497
+  }, 
+  {
+    "fields": {
+      "eos": "PR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.1127, 
+      "compounds": [
+        1, 
+        1757
+      ]
+    }, 
+    "model": "sur.kijinteractionparameter", 
+    "pk": 498
+  }, 
+  {
+    "fields": {
+      "eos": "PR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.11339, 
+      "compounds": [
+        1, 
+        1758
+      ]
+    }, 
+    "model": "sur.kijinteractionparameter", 
+    "pk": 499
+  }, 
+  {
+    "fields": {
+      "eos": "PR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.11402, 
+      "compounds": [
+        1, 
+        1759
+      ]
+    }, 
+    "model": "sur.kijinteractionparameter", 
+    "pk": 500
+  }, 
+  {
+    "fields": {
+      "eos": "PR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.179932, 
+      "compounds": [
+        390, 
+        1173
+      ]
+    }, 
+    "model": "sur.kijinteractionparameter", 
+    "pk": 501
+  }, 
+  {
+    "fields": {
+      "eos": "PR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.179959, 
+      "compounds": [
+        390, 
+        1747
+      ]
+    }, 
+    "model": "sur.kijinteractionparameter", 
+    "pk": 502
+  }, 
+  {
+    "fields": {
+      "eos": "PR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.179975, 
+      "compounds": [
+        390, 
+        1174
+      ]
+    }, 
+    "model": "sur.kijinteractionparameter", 
+    "pk": 503
+  }, 
+  {
+    "fields": {
+      "eos": "PR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.179985, 
+      "compounds": [
+        390, 
+        1748
+      ]
+    }, 
+    "model": "sur.kijinteractionparameter", 
+    "pk": 504
+  }, 
+  {
+    "fields": {
+      "eos": "PR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.17999, 
+      "compounds": [
+        390, 
+        1749
+      ]
+    }, 
+    "model": "sur.kijinteractionparameter", 
+    "pk": 505
+  }, 
+  {
+    "fields": {
+      "eos": "PR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.179994, 
+      "compounds": [
+        390, 
+        1750
+      ]
+    }, 
+    "model": "sur.kijinteractionparameter", 
+    "pk": 506
+  }, 
+  {
+    "fields": {
+      "eos": "PR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.179996, 
+      "compounds": [
+        390, 
+        1751
+      ]
+    }, 
+    "model": "sur.kijinteractionparameter", 
+    "pk": 507
+  }, 
+  {
+    "fields": {
+      "eos": "PR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.179997, 
+      "compounds": [
+        390, 
+        1752
+      ]
+    }, 
+    "model": "sur.kijinteractionparameter", 
+    "pk": 508
+  }, 
+  {
+    "fields": {
+      "eos": "PR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.179998, 
+      "compounds": [
+        390, 
+        1753
+      ]
+    }, 
+    "model": "sur.kijinteractionparameter", 
+    "pk": 509
+  }, 
+  {
+    "fields": {
+      "eos": "PR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.179999, 
+      "compounds": [
+        390, 
+        1754
+      ]
+    }, 
+    "model": "sur.kijinteractionparameter", 
+    "pk": 510
+  }, 
+  {
+    "fields": {
+      "eos": "PR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.179999, 
+      "compounds": [
+        390, 
+        1755
+      ]
+    }, 
+    "model": "sur.kijinteractionparameter", 
+    "pk": 511
+  }, 
+  {
+    "fields": {
+      "eos": "PR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.179999, 
+      "compounds": [
+        390, 
+        1756
+      ]
+    }, 
+    "model": "sur.kijinteractionparameter", 
+    "pk": 512
+  }, 
+  {
+    "fields": {
+      "eos": "PR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.179999, 
+      "compounds": [
+        390, 
+        1757
+      ]
+    }, 
+    "model": "sur.kijinteractionparameter", 
+    "pk": 513
+  }, 
+  {
+    "fields": {
+      "eos": "PR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.179999, 
+      "compounds": [
+        390, 
+        1758
+      ]
+    }, 
+    "model": "sur.kijinteractionparameter", 
+    "pk": 514
+  }, 
+  {
+    "fields": {
+      "eos": "PR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.179999, 
+      "compounds": [
+        390, 
+        1759
+      ]
+    }, 
+    "model": "sur.kijinteractionparameter", 
+    "pk": 515
+  }, 
+  {
+    "fields": {
+      "eos": "PR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.14999, 
+      "compounds": [
+        393, 
+        1173
+      ]
+    }, 
+    "model": "sur.kijinteractionparameter", 
+    "pk": 516
+  }, 
+  {
+    "fields": {
+      "eos": "PR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.14999, 
+      "compounds": [
+        393, 
+        1747
+      ]
+    }, 
+    "model": "sur.kijinteractionparameter", 
+    "pk": 517
+  }, 
+  {
+    "fields": {
+      "eos": "PR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.14999, 
+      "compounds": [
+        393, 
+        1174
+      ]
+    }, 
+    "model": "sur.kijinteractionparameter", 
+    "pk": 518
+  }, 
+  {
+    "fields": {
+      "eos": "PR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.14999, 
+      "compounds": [
+        393, 
+        1748
+      ]
+    }, 
+    "model": "sur.kijinteractionparameter", 
+    "pk": 519
+  }, 
+  {
+    "fields": {
+      "eos": "PR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.14999, 
+      "compounds": [
+        393, 
+        1749
+      ]
+    }, 
+    "model": "sur.kijinteractionparameter", 
+    "pk": 520
+  }, 
+  {
+    "fields": {
+      "eos": "PR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.14999, 
+      "compounds": [
+        393, 
+        1750
+      ]
+    }, 
+    "model": "sur.kijinteractionparameter", 
+    "pk": 521
+  }, 
+  {
+    "fields": {
+      "eos": "PR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.14999, 
+      "compounds": [
+        393, 
+        1751
+      ]
+    }, 
+    "model": "sur.kijinteractionparameter", 
+    "pk": 522
+  }, 
+  {
+    "fields": {
+      "eos": "PR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.14999, 
+      "compounds": [
+        393, 
+        1752
+      ]
+    }, 
+    "model": "sur.kijinteractionparameter", 
+    "pk": 523
+  }, 
+  {
+    "fields": {
+      "eos": "PR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.14999, 
+      "compounds": [
+        393, 
+        1753
+      ]
+    }, 
+    "model": "sur.kijinteractionparameter", 
+    "pk": 524
+  }, 
+  {
+    "fields": {
+      "eos": "PR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.15, 
+      "compounds": [
+        393, 
+        1754
+      ]
+    }, 
+    "model": "sur.kijinteractionparameter", 
+    "pk": 525
+  }, 
+  {
+    "fields": {
+      "eos": "PR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.15, 
+      "compounds": [
+        393, 
+        1755
+      ]
+    }, 
+    "model": "sur.kijinteractionparameter", 
+    "pk": 526
+  }, 
+  {
+    "fields": {
+      "eos": "PR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.15, 
+      "compounds": [
+        393, 
+        1756
+      ]
+    }, 
+    "model": "sur.kijinteractionparameter", 
+    "pk": 527
+  }, 
+  {
+    "fields": {
+      "eos": "PR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.15, 
+      "compounds": [
+        393, 
+        1757
+      ]
+    }, 
+    "model": "sur.kijinteractionparameter", 
+    "pk": 528
+  }, 
+  {
+    "fields": {
+      "eos": "PR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.15, 
+      "compounds": [
+        393, 
+        1758
+      ]
+    }, 
+    "model": "sur.kijinteractionparameter", 
+    "pk": 529
+  }, 
+  {
+    "fields": {
+      "eos": "PR", 
+      "setup": null, 
+      "user": null, 
+      "value": 0.15, 
+      "compounds": [
+        393, 
+        1759
+      ]
+    }, 
+    "model": "sur.kijinteractionparameter", 
+    "pk": 530
+  }, 
+  {
+    "fields": {
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.00265, 
@@ -44441,11 +45071,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 401
+    "pk": 531
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.00598, 
@@ -44455,11 +45085,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 402
+    "pk": 532
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.00919, 
@@ -44469,11 +45099,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 403
+    "pk": 533
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.0123, 
@@ -44483,11 +45113,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 404
+    "pk": 534
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.0153, 
@@ -44497,11 +45127,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 405
+    "pk": 535
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.01821, 
@@ -44511,11 +45141,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 406
+    "pk": 536
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.02102, 
@@ -44525,11 +45155,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 407
+    "pk": 537
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.02374, 
@@ -44539,11 +45169,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 408
+    "pk": 538
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.02637, 
@@ -44553,11 +45183,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 409
+    "pk": 539
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.02892, 
@@ -44567,11 +45197,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 410
+    "pk": 540
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.03138, 
@@ -44581,11 +45211,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 411
+    "pk": 541
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.03376, 
@@ -44595,11 +45225,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 412
+    "pk": 542
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.03606, 
@@ -44609,11 +45239,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 413
+    "pk": 543
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.03829, 
@@ -44623,11 +45253,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 414
+    "pk": 544
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.04044, 
@@ -44637,11 +45267,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 415
+    "pk": 545
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.04253, 
@@ -44651,11 +45281,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 416
+    "pk": 546
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.04454, 
@@ -44665,11 +45295,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 417
+    "pk": 547
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.04649, 
@@ -44679,11 +45309,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 418
+    "pk": 548
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.04838, 
@@ -44693,11 +45323,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 419
+    "pk": 549
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.0502, 
@@ -44707,11 +45337,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 420
+    "pk": 550
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.05196, 
@@ -44721,11 +45351,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 421
+    "pk": 551
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.05367, 
@@ -44735,11 +45365,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 422
+    "pk": 552
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.05532, 
@@ -44749,11 +45379,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 423
+    "pk": 553
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.05692, 
@@ -44763,11 +45393,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 424
+    "pk": 554
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.05846, 
@@ -44777,11 +45407,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 425
+    "pk": 555
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.05995, 
@@ -44791,11 +45421,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 426
+    "pk": 556
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.0614, 
@@ -44805,11 +45435,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 427
+    "pk": 557
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.06279, 
@@ -44819,11 +45449,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 428
+    "pk": 558
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.06545, 
@@ -44833,11 +45463,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 429
+    "pk": 559
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.06794, 
@@ -44847,11 +45477,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 430
+    "pk": 560
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.07026, 
@@ -44861,11 +45491,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 431
+    "pk": 561
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.07244, 
@@ -44875,11 +45505,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 432
+    "pk": 562
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.07447, 
@@ -44889,11 +45519,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 433
+    "pk": 563
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.07638, 
@@ -44903,11 +45533,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 434
+    "pk": 564
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.07816, 
@@ -44917,11 +45547,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 435
+    "pk": 565
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.07982, 
@@ -44931,11 +45561,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 436
+    "pk": 566
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.08138, 
@@ -44945,11 +45575,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 437
+    "pk": 567
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.08284, 
@@ -44959,11 +45589,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 438
+    "pk": 568
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.08421, 
@@ -44973,11 +45603,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 439
+    "pk": 569
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.08548, 
@@ -44987,11 +45617,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 440
+    "pk": 570
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.08668, 
@@ -45001,11 +45631,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 441
+    "pk": 571
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.08779, 
@@ -45015,11 +45645,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 442
+    "pk": 572
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.08884, 
@@ -45029,11 +45659,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 443
+    "pk": 573
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.00473, 
@@ -45043,11 +45673,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 444
+    "pk": 574
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.00634, 
@@ -45057,11 +45687,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 445
+    "pk": 575
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.00792, 
@@ -45071,11 +45701,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 446
+    "pk": 576
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.00948, 
@@ -45085,11 +45715,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 447
+    "pk": 577
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.01101, 
@@ -45099,11 +45729,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 448
+    "pk": 578
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.01251, 
@@ -45113,11 +45743,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 449
+    "pk": 579
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.01399, 
@@ -45127,11 +45757,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 450
+    "pk": 580
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.01544, 
@@ -45141,11 +45771,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 451
+    "pk": 581
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.01687, 
@@ -45155,11 +45785,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 452
+    "pk": 582
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.01828, 
@@ -45169,11 +45799,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 453
+    "pk": 583
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.01966, 
@@ -45183,11 +45813,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 454
+    "pk": 584
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.02101, 
@@ -45197,11 +45827,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 455
+    "pk": 585
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.02234, 
@@ -45211,11 +45841,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 456
+    "pk": 586
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.02365, 
@@ -45225,11 +45855,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 457
+    "pk": 587
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.02494, 
@@ -45239,11 +45869,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 458
+    "pk": 588
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.02621, 
@@ -45253,11 +45883,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 459
+    "pk": 589
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.02745, 
@@ -45267,11 +45897,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 460
+    "pk": 590
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.02868, 
@@ -45281,11 +45911,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 461
+    "pk": 591
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.02988, 
@@ -45295,11 +45925,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 462
+    "pk": 592
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.03106, 
@@ -45309,11 +45939,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 463
+    "pk": 593
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.03222, 
@@ -45323,11 +45953,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 464
+    "pk": 594
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.03336, 
@@ -45337,11 +45967,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 465
+    "pk": 595
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.03448, 
@@ -45351,11 +45981,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 466
+    "pk": 596
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.03559, 
@@ -45365,11 +45995,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 467
+    "pk": 597
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.03667, 
@@ -45379,11 +46009,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 468
+    "pk": 598
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.03774, 
@@ -45393,11 +46023,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 469
+    "pk": 599
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.03878, 
@@ -45407,11 +46037,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 470
+    "pk": 600
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.04082, 
@@ -45421,11 +46051,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 471
+    "pk": 601
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.0428, 
@@ -45435,11 +46065,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 472
+    "pk": 602
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.0447, 
@@ -45449,11 +46079,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 473
+    "pk": 603
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.04654, 
@@ -45463,11 +46093,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 474
+    "pk": 604
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.04832, 
@@ -45477,11 +46107,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 475
+    "pk": 605
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.05004, 
@@ -45491,11 +46121,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 476
+    "pk": 606
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.0517, 
@@ -45505,11 +46135,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 477
+    "pk": 607
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.0533, 
@@ -45519,11 +46149,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 478
+    "pk": 608
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.05485, 
@@ -45533,11 +46163,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 479
+    "pk": 609
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.05634, 
@@ -45547,11 +46177,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 480
+    "pk": 610
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.05779, 
@@ -45561,11 +46191,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 481
+    "pk": 611
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.05919, 
@@ -45575,11 +46205,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 482
+    "pk": 612
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.06054, 
@@ -45589,11 +46219,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 483
+    "pk": 613
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.06184, 
@@ -45603,11 +46233,11 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 484
+    "pk": 614
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "PR", 
       "setup": null, 
       "user": null, 
       "value": 0.0631, 
@@ -45617,7 +46247,7 @@
       ]
     }, 
     "model": "sur.kijinteractionparameter", 
-    "pk": 485
+    "pk": 615
   }, 
   {
     "fields": {
@@ -48667,7 +49297,7 @@
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": -0.005907, 
@@ -48677,25 +49307,25 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1455
+    "pk": 1939
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.011673, 
+      "value": -0.011672, 
       "compounds": [
         9, 
         23
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1456
+    "pk": 1940
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": -0.016354, 
@@ -48705,39 +49335,39 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1457
+    "pk": 1941
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.019292, 
+      "value": -0.019291, 
       "compounds": [
         9, 
         51
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1458
+    "pk": 1942
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.020253, 
+      "value": -0.020252, 
       "compounds": [
         9, 
         54
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1459
+    "pk": 1943
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": -0.0194, 
@@ -48747,25 +49377,25 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1460
+    "pk": 1944
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.017153, 
+      "value": -0.017152, 
       "compounds": [
         9, 
         56
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1461
+    "pk": 1945
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": -0.014022, 
@@ -48775,39 +49405,39 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1462
+    "pk": 1946
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.004774, 
+      "value": -0.004773, 
       "compounds": [
         9, 
         58
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1463
+    "pk": 1947
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.00418, 
+      "value": 0.004179, 
       "compounds": [
         9, 
         59
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1464
+    "pk": 1948
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": 0.012604, 
@@ -48817,11 +49447,11 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1465
+    "pk": 1949
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": 0.020376, 
@@ -48831,11 +49461,11 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1466
+    "pk": 1950
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": 0.027456, 
@@ -48845,11 +49475,11 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1467
+    "pk": 1951
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": 0.033859, 
@@ -48859,25 +49489,25 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1468
+    "pk": 1952
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.039633, 
+      "value": 0.039632, 
       "compounds": [
         9, 
         65
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1469
+    "pk": 1953
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": 0.04484, 
@@ -48887,11 +49517,11 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1470
+    "pk": 1954
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": 0.049547, 
@@ -48901,25 +49531,25 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1471
+    "pk": 1955
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.053817, 
+      "value": 0.053816, 
       "compounds": [
         9, 
         68
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1472
+    "pk": 1956
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": 0.057705, 
@@ -48929,11 +49559,11 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1473
+    "pk": 1957
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": 0.061262, 
@@ -48943,25 +49573,25 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1474
+    "pk": 1958
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.06453, 
+      "value": 0.064529, 
       "compounds": [
         9, 
         71
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1475
+    "pk": 1959
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": 0.067542, 
@@ -48971,39 +49601,39 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1476
+    "pk": 1960
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.07033, 
+      "value": 0.070329, 
       "compounds": [
         9, 
         73
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1477
+    "pk": 1961
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.072917, 
+      "value": 0.072916, 
       "compounds": [
         9, 
         1172
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1478
+    "pk": 1962
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": 0.077568, 
@@ -49013,25 +49643,25 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1479
+    "pk": 1963
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.081627, 
+      "value": 0.081626, 
       "compounds": [
         9, 
         1747
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1480
+    "pk": 1964
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": 0.085188, 
@@ -49041,39 +49671,39 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1481
+    "pk": 1965
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.088251, 
+      "value": 0.08825, 
       "compounds": [
         9, 
         1748
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1482
+    "pk": 1966
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.090956, 
+      "value": 0.090955, 
       "compounds": [
         9, 
         1749
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1483
+    "pk": 1967
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": 0.09336, 
@@ -49083,11 +49713,11 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1484
+    "pk": 1968
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": 0.095498, 
@@ -49097,25 +49727,25 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1485
+    "pk": 1969
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.097399, 
+      "value": 0.097398, 
       "compounds": [
         9, 
         1752
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1486
+    "pk": 1970
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": 0.099088, 
@@ -49125,39 +49755,39 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1487
+    "pk": 1971
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.100591, 
+      "value": 0.10059, 
       "compounds": [
         9, 
         1754
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1488
+    "pk": 1972
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.101926, 
+      "value": 0.101925, 
       "compounds": [
         9, 
         1755
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1489
+    "pk": 1973
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": 0.103113, 
@@ -49167,11 +49797,11 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1490
+    "pk": 1974
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": 0.104168, 
@@ -49181,109 +49811,109 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1491
+    "pk": 1975
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.105107, 
+      "value": 0.105106, 
       "compounds": [
         9, 
         1758
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1492
+    "pk": 1976
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.105941, 
+      "value": 0.10594, 
       "compounds": [
         9, 
         1759
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1493
+    "pk": 1977
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.00553, 
+      "value": -0.005526, 
       "compounds": [
         14, 
         23
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1494
+    "pk": 1978
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.01026, 
+      "value": -0.010262, 
       "compounds": [
         14, 
         41
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1495
+    "pk": 1979
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.01333, 
+      "value": -0.013334, 
       "compounds": [
         14, 
         51
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1496
+    "pk": 1980
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.01435, 
+      "value": -0.014354, 
       "compounds": [
         14, 
         54
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1497
+    "pk": 1981
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.01345, 
+      "value": -0.013449, 
       "compounds": [
         14, 
         55
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1498
+    "pk": 1982
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": -0.01109, 
@@ -49293,487 +49923,487 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1499
+    "pk": 1983
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.00098, 
+      "value": -0.000983, 
       "compounds": [
         14, 
         57
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1500
+    "pk": 1984
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.00895, 
+      "value": 0.008952, 
       "compounds": [
         14, 
         58
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1501
+    "pk": 1985
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.01835, 
+      "value": 0.018345, 
       "compounds": [
         14, 
         59
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1502
+    "pk": 1986
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.02698, 
+      "value": 0.026977, 
       "compounds": [
         14, 
         60
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1503
+    "pk": 1987
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.03477, 
+      "value": 0.034767, 
       "compounds": [
         14, 
         61
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1504
+    "pk": 1988
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.04172, 
+      "value": 0.041722, 
       "compounds": [
         14, 
         62
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1505
+    "pk": 1989
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.0479, 
+      "value": 0.047904, 
       "compounds": [
         14, 
         64
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1506
+    "pk": 1990
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.0534, 
+      "value": 0.053398, 
       "compounds": [
         14, 
         65
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1507
+    "pk": 1991
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.0583, 
+      "value": 0.058296, 
       "compounds": [
         14, 
         66
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1508
+    "pk": 1992
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.06268, 
+      "value": 0.062681, 
       "compounds": [
         14, 
         67
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1509
+    "pk": 1993
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.06663, 
+      "value": 0.066627, 
       "compounds": [
         14, 
         68
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1510
+    "pk": 1994
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.0702, 
+      "value": 0.070197, 
       "compounds": [
         14, 
         69
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1511
+    "pk": 1995
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.07344, 
+      "value": 0.073443, 
       "compounds": [
         14, 
         70
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1512
+    "pk": 1996
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.07641, 
+      "value": 0.076407, 
       "compounds": [
         14, 
         71
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1514
+    "pk": 1997
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.07912, 
+      "value": 0.079124, 
       "compounds": [
         14, 
         72
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1515
+    "pk": 1998
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.08162, 
+      "value": 0.081621, 
       "compounds": [
         14, 
         73
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1516
+    "pk": 1999
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.08392, 
+      "value": 0.083922, 
       "compounds": [
         14, 
         1172
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1517
+    "pk": 2000
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.08801, 
+      "value": 0.088014, 
       "compounds": [
         14, 
         1173
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1518
+    "pk": 2001
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.09152, 
+      "value": 0.091523, 
       "compounds": [
         14, 
         1747
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1519
+    "pk": 2002
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.09455, 
+      "value": 0.094545, 
       "compounds": [
         14, 
         1174
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1520
+    "pk": 2003
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.09713, 
+      "value": 0.097127, 
       "compounds": [
         14, 
         1748
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1521
+    "pk": 2004
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.09936, 
+      "value": 0.099359, 
       "compounds": [
         14, 
         1749
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1522
+    "pk": 2005
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.10129, 
+      "value": 0.101294, 
       "compounds": [
         14, 
         1750
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1526
+    "pk": 2006
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.10297, 
+      "value": 0.102971, 
       "compounds": [
         14, 
         1751
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1527
+    "pk": 2007
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.10443, 
+      "value": 0.104425, 
       "compounds": [
         14, 
         1752
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1528
+    "pk": 2008
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.10569, 
+      "value": 0.105686, 
       "compounds": [
         14, 
         1753
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1529
+    "pk": 2009
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.10678, 
+      "value": 0.106778, 
       "compounds": [
         14, 
         1754
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1530
+    "pk": 2010
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.10773, 
+      "value": 0.107726, 
       "compounds": [
         14, 
         1755
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1531
+    "pk": 2011
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.10855, 
+      "value": 0.108547, 
       "compounds": [
         14, 
         1756
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1532
+    "pk": 2012
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.10926, 
+      "value": 0.109259, 
       "compounds": [
         14, 
         1757
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1533
+    "pk": 2013
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.10988, 
+      "value": 0.109876, 
       "compounds": [
         14, 
         1758
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1534
+    "pk": 2014
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.11041, 
+      "value": 0.110411, 
       "compounds": [
         14, 
         1759
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1535
+    "pk": 2015
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.0046, 
+      "value": -0.004596, 
       "compounds": [
         23, 
         41
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1536
+    "pk": 2016
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.00769, 
+      "value": -0.007693, 
       "compounds": [
         23, 
         51
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1537
+    "pk": 2017
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": -0.00874, 
@@ -49783,11 +50413,11 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1538
+    "pk": 2018
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": -0.00781, 
@@ -49797,277 +50427,277 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1539
+    "pk": 2019
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.00257, 
+      "value": 0.002572, 
       "compounds": [
         23, 
         56
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1540
+    "pk": 2020
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.0131, 
+      "value": 0.013098, 
       "compounds": [
         23, 
         57
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1541
+    "pk": 2021
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.02322, 
+      "value": 0.023215, 
       "compounds": [
         23, 
         58
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1542
+    "pk": 2022
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.03255, 
+      "value": 0.032554, 
       "compounds": [
         23, 
         59
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1543
+    "pk": 2023
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.04094, 
+      "value": 0.040943, 
       "compounds": [
         23, 
         60
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1544
+    "pk": 2024
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.04835, 
+      "value": 0.048354, 
       "compounds": [
         23, 
         61
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1545
+    "pk": 2025
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.05485, 
+      "value": 0.054852, 
       "compounds": [
         23, 
         62
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1546
+    "pk": 2026
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.06054, 
+      "value": 0.060544, 
       "compounds": [
         23, 
         64
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1547
+    "pk": 2027
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.06555, 
+      "value": 0.065546, 
       "compounds": [
         23, 
         65
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1548
+    "pk": 2028
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.06997, 
+      "value": 0.069967, 
       "compounds": [
         23, 
         66
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1549
+    "pk": 2029
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.0739, 
+      "value": 0.073899, 
       "compounds": [
         23, 
         67
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1550
+    "pk": 2030
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.07742, 
+      "value": 0.077418, 
       "compounds": [
         23, 
         68
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1551
+    "pk": 2031
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.08059, 
+      "value": 0.080586, 
       "compounds": [
         23, 
         69
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1552
+    "pk": 2032
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.08345, 
+      "value": 0.083451, 
       "compounds": [
         23, 
         70
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1553
+    "pk": 2033
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.08605, 
+      "value": 0.086053, 
       "compounds": [
         23, 
         71
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1554
+    "pk": 2034
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.08842, 
+      "value": 0.088423, 
       "compounds": [
         23, 
         72
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1555
+    "pk": 2035
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.09059, 
+      "value": 0.090587, 
       "compounds": [
         23, 
         73
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1556
+    "pk": 2036
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.09257, 
+      "value": 0.092567, 
       "compounds": [
         23, 
         1172
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1557
+    "pk": 2037
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.09604, 
+      "value": 0.096043, 
       "compounds": [
         23, 
         1173
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1558
+    "pk": 2038
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": 0.09897, 
@@ -50077,11 +50707,11 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1559
+    "pk": 2039
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": 0.10144, 
@@ -50091,263 +50721,263 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1560
+    "pk": 2040
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.10352, 
+      "value": 0.103519, 
       "compounds": [
         23, 
         1748
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1561
+    "pk": 2041
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.10528, 
+      "value": 0.105278, 
       "compounds": [
         23, 
         1749
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1562
+    "pk": 2042
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.10677, 
+      "value": 0.106767, 
       "compounds": [
         23, 
         1750
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1563
+    "pk": 2043
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.10803, 
+      "value": 0.108027, 
       "compounds": [
         23, 
         1751
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1564
+    "pk": 2044
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.10909, 
+      "value": 0.109094, 
       "compounds": [
         23, 
         1752
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1565
+    "pk": 2045
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.11, 
+      "value": 0.109997, 
       "compounds": [
         23, 
         1753
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1566
+    "pk": 2046
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.11076, 
+      "value": 0.110761, 
       "compounds": [
         23, 
         1754
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1567
+    "pk": 2047
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.11141, 
+      "value": 0.111408, 
       "compounds": [
         23, 
         1755
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1568
+    "pk": 2048
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.11196, 
+      "value": 0.111956, 
       "compounds": [
         23, 
         1756
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1569
+    "pk": 2049
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.11242, 
+      "value": 0.112419, 
       "compounds": [
         23, 
         1757
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1570
+    "pk": 2050
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.11281, 
+      "value": 0.112812, 
       "compounds": [
         23, 
         1758
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1571
+    "pk": 2051
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.11314, 
+      "value": 0.113144, 
       "compounds": [
         23, 
         1759
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1572
+    "pk": 2052
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.00303, 
+      "value": -0.003029, 
       "compounds": [
         41, 
         51
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1573
+    "pk": 2053
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.00407, 
+      "value": -0.004071, 
       "compounds": [
         41, 
         54
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1574
+    "pk": 2054
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.00554, 
+      "value": 0.005544, 
       "compounds": [
         41, 
         55
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1575
+    "pk": 2055
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.01582, 
+      "value": 0.015824, 
       "compounds": [
         41, 
         56
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1576
+    "pk": 2056
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.02611, 
+      "value": 0.026105, 
       "compounds": [
         41, 
         57
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1577
+    "pk": 2057
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.03582, 
+      "value": 0.035819, 
       "compounds": [
         41, 
         58
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1578
+    "pk": 2058
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": 0.04462, 
@@ -50357,39 +50987,39 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1579
+    "pk": 2059
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.05238, 
+      "value": 0.052383, 
       "compounds": [
         41, 
         60
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1580
+    "pk": 2060
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.05913, 
+      "value": 0.059133, 
       "compounds": [
         41, 
         61
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1581
+    "pk": 2061
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": 0.06498, 
@@ -50399,39 +51029,39 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1582
+    "pk": 2062
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.07006, 
+      "value": 0.070057, 
       "compounds": [
         41, 
         64
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1583
+    "pk": 2063
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.07449, 
+      "value": 0.074493, 
       "compounds": [
         41, 
         65
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1584
+    "pk": 2064
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": 0.0784, 
@@ -50441,39 +51071,39 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1585
+    "pk": 2065
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.08187, 
+      "value": 0.081867, 
       "compounds": [
         41, 
         67
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1586
+    "pk": 2066
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.08497, 
+      "value": 0.084966, 
       "compounds": [
         41, 
         68
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1587
+    "pk": 2067
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": 0.08775, 
@@ -50483,39 +51113,39 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1588
+    "pk": 2068
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.09026, 
+      "value": 0.090262, 
       "compounds": [
         41, 
         70
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1589
+    "pk": 2069
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.09254, 
+      "value": 0.092536, 
       "compounds": [
         41, 
         71
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1590
+    "pk": 2070
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": 0.0946, 
@@ -50525,67 +51155,67 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1591
+    "pk": 2071
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.09648, 
+      "value": 0.096476, 
       "compounds": [
         41, 
         73
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1592
+    "pk": 2072
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.09818, 
+      "value": 0.098184, 
       "compounds": [
         41, 
         1172
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1593
+    "pk": 2073
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.10116, 
+      "value": 0.101158, 
       "compounds": [
         41, 
         1173
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1594
+    "pk": 2074
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.10363, 
+      "value": 0.103631, 
       "compounds": [
         41, 
         1747
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1595
+    "pk": 2075
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": 0.10569, 
@@ -50595,263 +51225,263 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1596
+    "pk": 2076
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.1074, 
+      "value": 0.107403, 
       "compounds": [
         41, 
         1748
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1597
+    "pk": 2077
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.10883, 
+      "value": 0.108832, 
       "compounds": [
         41, 
         1749
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1598
+    "pk": 2078
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.11002, 
+      "value": 0.110022, 
       "compounds": [
         41, 
         1750
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1599
+    "pk": 2079
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.11102, 
+      "value": 0.111015, 
       "compounds": [
         41, 
         1751
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1600
+    "pk": 2080
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.11184, 
+      "value": 0.111843, 
       "compounds": [
         41, 
         1752
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1601
+    "pk": 2081
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.11253, 
+      "value": 0.112533, 
       "compounds": [
         41, 
         1753
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1602
+    "pk": 2082
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.11311, 
+      "value": 0.113108, 
       "compounds": [
         41, 
         1754
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1603
+    "pk": 2083
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.11359, 
+      "value": 0.113588, 
       "compounds": [
         41, 
         1755
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1604
+    "pk": 2084
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.11399, 
+      "value": 0.113988, 
       "compounds": [
         41, 
         1756
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1605
+    "pk": 2085
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.11432, 
+      "value": 0.114321, 
       "compounds": [
         41, 
         1757
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1606
+    "pk": 2086
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.1146, 
+      "value": 0.114599, 
       "compounds": [
         41, 
         1758
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1607
+    "pk": 2087
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.11483, 
+      "value": 0.114831, 
       "compounds": [
         41, 
         1759
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1608
+    "pk": 2088
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": -0.00103, 
+      "value": -0.001026, 
       "compounds": [
         51, 
         54
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1609
+    "pk": 2089
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.0094, 
+      "value": 0.009402, 
       "compounds": [
         51, 
         55
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1610
+    "pk": 2090
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.0203, 
+      "value": 0.020304, 
       "compounds": [
         51, 
         56
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1611
+    "pk": 2091
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.03101, 
+      "value": 0.031013, 
       "compounds": [
         51, 
         57
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1612
+    "pk": 2092
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.04098, 
+      "value": 0.040975, 
       "compounds": [
         51, 
         58
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1613
+    "pk": 2093
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.04988, 
+      "value": 0.049878, 
       "compounds": [
         51, 
         59
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1614
+    "pk": 2094
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": 0.05764, 
@@ -50861,11 +51491,11 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1615
+    "pk": 2095
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": 0.06433, 
@@ -50875,123 +51505,123 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1616
+    "pk": 2096
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.07009, 
+      "value": 0.070085, 
       "compounds": [
         51, 
         62
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1617
+    "pk": 2097
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.07506, 
+      "value": 0.075057, 
       "compounds": [
         51, 
         64
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1618
+    "pk": 2098
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.07939, 
+      "value": 0.079385, 
       "compounds": [
         51, 
         65
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1619
+    "pk": 2099
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.08318, 
+      "value": 0.083183, 
       "compounds": [
         51, 
         66
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1620
+    "pk": 2100
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.08654, 
+      "value": 0.086541, 
       "compounds": [
         51, 
         67
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1621
+    "pk": 2101
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.08953, 
+      "value": 0.089529, 
       "compounds": [
         51, 
         68
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1622
+    "pk": 2102
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.0922, 
+      "value": 0.092199, 
       "compounds": [
         51, 
         69
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1623
+    "pk": 2103
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.0946, 
+      "value": 0.094595, 
       "compounds": [
         51, 
         70
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1624
+    "pk": 2104
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": 0.09675, 
@@ -51001,193 +51631,193 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1625
+    "pk": 2105
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.09869, 
+      "value": 0.098691, 
       "compounds": [
         51, 
         72
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1626
+    "pk": 2106
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.10044, 
+      "value": 0.100443, 
       "compounds": [
         51, 
         73
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1627
+    "pk": 2107
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.10202, 
+      "value": 0.102024, 
       "compounds": [
         51, 
         1172
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1628
+    "pk": 2108
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.10475, 
+      "value": 0.104745, 
       "compounds": [
         51, 
         1173
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1629
+    "pk": 2109
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.10697, 
+      "value": 0.106969, 
       "compounds": [
         51, 
         1747
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1630
+    "pk": 2110
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.10879, 
+      "value": 0.108788, 
       "compounds": [
         51, 
         1174
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1631
+    "pk": 2111
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.11028, 
+      "value": 0.110277, 
       "compounds": [
         51, 
         1748
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1632
+    "pk": 2112
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.1115, 
+      "value": 0.111495, 
       "compounds": [
         51, 
         1749
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1633
+    "pk": 2113
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.11249, 
+      "value": 0.112492, 
       "compounds": [
         51, 
         1750
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1634
+    "pk": 2114
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.11331, 
+      "value": 0.113309, 
       "compounds": [
         51, 
         1751
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1635
+    "pk": 2115
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.11398, 
+      "value": 0.113977, 
       "compounds": [
         51, 
         1752
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1636
+    "pk": 2116
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.11453, 
+      "value": 0.114525, 
       "compounds": [
         51, 
         1753
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1637
+    "pk": 2117
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.11497, 
+      "value": 0.114973, 
       "compounds": [
         51, 
         1754
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1638
+    "pk": 2118
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": 0.11534, 
@@ -51197,11 +51827,11 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1639
+    "pk": 2119
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": 0.11564, 
@@ -51211,235 +51841,235 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1640
+    "pk": 2120
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.11589, 
+      "value": 0.115886, 
       "compounds": [
         51, 
         1757
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1641
+    "pk": 2121
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.11609, 
+      "value": 0.116088, 
       "compounds": [
         51, 
         1758
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1642
+    "pk": 2122
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.11625, 
+      "value": 0.116253, 
       "compounds": [
         51, 
         1759
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1643
+    "pk": 2123
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.001, 
+      "value": 0.001009, 
       "compounds": [
         54, 
         55
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1644
+    "pk": 2124
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.01403, 
+      "value": 0.014033, 
       "compounds": [
         54, 
         56
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1645
+    "pk": 2125
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.02657, 
+      "value": 0.026575, 
       "compounds": [
         54, 
         57
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1646
+    "pk": 2126
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.03803, 
+      "value": 0.038035, 
       "compounds": [
         54, 
         58
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1647
+    "pk": 2127
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.04811, 
+      "value": 0.048118, 
       "compounds": [
         54, 
         59
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1648
+    "pk": 2128
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.05679, 
+      "value": 0.056794, 
       "compounds": [
         54, 
         60
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1649
+    "pk": 2129
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.06419, 
+      "value": 0.064194, 
       "compounds": [
         54, 
         61
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1650
+    "pk": 2130
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.0705, 
+      "value": 0.070509, 
       "compounds": [
         54, 
         62
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1651
+    "pk": 2131
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.07593, 
+      "value": 0.075931, 
       "compounds": [
         54, 
         64
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1652
+    "pk": 2132
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.08062, 
+      "value": 0.080626, 
       "compounds": [
         54, 
         65
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1653
+    "pk": 2133
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.08472, 
+      "value": 0.084723, 
       "compounds": [
         54, 
         66
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1654
+    "pk": 2134
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.08832, 
+      "value": 0.088325, 
       "compounds": [
         54, 
         67
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1655
+    "pk": 2135
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.0915, 
+      "value": 0.091507, 
       "compounds": [
         54, 
         68
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1656
+    "pk": 2136
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": 0.09433, 
@@ -51449,25 +52079,25 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1657
+    "pk": 2137
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.09684, 
+      "value": 0.096841, 
       "compounds": [
         54, 
         70
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1658
+    "pk": 2138
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": 0.09908, 
@@ -51477,67 +52107,67 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1659
+    "pk": 2139
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.10107, 
+      "value": 0.101078, 
       "compounds": [
         54, 
         72
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1660
+    "pk": 2140
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.10286, 
+      "value": 0.102862, 
       "compounds": [
         54, 
         73
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1661
+    "pk": 2141
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.10445, 
+      "value": 0.104457, 
       "compounds": [
         54, 
         1172
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1662
+    "pk": 2142
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.10715, 
+      "value": 0.107159, 
       "compounds": [
         54, 
         1173
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1663
+    "pk": 2143
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": 0.10932, 
@@ -51547,11 +52177,11 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1664
+    "pk": 2144
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": 0.11105, 
@@ -51561,221 +52191,221 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1665
+    "pk": 2145
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.11243, 
+      "value": 0.112435, 
       "compounds": [
         54, 
         1748
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1666
+    "pk": 2146
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.11354, 
+      "value": 0.113543, 
       "compounds": [
         54, 
         1749
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1667
+    "pk": 2147
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.11443, 
+      "value": 0.114431, 
       "compounds": [
         54, 
         1750
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1668
+    "pk": 2148
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.11514, 
+      "value": 0.115142, 
       "compounds": [
         54, 
         1751
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1669
+    "pk": 2149
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.11571, 
+      "value": 0.115711, 
       "compounds": [
         54, 
         1752
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1670
+    "pk": 2150
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.11616, 
+      "value": 0.116167, 
       "compounds": [
         54, 
         1753
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1671
+    "pk": 2151
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.11653, 
+      "value": 0.116532, 
       "compounds": [
         54, 
         1754
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1672
+    "pk": 2152
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.11682, 
+      "value": 0.116824, 
       "compounds": [
         54, 
         1755
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1673
+    "pk": 2153
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.11705, 
+      "value": 0.117058, 
       "compounds": [
         54, 
         1756
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1674
+    "pk": 2154
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.11724, 
+      "value": 0.117246, 
       "compounds": [
         54, 
         1757
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1675
+    "pk": 2155
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.11739, 
+      "value": 0.117396, 
       "compounds": [
         54, 
         1758
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1676
+    "pk": 2156
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.11751, 
+      "value": 0.117516, 
       "compounds": [
         54, 
         1759
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1677
+    "pk": 2157
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.00227, 
+      "value": 0.002276, 
       "compounds": [
         55, 
         56
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1678
+    "pk": 2158
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.01373, 
+      "value": 0.013739, 
       "compounds": [
         55, 
         57
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1679
+    "pk": 2159
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.02438, 
+      "value": 0.024381, 
       "compounds": [
         55, 
         58
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1680
+    "pk": 2160
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": 0.0339, 
@@ -51785,53 +52415,53 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1681
+    "pk": 2161
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.04222, 
+      "value": 0.042222, 
       "compounds": [
         55, 
         60
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1682
+    "pk": 2162
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.04942, 
+      "value": 0.049421, 
       "compounds": [
         55, 
         61
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1683
+    "pk": 2163
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.05563, 
+      "value": 0.055638, 
       "compounds": [
         55, 
         62
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1684
+    "pk": 2164
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": 0.06103, 
@@ -51841,137 +52471,137 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1685
+    "pk": 2165
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.06573, 
+      "value": 0.065739, 
       "compounds": [
         55, 
         65
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1686
+    "pk": 2166
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.06988, 
+      "value": 0.069883, 
       "compounds": [
         55, 
         66
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1687
+    "pk": 2167
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.07355, 
+      "value": 0.073554, 
       "compounds": [
         55, 
         67
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1688
+    "pk": 2168
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.07682, 
+      "value": 0.076825, 
       "compounds": [
         55, 
         68
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1689
+    "pk": 2169
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.07975, 
+      "value": 0.079752, 
       "compounds": [
         55, 
         69
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1690
+    "pk": 2170
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.08238, 
+      "value": 0.082381, 
       "compounds": [
         55, 
         70
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1691
+    "pk": 2171
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.08474, 
+      "value": 0.084746, 
       "compounds": [
         55, 
         71
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1692
+    "pk": 2172
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.08687, 
+      "value": 0.086878, 
       "compounds": [
         55, 
         72
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1693
+    "pk": 2173
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.0888, 
+      "value": 0.088802, 
       "compounds": [
         55, 
         73
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1694
+    "pk": 2174
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": 0.09054, 
@@ -51981,53 +52611,53 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1695
+    "pk": 2175
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.09352, 
+      "value": 0.093529, 
       "compounds": [
         55, 
         1173
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1696
+    "pk": 2176
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.09597, 
+      "value": 0.095974, 
       "compounds": [
         55, 
         1747
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1697
+    "pk": 2177
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.09797, 
+      "value": 0.097974, 
       "compounds": [
         55, 
         1174
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1698
+    "pk": 2178
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": 0.09961, 
@@ -52037,277 +52667,277 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1699
+    "pk": 2179
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.10094, 
+      "value": 0.100949, 
       "compounds": [
         55, 
         1749
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1700
+    "pk": 2180
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.10204, 
+      "value": 0.102045, 
       "compounds": [
         55, 
         1750
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1701
+    "pk": 2181
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.10294, 
+      "value": 0.102943, 
       "compounds": [
         55, 
         1751
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1702
+    "pk": 2182
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.10367, 
+      "value": 0.103678, 
       "compounds": [
         55, 
         1752
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1703
+    "pk": 2183
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.10427, 
+      "value": 0.104279, 
       "compounds": [
         55, 
         1753
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1704
+    "pk": 2184
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.10477, 
+      "value": 0.104772, 
       "compounds": [
         55, 
         1754
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1705
+    "pk": 2185
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.10517, 
+      "value": 0.105175, 
       "compounds": [
         55, 
         1755
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1706
+    "pk": 2186
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.1055, 
+      "value": 0.105506, 
       "compounds": [
         55, 
         1756
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1707
+    "pk": 2187
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.10577, 
+      "value": 0.105776, 
       "compounds": [
         55, 
         1757
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1708
+    "pk": 2188
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.10599, 
+      "value": 0.105997, 
       "compounds": [
         55, 
         1758
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1709
+    "pk": 2189
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.10617, 
+      "value": 0.106179, 
       "compounds": [
         55, 
         1759
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1710
+    "pk": 2190
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.00305, 
+      "value": 0.003051, 
       "compounds": [
         56, 
         57
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1711
+    "pk": 2191
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.0137, 
+      "value": 0.013709, 
       "compounds": [
         56, 
         58
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1712
+    "pk": 2192
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.02323, 
+      "value": 0.023237, 
       "compounds": [
         56, 
         59
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1713
+    "pk": 2193
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.03155, 
+      "value": 0.031551, 
       "compounds": [
         56, 
         60
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1714
+    "pk": 2194
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.03872, 
+      "value": 0.038725, 
       "compounds": [
         56, 
         61
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1715
+    "pk": 2195
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.0449, 
+      "value": 0.044905, 
       "compounds": [
         56, 
         62
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1716
+    "pk": 2196
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.05025, 
+      "value": 0.050251, 
       "compounds": [
         56, 
         64
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1717
+    "pk": 2197
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.0549, 
+      "value": 0.054909, 
       "compounds": [
         56, 
         65
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1718
+    "pk": 2198
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": 0.059, 
@@ -52317,11 +52947,11 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1719
+    "pk": 2199
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": 0.06262, 
@@ -52331,67 +52961,67 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1720
+    "pk": 2200
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.06584, 
+      "value": 0.065842, 
       "compounds": [
         56, 
         68
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1721
+    "pk": 2201
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.06872, 
+      "value": 0.068723, 
       "compounds": [
         56, 
         69
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1722
+    "pk": 2202
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.0713, 
+      "value": 0.071308, 
       "compounds": [
         56, 
         70
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1723
+    "pk": 2203
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.07363, 
+      "value": 0.073634, 
       "compounds": [
         56, 
         71
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1724
+    "pk": 2204
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": 0.07573, 
@@ -52401,81 +53031,81 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1725
+    "pk": 2205
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.07762, 
+      "value": 0.077621, 
       "compounds": [
         56, 
         73
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1726
+    "pk": 2206
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.07932, 
+      "value": 0.079328, 
       "compounds": [
         56, 
         1172
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1727
+    "pk": 2207
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.08226, 
+      "value": 0.082266, 
       "compounds": [
         56, 
         1173
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1728
+    "pk": 2208
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.08466, 
+      "value": 0.084668, 
       "compounds": [
         56, 
         1747
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1729
+    "pk": 2209
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.08663, 
+      "value": 0.086633, 
       "compounds": [
         56, 
         1174
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1730
+    "pk": 2210
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": 0.08824, 
@@ -52485,543 +53115,543 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1731
+    "pk": 2211
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.08955, 
+      "value": 0.089555, 
       "compounds": [
         56, 
         1749
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1732
+    "pk": 2212
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.09063, 
+      "value": 0.090632, 
       "compounds": [
         56, 
         1750
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1733
+    "pk": 2213
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.09151, 
+      "value": 0.091514, 
       "compounds": [
         56, 
         1751
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1734
+    "pk": 2214
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.09223, 
+      "value": 0.092236, 
       "compounds": [
         56, 
         1752
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1735
+    "pk": 2215
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.09282, 
+      "value": 0.092827, 
       "compounds": [
         56, 
         1753
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1736
+    "pk": 2216
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.09331, 
+      "value": 0.093311, 
       "compounds": [
         56, 
         1754
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1737
+    "pk": 2217
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.0937, 
+      "value": 0.093707, 
       "compounds": [
         56, 
         1755
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1738
+    "pk": 2218
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.09403, 
+      "value": 0.094032, 
       "compounds": [
         56, 
         1756
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1739
+    "pk": 2219
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.09429, 
+      "value": 0.094297, 
       "compounds": [
         56, 
         1757
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1740
+    "pk": 2220
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.09451, 
+      "value": 0.094515, 
       "compounds": [
         56, 
         1758
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1741
+    "pk": 2221
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.09469, 
+      "value": 0.094693, 
       "compounds": [
         56, 
         1759
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1742
+    "pk": 2222
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.00342, 
+      "value": 0.003424, 
       "compounds": [
         57, 
         58
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1743
+    "pk": 2223
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.01305, 
+      "value": 0.013054, 
       "compounds": [
         57, 
         59
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1744
+    "pk": 2224
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.02142, 
+      "value": 0.021422, 
       "compounds": [
         57, 
         60
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1745
+    "pk": 2225
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.0286, 
+      "value": 0.028601, 
       "compounds": [
         57, 
         61
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1746
+    "pk": 2226
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.03474, 
+      "value": 0.034747, 
       "compounds": [
         57, 
         62
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1747
+    "pk": 2227
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.04003, 
+      "value": 0.040031, 
       "compounds": [
         57, 
         64
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1748
+    "pk": 2228
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.04461, 
+      "value": 0.044611, 
       "compounds": [
         57, 
         65
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1749
+    "pk": 2229
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.04861, 
+      "value": 0.048616, 
       "compounds": [
         57, 
         66
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1750
+    "pk": 2230
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.05214, 
+      "value": 0.052148, 
       "compounds": [
         57, 
         67
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1751
+    "pk": 2231
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.05528, 
+      "value": 0.055284, 
       "compounds": [
         57, 
         68
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1752
+    "pk": 2232
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.05808, 
+      "value": 0.058083, 
       "compounds": [
         57, 
         69
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1753
+    "pk": 2233
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.06059, 
+      "value": 0.060591, 
       "compounds": [
         57, 
         70
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1754
+    "pk": 2234
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.06284, 
+      "value": 0.062845, 
       "compounds": [
         57, 
         71
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1755
+    "pk": 2235
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.06487, 
+      "value": 0.064875, 
       "compounds": [
         57, 
         72
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1756
+    "pk": 2236
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.0667, 
+      "value": 0.066706, 
       "compounds": [
         57, 
         73
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1757
+    "pk": 2237
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.06835, 
+      "value": 0.068359, 
       "compounds": [
         57, 
         1172
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1758
+    "pk": 2238
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.0712, 
+      "value": 0.071201, 
       "compounds": [
         57, 
         1173
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1759
+    "pk": 2239
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.07352, 
+      "value": 0.073524, 
       "compounds": [
         57, 
         1747
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1760
+    "pk": 2240
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.07542, 
+      "value": 0.075425, 
       "compounds": [
         57, 
         1174
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1761
+    "pk": 2241
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.07697, 
+      "value": 0.076979, 
       "compounds": [
         57, 
         1748
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1762
+    "pk": 2242
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.07825, 
+      "value": 0.078251, 
       "compounds": [
         57, 
         1749
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1763
+    "pk": 2243
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.07929, 
+      "value": 0.079292, 
       "compounds": [
         57, 
         1750
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1764
+    "pk": 2244
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.08014, 
+      "value": 0.080145, 
       "compounds": [
         57, 
         1751
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1765
+    "pk": 2245
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.08084, 
+      "value": 0.080843, 
       "compounds": [
         57, 
         1752
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1766
+    "pk": 2246
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.08141, 
+      "value": 0.081415, 
       "compounds": [
         57, 
         1753
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1767
+    "pk": 2247
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.08188, 
+      "value": 0.081883, 
       "compounds": [
         57, 
         1754
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1768
+    "pk": 2248
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.08226, 
+      "value": 0.082266, 
       "compounds": [
         57, 
         1755
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1769
+    "pk": 2249
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": 0.08258, 
@@ -53031,165 +53661,165 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1770
+    "pk": 2250
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.08283, 
+      "value": 0.082837, 
       "compounds": [
         57, 
         1757
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1771
+    "pk": 2251
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.08304, 
+      "value": 0.083047, 
       "compounds": [
         57, 
         1758
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1772
+    "pk": 2252
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.08321, 
+      "value": 0.083219, 
       "compounds": [
         57, 
         1759
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1773
+    "pk": 2253
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.00336, 
+      "value": 0.003368, 
       "compounds": [
         58, 
         59
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1774
+    "pk": 2254
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.01173, 
+      "value": 0.011734, 
       "compounds": [
         58, 
         60
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1775
+    "pk": 2255
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.01885, 
+      "value": 0.018858, 
       "compounds": [
         58, 
         61
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1776
+    "pk": 2256
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.0249, 
+      "value": 0.024906, 
       "compounds": [
         58, 
         62
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1777
+    "pk": 2257
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.03006, 
+      "value": 0.030065, 
       "compounds": [
         58, 
         64
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1778
+    "pk": 2258
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.0345, 
+      "value": 0.034505, 
       "compounds": [
         58, 
         65
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1779
+    "pk": 2259
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.03836, 
+      "value": 0.038365, 
       "compounds": [
         58, 
         66
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1780
+    "pk": 2260
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.04175, 
+      "value": 0.041753, 
       "compounds": [
         58, 
         67
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1781
+    "pk": 2261
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": 0.04475, 
@@ -53199,165 +53829,165 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1782
+    "pk": 2262
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.04741, 
+      "value": 0.047418, 
       "compounds": [
         58, 
         69
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1783
+    "pk": 2263
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.0498, 
+      "value": 0.049805, 
       "compounds": [
         58, 
         70
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1784
+    "pk": 2264
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.05194, 
+      "value": 0.051947, 
       "compounds": [
         58, 
         71
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1785
+    "pk": 2265
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.05387, 
+      "value": 0.053874, 
       "compounds": [
         58, 
         72
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1786
+    "pk": 2266
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.05561, 
+      "value": 0.055611, 
       "compounds": [
         58, 
         73
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1787
+    "pk": 2267
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.05717, 
+      "value": 0.057179, 
       "compounds": [
         58, 
         1172
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1788
+    "pk": 2268
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.05987, 
+      "value": 0.059874, 
       "compounds": [
         58, 
         1173
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1789
+    "pk": 2269
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.06207, 
+      "value": 0.062075, 
       "compounds": [
         58, 
         1747
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1790
+    "pk": 2270
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.06387, 
+      "value": 0.063876, 
       "compounds": [
         58, 
         1174
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1791
+    "pk": 2271
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.06534, 
+      "value": 0.065348, 
       "compounds": [
         58, 
         1748
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1792
+    "pk": 2272
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.06655, 
+      "value": 0.066553, 
       "compounds": [
         58, 
         1749
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1793
+    "pk": 2273
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": 0.06754, 
@@ -53367,123 +53997,123 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1794
+    "pk": 2274
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.06834, 
+      "value": 0.068348, 
       "compounds": [
         58, 
         1751
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1795
+    "pk": 2275
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.069, 
+      "value": 0.069009, 
       "compounds": [
         58, 
         1752
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1796
+    "pk": 2276
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.06955, 
+      "value": 0.069551, 
       "compounds": [
         58, 
         1753
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1797
+    "pk": 2277
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.06999, 
+      "value": 0.069994, 
       "compounds": [
         58, 
         1754
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1798
+    "pk": 2278
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.07035, 
+      "value": 0.070357, 
       "compounds": [
         58, 
         1755
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1799
+    "pk": 2279
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.07065, 
+      "value": 0.070654, 
       "compounds": [
         58, 
         1756
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1800
+    "pk": 2280
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.07089, 
+      "value": 0.070897, 
       "compounds": [
         58, 
         1757
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1801
+    "pk": 2281
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.07109, 
+      "value": 0.071097, 
       "compounds": [
         58, 
         1758
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1802
+    "pk": 2282
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": 0.07126, 
@@ -53493,39 +54123,39 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1803
+    "pk": 2283
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.00307, 
+      "value": 0.003077, 
       "compounds": [
         59, 
         60
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1804
+    "pk": 2284
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.0101, 
+      "value": 0.010103, 
       "compounds": [
         59, 
         61
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1805
+    "pk": 2285
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": 0.016, 
@@ -53535,319 +54165,319 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1806
+    "pk": 2286
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.02097, 
+      "value": 0.020972, 
       "compounds": [
         59, 
         64
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1807
+    "pk": 2287
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.0252, 
+      "value": 0.025206, 
       "compounds": [
         59, 
         65
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1808
+    "pk": 2288
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.02885, 
+      "value": 0.028855, 
       "compounds": [
         59, 
         66
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1809
+    "pk": 2289
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.03203, 
+      "value": 0.032035, 
       "compounds": [
         59, 
         67
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1810
+    "pk": 2290
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.03483, 
+      "value": 0.034834, 
       "compounds": [
         59, 
         68
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1811
+    "pk": 2291
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.03731, 
+      "value": 0.037316, 
       "compounds": [
         59, 
         69
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1812
+    "pk": 2292
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.03952, 
+      "value": 0.039529, 
       "compounds": [
         59, 
         70
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1813
+    "pk": 2293
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.04151, 
+      "value": 0.041512, 
       "compounds": [
         59, 
         71
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1814
+    "pk": 2294
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.04329, 
+      "value": 0.043294, 
       "compounds": [
         59, 
         72
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1815
+    "pk": 2295
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.04489, 
+      "value": 0.044898, 
       "compounds": [
         59, 
         73
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1816
+    "pk": 2296
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.04634, 
+      "value": 0.046344, 
       "compounds": [
         59, 
         1172
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1817
+    "pk": 2297
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.04882, 
+      "value": 0.048829, 
       "compounds": [
         59, 
         1173
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1818
+    "pk": 2298
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.05085, 
+      "value": 0.050858, 
       "compounds": [
         59, 
         1747
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1819
+    "pk": 2299
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.05251, 
+      "value": 0.052517, 
       "compounds": [
         59, 
         1174
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1820
+    "pk": 2300
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.05387, 
+      "value": 0.053873, 
       "compounds": [
         59, 
         1748
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1821
+    "pk": 2301
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.05498, 
+      "value": 0.054983, 
       "compounds": [
         59, 
         1749
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1822
+    "pk": 2302
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.05589, 
+      "value": 0.055892, 
       "compounds": [
         59, 
         1750
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1823
+    "pk": 2303
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.05663, 
+      "value": 0.056636, 
       "compounds": [
         59, 
         1751
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1824
+    "pk": 2304
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.05724, 
+      "value": 0.057245, 
       "compounds": [
         59, 
         1752
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1825
+    "pk": 2305
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.05774, 
+      "value": 0.057743, 
       "compounds": [
         59, 
         1753
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1826
+    "pk": 2306
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.05815, 
+      "value": 0.058152, 
       "compounds": [
         59, 
         1754
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1827
+    "pk": 2307
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.05848, 
+      "value": 0.058486, 
       "compounds": [
         59, 
         1755
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1828
+    "pk": 2308
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": 0.05876, 
@@ -53857,375 +54487,375 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1829
+    "pk": 2309
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.05898, 
+      "value": 0.058984, 
       "compounds": [
         59, 
         1757
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1830
+    "pk": 2310
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.05916, 
+      "value": 0.059167, 
       "compounds": [
         59, 
         1758
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1831
+    "pk": 2311
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.05931, 
+      "value": 0.059317, 
       "compounds": [
         59, 
         1759
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1832
+    "pk": 2312
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.00262, 
+      "value": 0.002621, 
       "compounds": [
         60, 
         61
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1833
+    "pk": 2313
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.00826, 
+      "value": 0.008266, 
       "compounds": [
         60, 
         62
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1834
+    "pk": 2314
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.01295, 
+      "value": 0.012954, 
       "compounds": [
         60, 
         64
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1835
+    "pk": 2315
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.01689, 
+      "value": 0.016891, 
       "compounds": [
         60, 
         65
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1836
+    "pk": 2316
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.02024, 
+      "value": 0.020242, 
       "compounds": [
         60, 
         66
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1837
+    "pk": 2317
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.02313, 
+      "value": 0.023133, 
       "compounds": [
         60, 
         67
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1838
+    "pk": 2318
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.02565, 
+      "value": 0.025658, 
       "compounds": [
         60, 
         68
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1839
+    "pk": 2319
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.02788, 
+      "value": 0.027885, 
       "compounds": [
         60, 
         69
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1840
+    "pk": 2320
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.02986, 
+      "value": 0.029863, 
       "compounds": [
         60, 
         70
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1841
+    "pk": 2321
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.03162, 
+      "value": 0.031629, 
       "compounds": [
         60, 
         71
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1842
+    "pk": 2322
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.03321, 
+      "value": 0.033213, 
       "compounds": [
         60, 
         72
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1843
+    "pk": 2323
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.03463, 
+      "value": 0.034636, 
       "compounds": [
         60, 
         73
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1844
+    "pk": 2324
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.03591, 
+      "value": 0.035919, 
       "compounds": [
         60, 
         1172
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1845
+    "pk": 2325
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.03811, 
+      "value": 0.038119, 
       "compounds": [
         60, 
         1173
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1846
+    "pk": 2326
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.03991, 
+      "value": 0.039915, 
       "compounds": [
         60, 
         1747
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1847
+    "pk": 2327
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.04138, 
+      "value": 0.041383, 
       "compounds": [
         60, 
         1174
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1848
+    "pk": 2328
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.04258, 
+      "value": 0.042582, 
       "compounds": [
         60, 
         1748
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1849
+    "pk": 2329
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.04356, 
+      "value": 0.043563, 
       "compounds": [
         60, 
         1749
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1850
+    "pk": 2330
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.04436, 
+      "value": 0.044367, 
       "compounds": [
         60, 
         1750
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1851
+    "pk": 2331
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.04502, 
+      "value": 0.045024, 
       "compounds": [
         60, 
         1751
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1852
+    "pk": 2332
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.04556, 
+      "value": 0.045563, 
       "compounds": [
         60, 
         1752
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1853
+    "pk": 2333
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.046, 
+      "value": 0.046004, 
       "compounds": [
         60, 
         1753
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1854
+    "pk": 2334
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.04636, 
+      "value": 0.046365, 
       "compounds": [
         60, 
         1754
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1855
+    "pk": 2335
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": 0.04666, 
@@ -54235,137 +54865,137 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1856
+    "pk": 2336
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.0469, 
+      "value": 0.046902, 
       "compounds": [
         60, 
         1756
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1857
+    "pk": 2337
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.0471, 
+      "value": 0.047101, 
       "compounds": [
         60, 
         1757
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1858
+    "pk": 2338
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.04726, 
+      "value": 0.047263, 
       "compounds": [
         60, 
         1758
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1859
+    "pk": 2339
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.04739, 
+      "value": 0.047396, 
       "compounds": [
         60, 
         1759
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1860
+    "pk": 2340
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.00205, 
+      "value": 0.002051, 
       "compounds": [
         61, 
         62
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1861
+    "pk": 2341
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.00629, 
+      "value": 0.006293, 
       "compounds": [
         61, 
         64
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1862
+    "pk": 2342
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.00979, 
+      "value": 0.009791, 
       "compounds": [
         61, 
         65
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1863
+    "pk": 2343
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.01272, 
+      "value": 0.012721, 
       "compounds": [
         61, 
         66
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1864
+    "pk": 2344
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.01521, 
+      "value": 0.015215, 
       "compounds": [
         61, 
         67
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1865
+    "pk": 2345
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": 0.01737, 
@@ -54375,347 +55005,347 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1866
+    "pk": 2346
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.01925, 
+      "value": 0.019255, 
       "compounds": [
         61, 
         69
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1867
+    "pk": 2347
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.02091, 
+      "value": 0.020919, 
       "compounds": [
         61, 
         70
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1868
+    "pk": 2348
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.02239, 
+      "value": 0.022399, 
       "compounds": [
         61, 
         71
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1869
+    "pk": 2349
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.02372, 
+      "value": 0.023722, 
       "compounds": [
         61, 
         72
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1870
+    "pk": 2350
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.0249, 
+      "value": 0.024909, 
       "compounds": [
         61, 
         73
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1871
+    "pk": 2351
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.02597, 
+      "value": 0.025976, 
       "compounds": [
         61, 
         1172
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1872
+    "pk": 2352
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.0278, 
+      "value": 0.027805, 
       "compounds": [
         61, 
         1173
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1873
+    "pk": 2353
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.02929, 
+      "value": 0.029296, 
       "compounds": [
         61, 
         1747
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1874
+    "pk": 2354
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.03051, 
+      "value": 0.030514, 
       "compounds": [
         61, 
         1174
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1875
+    "pk": 2355
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.0315, 
+      "value": 0.031508, 
       "compounds": [
         61, 
         1748
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1876
+    "pk": 2356
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.03232, 
+      "value": 0.032321, 
       "compounds": [
         61, 
         1749
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1877
+    "pk": 2357
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.03298, 
+      "value": 0.032987, 
       "compounds": [
         61, 
         1750
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1878
+    "pk": 2358
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.03353, 
+      "value": 0.033532, 
       "compounds": [
         61, 
         1751
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1879
+    "pk": 2359
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.03397, 
+      "value": 0.033979, 
       "compounds": [
         61, 
         1752
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1880
+    "pk": 2360
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.03434, 
+      "value": 0.034344, 
       "compounds": [
         61, 
         1753
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1881
+    "pk": 2361
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.03464, 
+      "value": 0.034643, 
       "compounds": [
         61, 
         1754
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1882
+    "pk": 2362
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.03488, 
+      "value": 0.034888, 
       "compounds": [
         61, 
         1755
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1883
+    "pk": 2363
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.03508, 
+      "value": 0.035089, 
       "compounds": [
         61, 
         1756
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1884
+    "pk": 2364
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.03525, 
+      "value": 0.035253, 
       "compounds": [
         61, 
         1757
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1885
+    "pk": 2365
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.03538, 
+      "value": 0.035388, 
       "compounds": [
         61, 
         1758
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1886
+    "pk": 2366
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.03549, 
+      "value": 0.035498, 
       "compounds": [
         61, 
         1759
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1887
+    "pk": 2367
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.0014, 
+      "value": 0.001405, 
       "compounds": [
         62, 
         64
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1888
+    "pk": 2368
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.00423, 
+      "value": 0.004235, 
       "compounds": [
         62, 
         65
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1889
+    "pk": 2369
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.00655, 
+      "value": 0.006557, 
       "compounds": [
         62, 
         66
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1890
+    "pk": 2370
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": 0.0085, 
@@ -54725,193 +55355,193 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1891
+    "pk": 2371
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.01015, 
+      "value": 0.010154, 
       "compounds": [
         62, 
         68
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1892
+    "pk": 2372
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.01158, 
+      "value": 0.011585, 
       "compounds": [
         62, 
         69
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1893
+    "pk": 2373
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.01283, 
+      "value": 0.012838, 
       "compounds": [
         62, 
         70
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1894
+    "pk": 2374
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.01394, 
+      "value": 0.013946, 
       "compounds": [
         62, 
         71
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1895
+    "pk": 2375
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.01493, 
+      "value": 0.014932, 
       "compounds": [
         62, 
         72
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1896
+    "pk": 2376
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.01581, 
+      "value": 0.015813, 
       "compounds": [
         62, 
         73
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1897
+    "pk": 2377
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.0166, 
+      "value": 0.016604, 
       "compounds": [
         62, 
         1172
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1898
+    "pk": 2378
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.01795, 
+      "value": 0.017957, 
       "compounds": [
         62, 
         1173
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1899
+    "pk": 2379
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.01905, 
+      "value": 0.019058, 
       "compounds": [
         62, 
         1747
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1900
+    "pk": 2380
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.01995, 
+      "value": 0.019956, 
       "compounds": [
         62, 
         1174
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1901
+    "pk": 2381
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.02068, 
+      "value": 0.020689, 
       "compounds": [
         62, 
         1748
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1902
+    "pk": 2382
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.02128, 
+      "value": 0.021288, 
       "compounds": [
         62, 
         1749
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1903
+    "pk": 2383
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.02177, 
+      "value": 0.021779, 
       "compounds": [
         62, 
         1750
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1904
+    "pk": 2384
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": 0.02218, 
@@ -54921,53 +55551,53 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1905
+    "pk": 2385
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.0225, 
+      "value": 0.022509, 
       "compounds": [
         62, 
         1752
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1906
+    "pk": 2386
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.02277, 
+      "value": 0.022779, 
       "compounds": [
         62, 
         1753
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1907
+    "pk": 2387
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.02299, 
+      "value": 0.022999, 
       "compounds": [
         62, 
         1754
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1908
+    "pk": 2388
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": 0.02318, 
@@ -54977,263 +55607,263 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1909
+    "pk": 2389
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.02332, 
+      "value": 0.023327, 
       "compounds": [
         62, 
         1756
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1910
+    "pk": 2390
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.02344, 
+      "value": 0.023448, 
       "compounds": [
         62, 
         1757
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1911
+    "pk": 2391
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.02354, 
+      "value": 0.023547, 
       "compounds": [
         62, 
         1758
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1912
+    "pk": 2392
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.02362, 
+      "value": 0.023628, 
       "compounds": [
         62, 
         1759
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1913
+    "pk": 2393
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.00071, 
+      "value": 0.000714, 
       "compounds": [
         64, 
         65
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1914
+    "pk": 2394
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.00212, 
+      "value": 0.002128, 
       "compounds": [
         64, 
         66
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1915
+    "pk": 2395
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.00328, 
+      "value": 0.003285, 
       "compounds": [
         64, 
         67
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1916
+    "pk": 2396
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.00425, 
+      "value": 0.004253, 
       "compounds": [
         64, 
         68
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1917
+    "pk": 2397
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.00507, 
+      "value": 0.005078, 
       "compounds": [
         64, 
         69
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1918
+    "pk": 2398
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.00579, 
+      "value": 0.005792, 
       "compounds": [
         64, 
         70
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1919
+    "pk": 2399
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.00641, 
+      "value": 0.006418, 
       "compounds": [
         64, 
         71
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1920
+    "pk": 2400
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.00697, 
+      "value": 0.006971, 
       "compounds": [
         64, 
         72
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1921
+    "pk": 2401
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.00746, 
+      "value": 0.007464, 
       "compounds": [
         64, 
         73
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1922
+    "pk": 2402
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.0079, 
+      "value": 0.007905, 
       "compounds": [
         64, 
         1172
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1923
+    "pk": 2403
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.00865, 
+      "value": 0.008657, 
       "compounds": [
         64, 
         1173
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1924
+    "pk": 2404
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.00926, 
+      "value": 0.009267, 
       "compounds": [
         64, 
         1747
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1925
+    "pk": 2405
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.00976, 
+      "value": 0.009764, 
       "compounds": [
         64, 
         1174
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1926
+    "pk": 2406
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.01016, 
+      "value": 0.010169, 
       "compounds": [
         64, 
         1748
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1927
+    "pk": 2407
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
       "value": 0.0105, 
@@ -55243,146 +55873,146 @@
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1928
+    "pk": 2408
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.01077, 
+      "value": 0.010771, 
       "compounds": [
         64, 
         1750
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1929
+    "pk": 2409
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.01099, 
+      "value": 0.010993, 
       "compounds": [
         64, 
         1751
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1930
+    "pk": 2410
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.01117, 
+      "value": 0.011175, 
       "compounds": [
         64, 
         1752
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1931
+    "pk": 2411
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.01132, 
+      "value": 0.011324, 
       "compounds": [
         64, 
         1753
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1932
+    "pk": 2412
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.01144, 
+      "value": 0.011446, 
       "compounds": [
         64, 
         1754
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1933
+    "pk": 2413
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.01154, 
+      "value": 0.011545, 
       "compounds": [
         64, 
         1755
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1934
+    "pk": 2414
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.01162, 
+      "value": 0.011627, 
       "compounds": [
         64, 
         1756
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1935
+    "pk": 2415
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.01169, 
+      "value": 0.011694, 
       "compounds": [
         64, 
         1757
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1936
+    "pk": 2416
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.01174, 
+      "value": 0.011749, 
       "compounds": [
         64, 
         1758
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1937
+    "pk": 2417
   }, 
   {
     "fields": {
-      "eos": "", 
+      "eos": "RKPR", 
       "setup": null, 
       "user": null, 
-      "value": 0.01179, 
+      "value": 0.011793, 
       "compounds": [
         64, 
         1759
       ]
     }, 
     "model": "sur.lijinteractionparameter", 
-    "pk": 1938
+    "pk": 2418
   }
 ]
