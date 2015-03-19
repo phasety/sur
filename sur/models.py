@@ -1004,13 +1004,13 @@ class Flash(models.Model):
 
     mixture = models.ForeignKey('Mixture', related_name='%(class)ses')
     t = models.FloatField(verbose_name='Temperature of the flash')
-    p = models.FloatField(verbose_name='Pressure of the flash', null=True)
-    v = models.FloatField(verbose_name='Volume of the flash', null=True)
+    p = models.FloatField(verbose_name='Pressure of the flash', null=True, blank=True)
+    v = models.FloatField(verbose_name='Volume of the flash', null=True, blank=True)
 
-    rho_l = models.FloatField(verbose_name='Density of liquid', null=True)  # remove null
-    rho_v = models.FloatField(verbose_name='Density of vapour', null=True)  # remove null
-    beta_mol = models.FloatField(verbose_name='Vapour phase mol fraction', null=True)     # remove null
-    beta_vol = models.FloatField(verbose_name='Vapour phase volume fraction', null=True)     # remove null
+    rho_l = models.FloatField(verbose_name='Density of liquid', null=True, blank=True)  # remove null
+    rho_v = models.FloatField(verbose_name='Density of vapour', null=True, blank=True)  # remove null
+    beta_mol = models.FloatField(verbose_name='Vapour phase mol fraction', null=True, blank=True)     # remove null
+    beta_vol = models.FloatField(verbose_name='Vapour phase volume fraction', null=True, blank=True)     # remove null
 
                              # validators=[MinValueValidator(0.),
                              #            MaxValueValidator(1.)])
