@@ -1034,14 +1034,16 @@ class Flash(models.Model):
         if len(liquid_mixture_composition) != size:
             raise ValueError('X must be same size than mixture (%d)' % size)
 
+        m = Mixture()
+        m.add_many(self.mixture.compounds, liquid_mixture_composition)
+
         try:
             if self.liquid_mixture:
                 self.liquid_mixture.delete()
         except Mixture.DoesNotExist:
             pass
-        m = Mixture()
-        m.add_many(self.mixture.compounds, liquid_mixture_composition)
-        self.liquid_mixture = m
+        finally:
+            self.liquid_mixture = m
 
     @property
     def y(self):
@@ -1053,16 +1055,17 @@ class Flash(models.Model):
         if len(vapour_mixture_composition) != size:
             raise ValueError('Y must be same size than mixture (%d)' % size)
 
+        m = Mixture()
+        m.add_many(self.mixture.compounds,
+                   vapour_mixture_composition)
+
         try:
             if self.vapour_mixture:
                 self.vapour_mixture.delete()
         except Mixture.DoesNotExist:
             pass
-
-        m = Mixture()
-        m.add_many(self.mixture.compounds,
-                   vapour_mixture_composition)
-        self.vapour_mixture = m
+        finally:
+            self.vapour_mixture = m
 
 
 
