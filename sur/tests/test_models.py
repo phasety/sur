@@ -8,11 +8,16 @@ from numpy.testing import assert_array_equal
 from sur.models import (Compound, Mixture, MixtureFraction,
                         K0InteractionParameter, TstarInteractionParameter,
                         KijInteractionParameter, LijInteractionParameter,
-                        EosEnvelope, set_interaction, EosSetup)
+                        EosEnvelope, set_interaction, EosSetup, EosFlash)
 from django.db.utils import IntegrityError
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
+import os
+import os.path
 
+
+__location__ = os.path.realpath(
+    os.path.join(os.getcwd(), os.path.dirname(__file__)))
 
 class TestMixture(TestCase):
 
@@ -672,6 +677,17 @@ class TestFlash(TestCase):
         self.ethane = Compound.objects.get(name='ETHANE')
         self.methane = Compound.objects.get(name='METHANE')
         self.co2 = Compound.objects.get(name='CARBON DIOXIDE')
+
+    def test_flash_input(self):
+        self.m.add(self.ethane, 0.1)
+        self.m.add(self.co2, 0.3)
+        self.m.add(self.methane, 0.6)
+        s = EosSetup.objects.create(eos='RKPR',
+                                    kij_mode='constants', lij_mode='constants')
+        flash = EosFlash(t=10, p=20, mixture=self.m, setup=s)
+        self.assertEqual(flash.get_txt(),
+            open(os.path.join(__location__, 'flash_input.txt')).read());
+
 
     def test_flash_requires_a_clean_mixture(self):
         self.m.add(self.ethane, 0.1)

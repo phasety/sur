@@ -947,7 +947,7 @@ class EosEnvelope(Envelope):
                                            'setup': self.setup}
 
     def get_txt(self):
-        return write_input(self.mixture, self.eos, as_data=True)
+        return write_input(self.mixture, self.setup.eos, as_data=True)
 
     def _calc(self):
         """
@@ -1102,7 +1102,8 @@ class EosFlash(Flash):
         return get_eos(self.eos)
 
     def get_txt(self):
-        return write_input(self.mixture, self.eos, self.t, self.p, as_data=True)
+        return write_input(self.mixture, self.setup.eos, self.t, self.p, interactions=self.interactions,
+                           as_data=True)
 
     def as_json(self):
         cols = [[m.name, str(x_), str(y_)] for (m, x_, y_) in
