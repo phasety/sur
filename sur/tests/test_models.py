@@ -649,6 +649,13 @@ class TestEnvelope(TestCase):
         # not raises
         EosEnvelope.objects.create(mixture=self.m)
 
+    def test_simple_rkpr_env(self):
+        m = Mixture()
+        m.add_many('methane propane n-pentane n-decane n-hexadecane', '0.822  0.088  0.050  0.020  0.020')
+        s = EosSetup.objects.create(eos='RKPR', kij_mode=EosSetup.T_DEP, lij_mode='constants')
+        m.get_envelope(setup=s)
+
+
     @skip('calc fail')
     def test_envelope_object_calc_env_on_save(self):
         self.m.add(self.ethane, 1)
