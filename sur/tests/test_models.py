@@ -685,6 +685,7 @@ class TestIsochore(TestCase):
         self.m.add_many('methane propane n-pentane n-decane n-hexadecane', '0.822  0.088  0.050  0.020  0.020')
         self.s = EosSetup.objects.create(eos='RKPR', kij_mode=EosSetup.T_DEP, lij_mode='constants')
 
+
     def test_isochore_input(self):
         flash_txt = Isochore(v=10., ts=467.01, ps=3.86, t_sup=465.0, t_step=5.0, t_inf=270.0,
                              mixture=self.m, setup=self.s).get_txt()
