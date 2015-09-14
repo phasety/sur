@@ -684,8 +684,9 @@ class TestFlash(TestCase):
         self.m.add(self.methane, 0.6)
         s = EosSetup.objects.create(eos='RKPR',
                                     kij_mode='constants', lij_mode='constants')
-        flash = EosFlash(t=10, p=20, mixture=self.m, setup=s)
-        self.assertEqual(flash.get_txt(),
+        flash_txt = EosFlash(t=10, p=20, mixture=self.m, setup=s).get_txt()
+        open('flash_input_generated.txt', 'w').write(flash_txt)
+        self.assertEqual(flash_txt,
             open(os.path.join(__location__, 'flash_input.txt')).read());
 
 
