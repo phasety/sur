@@ -1,5 +1,5 @@
-{{ mixture|length }}		NC
-4       nplus{% if t and p %}
+{{ mixture|length }}		NC{% if ii %}
+4       nplus{% endif %}{% if t and p %}
 TP                Spec    TP:TPz(K,bar) ; TV:Tvz(K,L/mol){% elif t and v %}
 TV              Spec    TP:TPz(K,bar) ; TV:Tvz(K,L/mol){% elif ii %}
 isoV            Spec    v(k), ts and ps {% endif %}

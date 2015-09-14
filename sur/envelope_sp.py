@@ -86,7 +86,6 @@ def envelope(env):
     # to debug
     env.input_txt = open(os.path.join(path, 'envelIN.txt')).read()
     env.output_txt = output
-
     output = output.split('\n')
 
     mark = "    T(K)        P(bar)        D(mol/L)"
@@ -150,9 +149,6 @@ def isochore(ii):
 
     ii.t_monophasic, ii.rho_monophasic, ii.p_monophasic = np.loadtxt(mono_block,
                                                                      unpack=True, usecols=[0, 1, 2])
-
-
-
 
 
 

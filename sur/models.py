@@ -794,7 +794,7 @@ class Mixture(models.Model):
         mode.
         """
         isoc = Isochore(v=v, ts=ts, ps=ps, t_sup=t_sup, t_step=5.0, t_inf=270.0,
-                             mixture=self.m, setup=s)
+                        mixture=self, setup=setup)
         isoc._calc()
         isoc.save()
         return isoc
@@ -1076,7 +1076,7 @@ class Isochore(models.Model):
             ax = fig.get_axes()[-1]
 
         ax.plot(self.t, self.p, 'r')
-        ax.plot(self.t, self.p, 'violet')
+        ax.plot(self.t_monophasic, self.p_monophasic, 'violet')
 
         ax.grid(True)
         ax.set_xlabel("Temperature [K]")
