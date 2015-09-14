@@ -133,20 +133,17 @@ def flash(fi):
 
 
 def isochore(ii):
-    path = write_input(ii.mixture, ii.setup.eos, ii=ii, interactions=fi.interactions)
+    path = write_input(ii.mixture, ii.setup.eos, ii=ii, interactions=ii.interactions)
+    print(path)
     output = exec_fortran('FlashSur', path)
-
 
     # to debug
     ii.input_txt = open(os.path.join(path, 'flashIN.txt')).read()
-    ii.output_txt = open(os.path.join(path, 'flashPvBeta.txt')).read()
-
-    raw_data = ii.output_txt.split('\n')
+    ii.output_txt = open(os.path.join(path, 'flashPvbeta.txt')).read()
+    raw_data = ii.output_txt.split('\r\n')
     separator = raw_data.index('    T(K)   rho(mol/L)   P(bar)    v(L/mol) ')
-    main_block = cStringIO.StringIO('\n'.join(raw_data[3:separator]))
-    mono_block = cStringIO.StringIO('\n'.join(raw_data[separator:]))
-
-
+    main_block = cStringIO.StringIO('\n'.join(raw_data[3:separator-1]))
+    mono_block = cStringIO.StringIO('\n'.join(raw_data[separator+1:]))
 
     ii.t, ii.rho, ii.p, ii.beta_mol, ii.beta_vol = np.loadtxt(main_block,
                                                              unpack=True, usecols=[0, 1, 2, 4, 5])

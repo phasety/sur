@@ -787,13 +787,17 @@ class Mixture(models.Model):
         return flash
 
 
-    def get_isochore(self, setup, v, ts, ps, t_sup, t_step, t_inf):
+    def get_isochore(self, setup, v, ts, ps, t_sup, t_step=5., t_inf=270.):
         """
         Get the isochore (isoV) for this mixture, calculated using
         the setup EOS with its selected interaction parameters
         mode.
         """
-
+        isoc = Isochore(v=v, ts=ts, ps=ps, t_sup=t_sup, t_step=5.0, t_inf=270.0,
+                             mixture=self.m, setup=s)
+        isoc._calc()
+        isoc.save()
+        return isoc
 
     def get_flashes(self, setup, t, p=[], v=[]):
         """
@@ -1022,8 +1026,6 @@ class Isochore(models.Model):
     t_step = models.FloatField(verbose_name='Temperature step')
     t_inf = models.FloatField(verbose_name='Temperature inf')
 
-
-
     p = PickledObjectField(editable=False,
                            help_text=u'Presure array of the envelope P-T')
     t = PickledObjectField(editable=False,
@@ -1059,7 +1061,13 @@ class Isochore(models.Model):
         """
         m = self.mixture  # just in sake of brevity
         m.clean()
-        isochore(self)
+        isochore_routine(self)
+
+    def get_txt(self):
+        return write_input(self.mixture, self.setup.eos, ii=self, interactions=self.interactions,
+                           as_data=True)
+
+
 
     def plot(self, fig=None,  legends=None):
         if fig is None:
@@ -1077,6 +1085,11 @@ class Isochore(models.Model):
             ax.legend(loc=legends)
         fig.frameon = False
         return fig
+
+    @property
+    def interactions(self):
+        return self.setup.get_interactions(self.mixture)
+
 
 
 class Flash(models.Model):

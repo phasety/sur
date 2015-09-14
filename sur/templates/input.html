@@ -8,8 +8,8 @@ isoV            Spec    v(k), ts and ps {% endif %}
 {{ p.0 }}		P(bar){% elif t and v %}
 {{ t }}     T(K)
 {{ v.0 }}     v(L/mol){% elif ii %}
-{{ ii.v }}   {{ ii.ts }}    {{ ii.ps }}
-{{ ii.t_sup }}  {{ ii.t_step }}  {{ ii.t_inf }}  {% endif %}
+{{ ii.v }}   {{ ii.ts }}    {{ ii.ps }}         v(L/mol)+Ts+Ps
+{{ ii.t_sup }}  {{ ii.t_step }}  {{ ii.t_inf }}         T(K)+dT+Tinf{% endif %}
 {{ eos.MODEL_ID }}				NMODEL (1:SRK / 2:PR / 3:RKPR)
 0  {{ nTdep }}			ncomb, nTdep
 {% for c in compounds %}{{ c.name }}({{ forloop.counter }})
