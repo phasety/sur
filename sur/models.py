@@ -17,7 +17,9 @@ from picklefield.fields import PickledObjectField
 import numpy as np
 from matplotlib import pyplot as plt
 
-from envelope_sp import (envelope as envelope_routine, flash as flash_routine,
+from envelope_sp import (envelope as envelope_routine,
+                         flash as flash_routine,
+                         isochore as isochore_routine,
                          write_input, multiflash)
 from eos import get_eos
 from . import units
@@ -785,6 +787,18 @@ class Mixture(models.Model):
         return flash
 
 
+    def get_isochore(self, setup, v, ts, ps, t_sup, t_step=5., t_inf=270.):
+        """
+        Get the isochore (isoV) for this mixture, calculated using
+        the setup EOS with its selected interaction parameters
+        mode.
+        """
+        isoc = Isochore(v=v, ts=ts, ps=ps, t_sup=t_sup, t_step=5.0, t_inf=270.0,
+                        mixture=self, setup=setup)
+        isoc._calc()
+        isoc.save()
+        return isoc
+
     def get_flashes(self, setup, t, p=[], v=[]):
         """
         Get a serie of flashes on (t, [p1, p2, p3...]) or (t,[v1, v2...]) for this mixture, calculated using
@@ -995,6 +1009,87 @@ class EosEnvelope(Envelope):
     @property
     def interactions(self):
         return self.setup.get_interactions(self.mixture)
+
+
+
+class Isochore(models.Model):
+
+    mixture = models.ForeignKey('Mixture', related_name='%(class)ses')
+    setup = models.ForeignKey('EosSetup')
+
+
+    # input data
+    v = models.FloatField(verbose_name='Volume of the isochore')
+    ts = models.FloatField(verbose_name='Temperature')
+    ps = models.FloatField(verbose_name='Pressure')
+    t_sup = models.FloatField(verbose_name='Temperature sup')
+    t_step = models.FloatField(verbose_name='Temperature step')
+    t_inf = models.FloatField(verbose_name='Temperature inf')
+
+    p = PickledObjectField(editable=False,
+                           help_text=u'Presure array of the envelope P-T')
+    t = PickledObjectField(editable=False,
+                           help_text=u'Temperature array of the envelope P-T')
+    rho = PickledObjectField(editable=False,
+                             null=True,
+                             help_text=u'Density array of the envelope P-T')
+
+    beta_mol = PickledObjectField(help_text='Vapour phase mol fraction',
+                                  editable=False,
+                                  null=True)
+
+    beta_vol = PickledObjectField(help_text='Vapour phase vol fraction',
+                                  editable=False,
+                                  null=True)
+
+
+    p_monophasic = PickledObjectField(editable=False,
+                           help_text=u'Presure array of the envelope P-T')
+    t_monophasic = PickledObjectField(editable=False,
+                           help_text=u'Temperature array of the envelope P-T')
+    rho_monophasic = PickledObjectField(editable=False,
+                             null=True,
+                             help_text=u'Density array of the envelope P-T')
+
+    input_txt = models.TextField(editable=False, null=True)
+    output_txt = models.TextField(editable=False, null=True)
+
+
+    def _calc(self):
+        """
+        Calculate the flash for the given t and p
+        """
+        m = self.mixture  # just in sake of brevity
+        m.clean()
+        isochore_routine(self)
+
+    def get_txt(self):
+        return write_input(self.mixture, self.setup.eos, ii=self, interactions=self.interactions,
+                           as_data=True)
+
+
+
+    def plot(self, fig=None,  legends=None):
+        if fig is None:
+            fig, ax = plt.subplots()
+        else:
+            ax = fig.get_axes()[-1]
+
+        ax.plot(self.t, self.p, 'r')
+        ax.plot(self.t_monophasic, self.p_monophasic, 'violet')
+
+        ax.grid(True)
+        ax.set_xlabel("Temperature [K]")
+        ax.set_ylabel("Pressure [bar]")
+        if legends:
+            ax.legend(loc=legends)
+        fig.frameon = False
+        return fig
+
+    @property
+    def interactions(self):
+        return self.setup.get_interactions(self.mixture)
+
 
 
 class Flash(models.Model):

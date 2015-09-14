@@ -20,6 +20,8 @@ from eos import get_eos
 from sur import data
 
 
+
+
 def exec_fortran(bin, path, as_out_txt=None, timeout=10):
     """Execute a fortran program
     if as_out_txt is read that file and return its content
@@ -45,7 +47,8 @@ def exec_fortran(bin, path, as_out_txt=None, timeout=10):
     return output
 
 
-def write_input(mixture, eos, t=None, p=[], v=[], as_data=False, interactions=None):
+def write_input(mixture, eos, t=None, p=[], v=[], ii=None,
+                as_data=False, interactions=None):
     """
     if t and p are given, return the path of the folder with
     a written flashIN.txt
@@ -68,7 +71,7 @@ def write_input(mixture, eos, t=None, p=[], v=[], as_data=False, interactions=No
     if as_data:
         return data
 
-    input_file = 'flashIN.txt' if t and (p or v) else 'envelIN.txt'
+    input_file = 'flashIN.txt' if (t and (p or v) or ii) else 'envelIN.txt'
     path = tempfile.mkdtemp()
     with open(os.path.join(path, input_file), 'w') as fh:
         fh.write(data)
@@ -83,7 +86,6 @@ def envelope(env):
     # to debug
     env.input_txt = open(os.path.join(path, 'envelIN.txt')).read()
     env.output_txt = output
-
     output = output.split('\n')
 
     mark = "    T(K)        P(bar)        D(mol/L)"
@@ -127,6 +129,26 @@ def flash(fi):
     x = np.array(x)
     y = np.array(y)
     return x / x.sum(), y / y.sum(), rho_x, rho_y, beta_mol, beta_vol, p, v
+
+
+def isochore(ii):
+    path = write_input(ii.mixture, ii.setup.eos, ii=ii, interactions=ii.interactions)
+    print(path)
+    output = exec_fortran('FlashSur', path)
+
+    # to debug
+    ii.input_txt = open(os.path.join(path, 'flashIN.txt')).read()
+    ii.output_txt = open(os.path.join(path, 'flashPvbeta.txt')).read()
+    raw_data = ii.output_txt.split('\r\n')
+    separator = raw_data.index('    T(K)   rho(mol/L)   P(bar)    v(L/mol) ')
+    main_block = cStringIO.StringIO('\n'.join(raw_data[3:separator-1]))
+    mono_block = cStringIO.StringIO('\n'.join(raw_data[separator+1:]))
+
+    ii.t, ii.rho, ii.p, ii.beta_mol, ii.beta_vol = np.loadtxt(main_block,
+                                                             unpack=True, usecols=[0, 1, 2, 4, 5])
+
+    ii.t_monophasic, ii.rho_monophasic, ii.p_monophasic = np.loadtxt(mono_block,
+                                                                     unpack=True, usecols=[0, 1, 2])
 
 
 

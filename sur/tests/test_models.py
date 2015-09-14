@@ -2,13 +2,14 @@ from unittest import TestCase, skip
 from decimal import Decimal
 
 import numpy as np
-from numpy.testing import assert_array_equal
+from numpy.testing import assert_array_equal, assert_array_almost_equal
 
 
 from sur.models import (Compound, Mixture, MixtureFraction,
                         K0InteractionParameter, TstarInteractionParameter,
                         KijInteractionParameter, LijInteractionParameter,
-                        EosEnvelope, set_interaction, EosSetup, EosFlash)
+                        EosEnvelope, set_interaction, EosSetup, EosFlash,
+                        Isochore)
 from django.db.utils import IntegrityError
 from django.core.exceptions import ValidationError
 from django.contrib.auth.models import User
@@ -677,6 +678,37 @@ class TestEnvelope(TestCase):
         self.assertEqual(env, self.m.get_envelope())
 
 
+class TestIsochore(TestCase):
+
+    def setUp(self):
+        self.m = Mixture()
+        self.m.add_many('methane propane n-pentane n-decane n-hexadecane', '0.822  0.088  0.050  0.020  0.020')
+        self.s = EosSetup.objects.create(eos='RKPR', kij_mode=EosSetup.T_DEP, lij_mode='constants')
+
+
+    def test_isochore_input(self):
+        flash_txt = Isochore(v=10., ts=467.01, ps=3.86, t_sup=465.0, t_step=5.0, t_inf=270.0,
+                             mixture=self.m, setup=self.s).get_txt()
+        #open('isochore_input_generated.txt', 'w').write(flash_txt)
+        self.assertEqual(flash_txt,
+            open(os.path.join(__location__, 'isochore_input_expected.txt')).read());
+
+    def test_simple_isochore(self):
+        iso = Isochore(v=10., ts=467.01, ps=3.86, t_sup=465.0, t_step=5.0, t_inf=270.0,
+                       mixture=self.m, setup=self.s)
+        iso._calc()
+        #assert_array_equal(.x, np.array([0., 1., 0]))
+        assert_array_almost_equal(iso.t[[0, -1]], np.array([467.01, 270.0]))
+        assert_array_almost_equal(iso.p[[0, -1]], np.array([3.86, 2.1]))
+        self.assertEqual(iso.t.size, 41)
+        self.assertEqual(iso.p.size, 41)
+
+        assert_array_almost_equal(iso.t_monophasic[[0, -1]], np.array([467.01, 1002.01]))
+        assert_array_almost_equal(iso.p_monophasic[[0, -1]], np.array([3.86, 8.356]))
+        self.assertEqual(iso.t_monophasic.size, 108)
+        self.assertEqual(iso.p_monophasic.size, 108)
+
+
 class TestFlash(TestCase):
 
     def setUp(self):
@@ -692,9 +724,9 @@ class TestFlash(TestCase):
         s = EosSetup.objects.create(eos='RKPR',
                                     kij_mode='constants', lij_mode='constants')
         flash_txt = EosFlash(t=10, p=20, mixture=self.m, setup=s).get_txt()
-        open('flash_input_generated.txt', 'w').write(flash_txt)
+        # open('flash_input_generated.txt', 'w').write(flash_txt)
         self.assertEqual(flash_txt,
-            open(os.path.join(__location__, 'flash_input.txt')).read());
+            open(os.path.join(__location__, 'flash_input_expected.txt')).read());
 
 
     def test_flash_requires_a_clean_mixture(self):

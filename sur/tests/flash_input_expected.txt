@@ -1,4 +1,5 @@
 3		NC
+4       nplus
 TP                Spec    TP:TPz(K,bar) ; TV:Tvz(K,L/mol)
 0.1  0.3  0.6  		z1,z2...zNC
 10		T(K)
