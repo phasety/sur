@@ -48,11 +48,12 @@ def exec_fortran(bin, path, as_out_txt=None, timeout=10):
 
 
 def write_input(mixture, eos, t=None, p=[], v=[], ii=None,
-                as_data=False, interactions=None):
+                as_data=False, interactions=None, **kwargs):
     """
     if t and p are given, return the path of the folder with
     a written flashIN.txt
     """
+    
     compounds = []
     if p and not isinstance(p, Iterable):
         p = [p]
@@ -67,7 +68,9 @@ def write_input(mixture, eos, t=None, p=[], v=[], ii=None,
         compounds.append(c)
     nTdep = 1 if 'k0' in interactions else 0
     eos = get_eos(eos)
-    data = render_to_string('input.html', locals())
+    kw = locals().copy()
+    kw.update(kwargs)
+    data = render_to_string('input.html', kw)
     if as_data:
         return data
 
@@ -116,7 +119,7 @@ def envelope(env):
 
 def flash(fi):
     path = write_input(fi.mixture, fi.setup.eos, fi.t, fi.p, fi.v,
-                       interactions=fi.interactions)
+                       interactions=fi.interactions, nplus=len(fi.mixture))
     output = exec_fortran('FlashSur', path)
 
     # to debug
@@ -132,8 +135,7 @@ def flash(fi):
 
 
 def isochore(ii):
-    path = write_input(ii.mixture, ii.setup.eos, ii=ii, interactions=ii.interactions)
-    print(path)
+    path = write_input(ii.mixture, ii.setup.eos, ii=ii, interactions=ii.interactions, nplus=len(fi.mixture))
     output = exec_fortran('FlashSur', path)
 
     # to debug
