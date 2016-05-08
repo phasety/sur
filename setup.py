@@ -101,7 +101,6 @@ def get_version():
                                 'HEAD']).strip().decode('ascii')
     except:
 
-
         try:
             git_version = subprocess.check_output(['git', 'rev-parse', 'HEAD'])
             git_version = git_version.strip().decode('ascii')[:7]
