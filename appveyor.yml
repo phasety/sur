@@ -29,7 +29,7 @@ install:
 build: off
 
 test_script:
-  - python -c 'import sur'
+  - python -c "import sur"
 
 after_test:
   - python setup.py bdist_wheel
