@@ -6,11 +6,11 @@ environment:
     # http://www.appveyor.com/docs/installed-software#python
 
     - PYTHON: "C:\\Python27"
-      PYTHON_VERSION: "2.7.10"
+      PYTHON_VERSION: "2.7.11"
       PYTHON_ARCH: "32"
 
     # - PYTHON: "C:\\Python27-x64"
-    #  PYTHON_VERSION: "2.7.10" # currently 2.7.9
+    #  PYTHON_VERSION: "2.7.11" #
     #  PYTHON_ARCH: "64"
 
 install:
@@ -29,10 +29,10 @@ install:
 build: off
 
 test_script:
-  - "%PYTHON%\\python.exe -c 'import sur'"
+  - python -c 'import sur'"
 
 after_test:
-  - "%PYTHON%\\python.exe setup.py bdist_wheel"
+  - python setup.py bdist_wheel"
 
 artifacts:
   # bdist_wheel puts your built wheel in the dist directory
