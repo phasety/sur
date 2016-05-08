@@ -1,8 +1,16 @@
 import os
 import sys
 from StringIO import StringIO
+from pkg_resources import get_distribution, DistributionNotFound
+import os.path
 
-__version__ = '1.0a'
+try:
+    _dist = get_distribution('sur')
+except DistributionNotFound:
+    __version__ = 'dev'
+else:
+    __version__ = _dist.version
+
 
 default_app_config = 'sur.apps.SurConfig'
 

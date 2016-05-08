@@ -3,6 +3,7 @@
 import os
 import sys
 import glob
+import subprocess
 from setuptools import setup
 
 try:
@@ -23,6 +24,8 @@ multicompound mixtures.
 
 Phasety 2013 - 2016
 """
+VERSION = '1.0'   # base version
+
 
 DISTNAME = 'sur'
 DESCRIPTION = 'Envelope-sur package'
@@ -35,7 +38,8 @@ DOWNLOAD_URL = URL
 PACKAGE_NAME = 'sur'
 
 
-EXTRA_INFO  = dict(
+
+EXTRA_INFO = dict(
     install_requires=['django>=1.7,<1.8', 'one==0.2.1', 'django-picklefield==0.3.0',
                       'numpy>=1.8', 'matplotlib>=1.3', 'quantities'],
     classifiers=['Development Status :: 3 - Alpha',
@@ -88,13 +92,22 @@ def configuration(parent_package='', top_path=None, package_name=DISTNAME):
 
 
 def get_version():
-    """Obtain the version number"""
-    import imp
+    """Obtain the version number
+    If HEAD is tag, return it.
+    """
     try:
-        mod = imp.load_source('version', os.path.join(PACKAGE_NAME, 'version.py'))
-        return mod.__version__
+        return subprocess.check_output(['git', 'describe',
+                                '--exact-match', '--tags',
+                                'HEAD']).strip().decode('ascii')
     except:
-        return '1.0a-dev'
+
+
+        try:
+            git_version = subprocess.check_output(['git', 'rev-parse', 'HEAD'])
+            git_version = git_version.strip().decode('ascii')[:7]
+            return '{}.post{}'.format(VERSION, git_version)
+        except:
+            return VERSION
 
 
 # Call the setup function
