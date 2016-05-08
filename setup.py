@@ -1,25 +1,42 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+import os
+import sys
+import glob
+import subprocess
+
+try:
+    from numpy.distutils.core import setup
+    from numpy.distutils.misc_util import Configuration
+except ImportError:
+    print("""Numpy is not installed. Try:
+
+    pip install numpy==1.8
+""")
+    sys.exit(-1)
+
+
 descr = """\
 Envelope Sur.
 
 A basic envelope and flash calculator and plotter for
 multicompound mixtures.
 
-Phasety 2013 - 2015
+Phasety 2013 - 2016
 """
 
 DISTNAME = 'sur'
 DESCRIPTION = 'Envelope-sur package'
 LONG_DESCRIPTION = descr
-MAINTAINER  = u'Martín Gaitán',
+MAINTAINER = u'Martín Gaitán',
 MAINTAINER_EMAIL = 'gaitan@gmail.com',
 URL = 'http://sur.phasety.com'
 LICENSE = 'Freeware'
 DOWNLOAD_URL = URL
 PACKAGE_NAME = 'sur'
 EXTRA_INFO  = dict(
-    install_requires=['django', 'one', 'django-picklefield', 'numpy', 'matplotlib', 'quantities'],
+    install_requires=['django>=1.7,<1.8', 'one==0.2.1', 'django-picklefield==0.3.0',
+                      'numpy', 'matplotlib>=1.3', 'quantities'],
     classifiers=['Development Status :: 3 - Alpha',
                  'Intended Audience :: Developers',
                  'Intended Audience :: Science/Research',
@@ -27,14 +44,6 @@ EXTRA_INFO  = dict(
                  'Topic :: Scientific/Engineering']
 )
 
-import os
-import sys
-import glob
-import subprocess
-
-import setuptools
-from numpy.distutils.core import setup
-from numpy.distutils.misc_util import Configuration
 
 
 def find_data_files(source,target,patterns):
@@ -76,6 +85,7 @@ def configuration(parent_package='', top_path=None, package_name=DISTNAME):
 
     config.add_subpackage(PACKAGE_NAME)
     return config
+
 
 def get_version():
     """Obtain the version number"""
