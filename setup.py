@@ -4,10 +4,10 @@ import os
 import sys
 import glob
 import subprocess
-from setuptools import setup
+import setuptools
 
 try:
-    from numpy.distutils.misc_util import Configuration
+    from numpy.distutils.core import Extension, setup
 except ImportError:
     print("""Numpy is not installed. Try:
 
@@ -75,21 +75,6 @@ def find_data_files(source, target, patterns):
 
 
 
-def configuration(parent_package='', top_path=None, package_name=DISTNAME):
-    if os.path.exists('MANIFEST'):
-        os.remove('MANIFEST')
-
-    config = Configuration(None, parent_package, top_path)
-
-    # Avoid non-useful msg: "Ignoring attempt to set 'name' (from ... "
-    config.set_options(ignore_setup_xxx_py=True,
-                       assume_default_configuration=True,
-                       delegate_options_to_subpackages=True,
-                       quiet=True)
-
-    config.add_subpackage(PACKAGE_NAME)
-    return config
-
 
 def get_version():
     """Obtain the version number
@@ -111,17 +96,19 @@ def get_version():
 
 # Call the setup function
 if __name__ == "__main__":
-    setup(configuration=configuration,
-          name=DISTNAME,
+    setup(name=DISTNAME,
           maintainer=MAINTAINER,
           maintainer_email=MAINTAINER_EMAIL,
           description=DESCRIPTION,
           license=LICENSE,
           data_files=find_data_files('data', 'data', '*.db'),
           url=URL,
+          packages=['sur'],
+          zip_safe=False,
           download_url=DOWNLOAD_URL,
           long_description=LONG_DESCRIPTION,
           include_package_data=True,
-          test_suite="nose.collector",
+          # test_suite="nose.collector",
           version=get_version(),
+          ext_modules=[Extension('sur._cubic', sources=['sur/CubicParam.f90'])],
           **EXTRA_INFO)
