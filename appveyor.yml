@@ -29,10 +29,10 @@ install:
 build: off
 
 test_script:
-  - python -c 'import sur'"
+  - python -c 'import sur'
 
 after_test:
-  - python setup.py bdist_wheel"
+  - python setup.py bdist_wheel
 
 artifacts:
   # bdist_wheel puts your built wheel in the dist directory
