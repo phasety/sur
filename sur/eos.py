@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import numpy as np
-import _cubic
+import ._cubic
 
 
 class CubicModel(object):
