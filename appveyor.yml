@@ -9,9 +9,9 @@ environment:
       PYTHON_VERSION: "2.7.10"
       PYTHON_ARCH: "32"
 
-    - PYTHON: "C:\\Python27-x64"
-      PYTHON_VERSION: "2.7.10" # currently 2.7.9
-      PYTHON_ARCH: "64"
+    # - PYTHON: "C:\\Python27-x64"
+    #  PYTHON_VERSION: "2.7.10" # currently 2.7.9
+    #  PYTHON_ARCH: "64"
 
 install:
   - set PATH=C:\Miniconda\Scripts
@@ -21,10 +21,10 @@ install:
   - conda create -q --name python%PYTHON_VERSION% python=%PYTHON_VERSION%
   - activate python%PYTHON_VERSION%
   - pip install -i https://pypi.anaconda.org/carlkl/simple mingwpy
-  - pip install setuptools numpy
-  - python.exe setup.py config --compiler=mingw32 --fcompiler=gfortran
-  - python.exe setup.py build --compiler=mingw32
-  - python.exe setup.py install
+  - pip install numpy
+  - python setup.py config --compiler=mingw32 --fcompiler=gfortran
+  - python setup.py build --compiler=mingw32
+  - python setup.py install
 
 build: off
 
