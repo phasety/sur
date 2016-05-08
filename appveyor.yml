@@ -1,0 +1,43 @@
+environment:
+
+  matrix:
+
+    # For Python versions available on Appveyor, see
+    # http://www.appveyor.com/docs/installed-software#python
+
+    - PYTHON: "C:\\Python27"
+
+platform:
+  - x86
+  - x64
+
+install:
+  - set PATH=C:\Miniconda\Scripts
+  - ps: If ($env:Platform -Match "x64") {$env:PATH="C:\Miniconda-x64\Scripts"}
+  - conda config --set always_yes yes --set changeps1 no
+  - conda update -q conda
+  - conda create -q --name python%PYTHON_VERSION% python=%PYTHON_VERSION%
+  - activate python%PYTHON_VERSION%
+  - pip install -i https://pypi.anaconda.org/carlkl/simple mingwpy
+  - conda install -q --name python%PYTHON_VERSION% setuptools numpy matplotlib==1.3 wheel
+  - python.exe setup.py config_fc
+  - python.exe setup.py config --compiler=mingw32 --fcompiler=gfortran
+  - python.exe setup.py build --compiler=mingw32
+  - python.exe setup.py install
+
+build: off
+
+test_script:
+  - "%PYTHON%\\python.exe -c 'import sur'"
+
+after_test:
+  - "%PYTHON%\\python.exe setup.py bdist_wheel"
+
+artifacts:
+  # bdist_wheel puts your built wheel in the dist directory
+  - path: dist\*
+
+#on_success:
+#  You can use this step to upload your artifacts to a public website.
+#  See Appveyor's documentation for more details. Or you can simply
+#  access your wheels from the Appveyor "artifacts" tab for your build.
