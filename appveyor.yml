@@ -22,6 +22,7 @@ install:
   - activate python%PYTHON_VERSION%
   - pip install -i https://pypi.anaconda.org/carlkl/simple mingwpy
   - conda install -q --name python%PYTHON_VERSION% numpy matplotlib
+  - python.exe setup.py config_fc
   - python setup.py config --compiler=mingw32 --fcompiler=gfortran
   - python setup.py build --compiler=mingw32
   - python setup.py install
