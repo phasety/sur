@@ -3,10 +3,9 @@
 import os
 import sys
 import glob
-import subprocess
+from setuptools import setup
 
 try:
-    from numpy.distutils.core import setup
     from numpy.distutils.misc_util import Configuration
 except ImportError:
     print("""Numpy is not installed. Try:
@@ -34,9 +33,11 @@ URL = 'http://sur.phasety.com'
 LICENSE = 'Freeware'
 DOWNLOAD_URL = URL
 PACKAGE_NAME = 'sur'
+
+
 EXTRA_INFO  = dict(
     install_requires=['django>=1.7,<1.8', 'one==0.2.1', 'django-picklefield==0.3.0',
-                      'numpy', 'matplotlib>=1.3', 'quantities'],
+                      'numpy>=1.8', 'matplotlib>=1.3', 'quantities'],
     classifiers=['Development Status :: 3 - Alpha',
                  'Intended Audience :: Developers',
                  'Intended Audience :: Science/Research',
@@ -45,8 +46,7 @@ EXTRA_INFO  = dict(
 )
 
 
-
-def find_data_files(source,target,patterns):
+def find_data_files(source, target, patterns):
     """Locates the specified data-files and returns the matches
     in a data_files compatible format.
 
@@ -94,21 +94,8 @@ def get_version():
         mod = imp.load_source('version', os.path.join(PACKAGE_NAME, 'version.py'))
         return mod.__version__
     except:
-        return 'dev'
+        return '1.0a-dev'
 
-# Documentation building command
-try:
-    from sphinx.setup_command import BuildDoc as SphinxBuildDoc
-    class BuildDoc(SphinxBuildDoc):
-        """Run in-place build before Sphinx doc build"""
-        def run(self):
-            ret = subprocess.call([sys.executable, sys.argv[0], 'build_ext', '-i'])
-            if ret != 0:
-                raise RuntimeError("Building doc failed!")
-            SphinxBuildDoc.run(self)
-    cmdclass = {'build_sphinx': BuildDoc}
-except ImportError:
-    cmdclass = {}
 
 # Call the setup function
 if __name__ == "__main__":
@@ -124,6 +111,5 @@ if __name__ == "__main__":
           long_description=LONG_DESCRIPTION,
           include_package_data=True,
           test_suite="nose.collector",
-          cmdclass=cmdclass,
           version=get_version(),
           **EXTRA_INFO)

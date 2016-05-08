@@ -2,6 +2,8 @@ import os
 import sys
 from StringIO import StringIO
 
+__version__ = '1.0a'
+
 default_app_config = 'sur.apps.SurConfig'
 
 

@@ -110,7 +110,7 @@ Almost done
 
 - Install sur's requirements (basically numpy_ and matplotlib_) via pip::
 
-    (sur)~/projects/sur$ pip install numpy==1.8
+    (sur)~/projects/sur$ pip install numpy
     (sur)~/projects/sur$ pip install -r requirement.txt
 
 - And finally install Sur
