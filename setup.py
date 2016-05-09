@@ -81,14 +81,15 @@ def get_version():
     If HEAD is tag, return it.
     """
     try:
-        return subprocess.check_output(['git', 'describe',
-                                '--exact-match', '--tags',
-                                'HEAD']).strip().decode('ascii')
+        return os.environ.get('APPVEYOR_REPO_TAG_NAME', subprocess.check_output(
+                    ['git', 'describe', '--exact-match', '--tags','HEAD']
+                  ).strip().decode('ascii'))
     except:
-
         try:
-            git_version = subprocess.check_output(['git', 'rev-parse', 'HEAD'])
-            git_version = git_version.strip().decode('ascii')[:7]
+            git_version = os.environ.get('APPVEYOR_REPO_COMMIT')
+            if not git_version:
+              git_version = subprocess.check_output(['git', 'rev-parse', 'HEAD'])
+              git_version = git_version.strip().decode('ascii')[:7]
             return '{}.post{}'.format(VERSION, git_version)
         except:
             return VERSION
