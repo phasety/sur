@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 
 import numpy as np
-import sur._cubic
+from sur import _cubic
 
 
 class CubicModel(object):
