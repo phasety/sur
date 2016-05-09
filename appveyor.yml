@@ -22,15 +22,17 @@ install:
   - activate python%PYTHON_VERSION%
   - pip install -i https://pypi.anaconda.org/carlkl/simple mingwpy
   - conda install -q --name python%PYTHON_VERSION% numpy matplotlib
-  - python setup.py config --compiler=mingw32 --fcompiler=gfortran build --compiler=mingw32 install
+  - python setup.py config --compiler=mingw32 --fcompiler=gfortran build --compiler=mingw32
+  - python setup.py bdist_wheel
+  - pip install dist\*.whl
 
 build: off
 
 test_script:
   - python -c "import sur"
 
-after_test:
-  - python setup.py bdist_wheel
+# after_test:
+#  -
 
 artifacts:
   # bdist_wheel puts your built wheel in the dist directory
