@@ -4,7 +4,9 @@ from glob import glob
 from matplotlib import pyplot as plt
 from matplotlib.testing.compare import comparable_formats, compare_images
 from matplotlib.testing.noseclasses import ImageComparisonFailure
-from sur.models import Mixture, EosSetup
+from sur import Mixture, EosSetup, setup_database
+
+setup_database()
 
 
 def clean():

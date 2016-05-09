@@ -4,7 +4,7 @@ from decimal import Decimal
 import numpy as np
 from numpy.testing import assert_array_equal, assert_array_almost_equal
 
-
+from sur import setup_database
 from sur.models import (Compound, Mixture, MixtureFraction,
                         K0InteractionParameter, TstarInteractionParameter,
                         KijInteractionParameter, LijInteractionParameter,
@@ -16,6 +16,7 @@ from django.contrib.auth.models import User
 import os
 import os.path
 
+setup_database()
 
 __location__ = os.path.realpath(
     os.path.join(os.getcwd(), os.path.dirname(__file__)))
