@@ -1,17 +1,12 @@
 environment:
-
   matrix:
+    - PYTHON_VERSION: "2.7.11"
+    # - PYTHON_VERSION: "3.4"
 
-    # For Python versions available on Appveyor, see
-    # http://www.appveyor.com/docs/installed-software#python
+platform:
+  - x86
+  - x64
 
-    - PYTHON: "C:\\Python27"
-      PYTHON_VERSION: "2.7.11"
-      PYTHON_ARCH: "32"
-
-    - PYTHON: "C:\\Python27-x64"
-      PYTHON_VERSION: "2.7.11"
-      PYTHON_ARCH: "64"
 
 install:
   - set PATH=C:\Miniconda\Scripts
@@ -31,6 +26,7 @@ test_script:
 
 after_test:
   - python setup.py bdist_wheel
+  - python setup.py bdist_msi
 
 artifacts:
   # bdist_wheel puts your built wheel in the dist directory
