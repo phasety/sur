@@ -11,7 +11,6 @@ except DistributionNotFound:
 else:
     __version__ = _dist.version
 
-
 default_app_config = 'sur.apps.SurConfig'
 
 

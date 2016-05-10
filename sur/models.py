@@ -15,7 +15,7 @@ from django.contrib.auth.models import User
 from django.utils.datastructures import SortedDict
 from picklefield.fields import PickledObjectField
 import numpy as np
-from matplotlib import pyplot as plt
+
 
 from envelope_sp import (envelope as envelope_routine,
                          flash as flash_routine,
@@ -29,6 +29,10 @@ from . import eos
 DEFAULT_MAX_LENGTH = 255
 MAX_DIGITS = 15
 DECIMAL_PLACES = 6
+
+__all__ = ['Compound', 'KijInteractionParameter', 'LijInteractionParameter',
+           'EosFlash', 'ExperimentalEnvelope', 'ExperimentalFlash', 'EosEnvelope',
+           'EosSetup', 'Mixture', 'MixtureFraction', 'Isochore']
 
 
 class CompoundManager(models.Manager):
@@ -679,7 +683,7 @@ class Mixture(models.Model):
         return self._compounds_array_field('get_m', call_args=(model,))
 
     def reset(self):
-        """delete all MixtureFractions"""
+        """delete all MixtureFraction"""
         self.fractions.all().delete()
 
     def add_many(self, compounds, fractions):
@@ -865,7 +869,7 @@ class Envelope(models.Model):
         :returns: a :class:`Figure` instance
 
         """
-
+        from matplotlib import pyplot as plt
         if fig is None:
             fig, ax = plt.subplots()
         else:
@@ -930,7 +934,7 @@ class ExperimentalEnvelope(Envelope):
         :type color: color str
         :returns: a :class:`Figure` instance
         """
-
+        from matplotlib import pyplot as plt
         if fig is None:
             fig, ax = plt.subplots()
         else:
@@ -1069,7 +1073,8 @@ class Isochore(models.Model):
 
 
 
-    def plot(self, fig=None,  legends=None):
+    def plot(self, fig=None, legends=None):
+        from matplotlib import pyplot as plt
         if fig is None:
             fig, ax = plt.subplots()
         else:

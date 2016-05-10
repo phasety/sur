@@ -102,9 +102,12 @@ if __name__ == "__main__":
           maintainer_email=MAINTAINER_EMAIL,
           description=DESCRIPTION,
           license=LICENSE,
+          packages=['sur', 'sur.migrations'],
           data_files=find_data_files('data', 'data', '*.db'),
+          package_data = {
+              'sur': ['templates/*.html'],
+          },
           url=URL,
-          packages=['sur'],
           zip_safe=False,
           download_url=DOWNLOAD_URL,
           long_description=LONG_DESCRIPTION,
