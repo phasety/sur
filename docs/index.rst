@@ -8,16 +8,28 @@ Welcome to Sur's documentation!
 
 Sur is python library to calculate and plot envelopes and flashes for multicompound mixtures using equation of states.
 
-It have been designed to be easy to use interactively, for example using `Juputer <http://jupyter.readthedocs.io/en/latest/>`_, although it could be used as a \"backend\" to develop your own programs.
+It have been designed to be easy to use interactively, for example using `Jupyter <http://jupyter.readthedocs.io/en/latest/>`_, although it could be used as a \"backend\" to develop your own programs.
 
-Contents:
+Contents
+---------
 
 .. toctree::
    :maxdepth: 2
 
    install.rst
    tutorial.ipynb
+   advanced_examples.rst
+   dev.rst
 
+
+
+API reference
+--------------
+
+.. toctree::
+   :maxdepth: 4
+
+   sur.rst
 
 
 Indices and tables

@@ -1,12 +1,5 @@
-Setup a development enviroment on Linux
+Setup a development enviroment
 ========================================
-
-:author: Martín Gaitán <gaitan@phasety.com>
-:date: April 25, 2016
-
-
-Introduction
--------------
 
 This document is a guide to install an enviroment
 to contribute to the development of Sur library. It's fully based on modern
@@ -17,7 +10,7 @@ straight forward follow this on any other linux distribution.
 Install system packages
 ------------------------
 
-1. Install things::
+1. Install system packages::
 
       $ sudo apt-get install git python-dev python-pip wine gfortran \
                             g++ libfreetype6-dev libpng12-dev xclip
@@ -26,8 +19,8 @@ Install system packages
 
 .. note::
 
-    To code, you'll also need an editor. Could be any you prefer!
-    Some people prefer simple ones like ``gedit`` (installed by default)
+    To code, of course you'll also need an editor. Could be anyone you prefer!
+    Some people prefers simple ones like ``gedit`` (installed by default)
     or geany. Some other prefers something more geeky like ``vim``
     or even more complete tools like ``pydev`` or ``ninja-ide``.
 
@@ -46,7 +39,7 @@ isolate our enviroment for other projects and system-wide python packages
      mkdir ~/projects
      mkdir ~/.pip_download_cache
 
-   2.2  Edit you ``~/.bashrc`` adding this lines::
+   2.2  Edit you ``~/.bashrc`` adding these lines::
 
      export WORKON_HOME=$HOME/.virtualenvs
      source /usr/local/bin/virtualenvwrapper.sh
@@ -60,7 +53,7 @@ isolate our enviroment for other projects and system-wide python packages
 
     $ mkproject sur
 
-  This create new virtualenv in the WORKON_HOME binded to a
+  This will create a new virtualenv in the WORKON_HOME binded to a
   project directory in PROJECT_HOME
 
 .. note::
@@ -98,23 +91,17 @@ and/or write it. Please if you don't have a Bitbucket account, create one:
     (sur)~/projects/sur$ git clone git@bitbucket.org:phasety/envelope-sur.git .
     (sur)~/projects/sur$ git checkout develop
 
-5. Remember configure your identity (so, your future great code will
+5. Remember to configure your identity (so, your future great code will
    be recognized)::
 
     (sur)$ git config --global user.name "Juan Perez"
     (sur)$ git config --global user.email perez@phasety.com
 
 
-Almost done
-------------
+Install in dev mode
+-------------------
 
-- Install sur's requirements (basically numpy_ and matplotlib_) via pip::
-
-    (sur)~/projects/sur$ pip install numpy
-    (sur)~/projects/sur$ pip install -r requirement.txt
-
-- And finally install Sur
-
+    (sur)~/projects/sur$ pip install -U numpy pip jupyter nose
     (sur)~/projects/sur$ pip install -e .
 
 .. tip::

@@ -48,8 +48,8 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'Envelope-Sur'
-copyright = u'2013, Phasety'
+project = u'Sur'
+copyright = u'2016, Phasety'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -201,7 +201,7 @@ latex_elements = {
 # (source start file, target name, title,
 #  author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'Envelope-Sur.tex', u'Envelope-Sur Documentation',
+  ('index', 'Sur.tex', u'Sur Documentation',
    u'Phasety', 'manual'),
 ]
 
@@ -231,7 +231,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'envelope-sur', u'Envelope-Sur Documentation',
+    ('index', 'sur', u'Sur Documentation',
      [u'Phasety'], 1)
 ]
 
@@ -245,8 +245,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'Envelope-Sur', u'Envelope-Sur Documentation',
-   u'Phasety', 'Envelope-Sur', 'One line description of project.',
+  ('index', 'Sur', u'Sur Documentation',
+   u'Phasety', 'Sur', 'One line description of project.',
    'Miscellaneous'),
 ]
 
