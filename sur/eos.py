@@ -110,12 +110,7 @@ class RKPR(CubicModel):
         If a point pvdat = (P, T) is given, it's used as a constraint
         to calculate the vapor pressure
 
-        Returns
-        -------
-
-        ::
-
-             (constants, model_parameters)
+        :returns: (constants, model_parameters)
 
         Where::
 
@@ -157,12 +152,9 @@ class RKPR(CubicModel):
         and the the ajusted model's array of parameters.
 
 
-        Returns
-        -------
+        :returns: (constants, model_parameters)
 
-               (constants, model_parameters)
-
-        Where
+        Where::
 
             constants = array([Tc, Pc, acentric_factor, Vc])
             models_parameters =  array([ac, b, del1, rk])

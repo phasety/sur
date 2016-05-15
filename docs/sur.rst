@@ -1,16 +1,3 @@
-sur package
-===========
-
-Subpackages
------------
-
-.. toctree::
-
-    sur.migrations
-    sur.tests
-
-Submodules
-----------
 
 sur.apps module
 ---------------

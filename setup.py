@@ -24,7 +24,7 @@ multicompound mixtures.
 
 Phasety 2013 - 2016
 """
-VERSION = '1.0'   # base version
+VERSION = '1.1'   # base version
 
 
 DISTNAME = 'sur'
@@ -94,7 +94,7 @@ def get_version():
             if not git_version:
               git_version = subprocess.check_output(['git', 'rev-parse', 'HEAD'])
               git_version = git_version.strip().decode('ascii')[:7]
-            return '{}.post{}'.format(VERSION, git_version)
+            return '{}.dev+{}'.format(VERSION, git_version)
         except:
             return VERSION
 
