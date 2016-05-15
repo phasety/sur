@@ -4,7 +4,7 @@ import os
 import sys
 import glob
 import subprocess
-import setuptools
+import setuptools           # NOQA
 
 try:
     from numpy.distutils.core import Extension, setup
@@ -19,7 +19,7 @@ except ImportError:
 descr = """\
 Envelope Sur.
 
-A basic envelope and flash calculator and plotter for
+A simple envelope and flash calculator and plotter for
 multicompound mixtures.
 
 Phasety 2013 - 2016
@@ -37,6 +37,10 @@ LICENSE = 'Freeware'
 DOWNLOAD_URL = URL
 PACKAGE_NAME = 'sur'
 
+if os.environ.get('READTHEDOCS') == 'True':
+    ext_modules = []
+else:
+    ext_modules = [Extension('sur._cubic', sources=['sur/CubicParam.f90'])]
 
 
 EXTRA_INFO = dict(
@@ -114,5 +118,5 @@ if __name__ == "__main__":
           include_package_data=True,
           # test_suite="nose.collector",
           version=get_version(),
-          ext_modules=[Extension('sur._cubic', sources=['sur/CubicParam.f90'])],
+          ext_modules=ext_modules,
           **EXTRA_INFO)

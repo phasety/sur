@@ -1,7 +1,12 @@
 # -*- coding: utf-8 -*-
 
 import numpy as np
-from sur import _cubic
+try:
+    from sur import _cubic
+except ImportError:
+    # readthedocs
+    from mock import Mock
+    _cubic = Mock()
 
 
 class CubicModel(object):
