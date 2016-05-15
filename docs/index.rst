@@ -11,7 +11,8 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-   basic_envelope.ipynb
+   install.rst
+   tutorial.ipynb
 
 
 
