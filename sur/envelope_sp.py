@@ -53,7 +53,7 @@ def write_input(mixture, eos, t=None, p=[], v=[], ii=None,
     if t and p are given, return the path of the folder with
     a written flashIN.txt
     """
-    
+
     compounds = []
     if p and not isinstance(p, Iterable):
         p = [p]
@@ -135,7 +135,7 @@ def flash(fi):
 
 
 def isochore(ii):
-    path = write_input(ii.mixture, ii.setup.eos, ii=ii, interactions=ii.interactions, nplus=len(fi.mixture))
+    path = write_input(ii.mixture, ii.setup.eos, ii=ii, interactions=ii.interactions, nplus=len(ii.mixture))
     output = exec_fortran('FlashSur', path)
 
     # to debug
