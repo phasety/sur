@@ -11,7 +11,7 @@ try:
 except ImportError:
     print("""Numpy is not installed. Try:
 
-    pip install numpy==1.8
+    pip install numpy
 """)
     sys.exit(-1)
 
