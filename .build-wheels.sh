@@ -2,9 +2,10 @@
 set -e -x
 
 # Install a system package required by our library
-yum install -y gcc-gfortran numpy
+yum install -y gcc-gfortran
 
 # Compile wheels
+/opt/python/cp27-cp27mu/bin/pip install numpy
 /opt/python/cp27-cp27mu/bin/pip wheel /io/ -w wheelhouse/
 
 # Bundle external shared libraries into the wheels
