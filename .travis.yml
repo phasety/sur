@@ -1,5 +1,8 @@
 notifications:
-  email: false
+  email:
+    - martin.cismondi@gmail.com
+    - andres.python@gmail.com
+    - gaitan@gmail.com
 
 matrix:
   include:
