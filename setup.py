@@ -49,7 +49,7 @@ EXTRA_INFO = dict(
     classifiers=['Development Status :: 3 - Alpha',
                  'Intended Audience :: Developers',
                  'Intended Audience :: Science/Research',
-                 'License :: OSI Approved :: BSD License',
+                 'License :: Free To Use But Restricted',
                  'Topic :: Scientific/Engineering']
 )
 

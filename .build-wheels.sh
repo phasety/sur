@@ -5,7 +5,7 @@ set -e -x
 yum install -y gcc-gfortran numpy
 
 # Compile wheels
-/opt/python/python2.7/bin/pip wheel /io/ -w wheelhouse/
+/opt/python/cp27-cp27mu/bin/pip wheel /io/ -w wheelhouse/
 
 # Bundle external shared libraries into the wheels
 for whl in wheelhouse/*.whl; do
