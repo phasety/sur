@@ -1,0 +1,230 @@
+import numpy as np
+import scipy as sp
+from scipy import optimize
+from scipy.optimize import fsolve
+
+RGAS=0.08314472
+
+# Critical constants must be given in K and bar
+# b will be in L/mol and ac in bar*(L/mol)**2
+
+# PARAMETER (A0=0.0017,B0=1.9681,C0=-2.7238)
+A0 = 0.0017
+B0 = 1.9681
+C0 =-2.7238
+
+# PARAMETER (A1=-2.4407,B1=7.4513,C1=12.504)
+A1 = -2.4407
+B1 =  7.4513
+C1 = 12.504
+
+#	dimension D(6)
+#	CHARACTER*16 comp
+#	COMMON /Tcdc/ Tc,dc
+#	COMMON /ABd1/ a,b,del1	
+
+D = np.array([0.428363,18.496215,0.338426,0.660,789.723105,2.512392])
+NC=2
+NIN=1
+nout=9
+
+
+# acá encontré esto que lo tenía aparte, como un ejemplo de ese tipo de corrida con un RHOLSat
+# 3  3    0                      ICALC,NMODEL
+# 304.21  73.83  0.2236          Tc, Pc, omega
+# 270.0  21.4626                 T(K), RhoLsat (L/mol)
+
+
+# SUBROUTINE VaporPressure(Tr,PVini,Pv,RHOL,RHOV,phiL)
+def vapor_pressure_cal(Tr,PVini,Pvdat):
+    """
+    IMPLICIT DOUBLE PRECISION (A-H,O-Z)
+    PARAMETER (ERRMAX=1.D-8)
+    COMMON /Tcdc/ Tc,dc
+    """
+    dphi = 0.01
+    Pold = PVini
+    P_new = Pvdat
+    n=1
+    T=Tr*Tc
+    
+    
+    # 30	call VCALC(1,T,P,V)
+    V_liquido = VCALC(1,T,P_new,4.0)
+    RHOL = 1/V_liquido[0]
+    
+    # call VCALC(-1,T,P,V) #! SOLVE for vapor density
+    V_vapor = VCALC(-1,T,P_new,4.0) #! SOLVE for vapor density
+    RHOV = 1/V_vapor[0]
+    
+    print("RHOL = {0}".format(RHOL))
+    print("RHOV = {0}".format(RHOV))
+    
+    # call FUG_CALC(T,P,1/RHOL,phi)
+    phi = FUG_CALC(T,P_new,V_liquido[0])    
+    phiL = phi#[0]
+    
+    # call FUG_CALC(T,P,V,phi)
+    phi = FUG_CALC(T,P_new,V_vapor[0])
+    phiV = phi#[0]
+    
+    
+    dphi = phiV - phiL
+    
+    #dphi = 0.0
+    
+    ITER_p = 0
+    salida = "no"
+    
+    while 1:
+        # 30	call VCALC(1,T,P,V)
+        V_liquido = VCALC(1,T,Pold,4.0)
+        RHOL = 1/V_liquido[0]
+        
+        # call VCALC(-1,T,P,V) #! SOLVE for vapor density
+        V_vapor = VCALC(-1,T,Pold,4.0) #! SOLVE for vapor density
+        RHOV = 1/V_vapor[0]
+        
+        print("RHOL = {0}".format(RHOL))
+        print("RHOV = {0}".format(RHOV))
+        print("ITER_p = {0}".format(ITER_p))
+        
+        """
+        #if(RHOL.LT.0.9*dc) then
+        if RHOL < 0.9*dc:
+            P = 1.01 * P
+            print("P = 1.01 * P")
+            # go to 30
+        # else if(RHOV.GT.dc) then
+        elif RHOV > dc:
+            P = 0.99 * P
+            print("P = 0.99 * P")
+            # go to 30
+        # end if
+        """
+        ITER_v = 0
+        
+        while RHOL < 0.9*dc or RHOV > dc:
+            V_liquido = VCALC(1,T,Pold,4.0)
+            RHOL = 1/V_liquido[0]
+            
+            V_vapor = VCALC(-1,T,Pold,4.0) 
+            RHOV = 1/V_vapor[0]
+            
+            if RHOL < 0.9*dc:
+                Pold = 1.01 * Pold
+                print("P = 1.01 * P")
+                # go to 30
+            # else if(RHOV.GT.dc) then
+            elif RHOV > dc:
+                Pold = 0.99 * Pold
+                print("P = 0.99 * P")
+            
+            print("RHOL = {0} y RHOV = {1}".format(RHOL,RHOV))
+            print("otra vez P")
+            
+            if ITER_v > 50:
+                salida = "si"
+                break
+            
+            ITER_v += 1
+        
+        #if salida == "si":
+        #    break
+        
+        
+        # call FUG_CALC(T,P,1/RHOL,phi)
+        phi = FUG_CALC(T,Pold,1/RHOL)    
+        phiL = phi#[0]
+        
+        # call FUG_CALC(T,P,V,phi)
+        phi = FUG_CALC(T,Pold,1/RHOV)
+        phiV = phi#[0]
+        
+        dphiold = dphi
+        dphi = phiV - phiL
+        
+        print("phiL = {0}".format(phiL))
+        print("phiV = {0}".format(phiV))        
+        print("dphi = {0}".format(dphi))
+        
+        # if(dphiold.eq.0.0D0.or.Tr.gt.0.975) then
+        ##if abs(dphiold) == 0.0 or Tr > 0.975:
+        if abs(dphi) <= 1e-3:
+            # P_k_new = Pold * (phiL/phiV)
+            P = Pold * (phiL/phiV)
+            print("P = P * (phiL/phiV)")
+            print("(phiL/phiV) = {0}".format((phiL/phiV)))
+            print("Tr = {0}".format(Tr))
+        # else
+        else:
+            #P = Plast - dphi*(Plast - Pold)/(dphi - dphiold)
+            #P = P - 0.5*dphi*(P - Pold)/(dphi - dphiold)
+            
+            #P_k_new = P_new - dphi*(P_new - Pold)/(dphi - dphiold)
+            P = P_new - dphi*(P_new - Pold)/(dphi - dphiold)
+            print("P = P - dphi*(P - Pold)/(dphi - dphiold)")
+            
+            print("P_new - Pold = {0}".format(P_new - Pold))
+            print("(dphi - dphiold)= {0}".format(dphi - dphiold))
+            print("(P_new - Pold)/(dphi - dphiold)= {0}".format((P_new - Pold)/(dphi - dphiold)))
+            print("dphi*(P_new - Pold)/(dphi - dphiold)= {0}".format(dphi*(P_new - Pold)/(dphi - dphiold)))
+            
+            
+        # end if
+        
+        # c		n=n+1
+        # GO TO 30
+        # END IF
+        
+        # P_k_new = P_new - dphi*(P_new - Pold)/(dphi - dphiold)
+        
+        print("P = {0}".format(P))
+        print("P_dentro de VCAL = {0}".format(P))
+        
+        # IF (ABS(dphi).gt.ERRMAX) THEN
+        ERRMAX = 1e-4
+        if abs(dphi) > ERRMAX:
+            # Pold = Plast
+            # Plast = P
+            Pold = P_new
+            P_new = P
+            
+            print("Pold = {0}".format(Pold))
+            print("P_new = {0}".format(P_new))
+        else:
+            break
+            
+        if ITER_p >= 20:
+            break
+        
+        ITER_p += 1
+        
+        
+        
+    PV = P
+    print("Presión saturación = {0} {1}".format(PV, "Bar"))
+    # c      WRITE (31,*) ' n=',n
+    return
+# END
+
+# Tr = 0.7
+PVini = 4.4
+# Pvdat = Pc * 10 **-(1.0 + OM)
+
+# Trho = Tr
+# Pvdat = Pc * 10 **-((1./Trho-1.0)*7*(1.0+OM)/3)
+# a=ac*(3/(2+Trho))**rk
+
+#rk = (A1*Zc+A0)*OM**2+(B1*Zc+B0)*OM+(C1*Zc+C0) # ! initial guess for k parameter
+print("kr = {0}".format(rk))
+#Tr = 0.7D0	! Change here to use another Pv than the one at Tr 0.7
+#Pvdat=Pc*10**-(1.0D0+OM)
+#a = ac * (3/(2+Tr))**rk
+
+print("PVini = {0}".format(PVini))
+print("Pvdat = {0}".format(Pvdat))
+print("dc = {0}".format(dc))
+#PVini = Pvdat
+
+vapor_pressure_cal(Tr,PVini,Pvdat)
