@@ -3,10 +3,11 @@ from scipy.optimize import fsolve
 """
 This module calculate parameters necessary to use the equations of state:
 SRK, PR and RKPR
-
 """
 
-# acá encontré esto que lo tenía aparte, como un ejemplo de ese tipo de corrida con un RHOLSat
+# Ejemplo de ese tipo de corrida con un RHOLSat
+
+# Data for CO2
 # 3  3    0                         ICALC,NMODEL
 # 304.21  73.83  0.2236      Tc, Pc, omega
 # 270.0  21.4626                 T(K), RhoLsat (L/mol)
@@ -14,94 +15,107 @@ SRK, PR and RKPR
 # Critical constants must be given in K and bar
 # b will be in L/mol and ac in bar*(L/mol)**2
 
+# METHANE (1)
+# Tc, Pc, omega, vc, zrat = 190.564, 45.99, 0.01155, 0.115165, 1.00000173664
+# ac, b, delta_1, rk = 2.3277, 0.029962, 0.932475, 1.49541
+# Tr = 0.7 # Change here to use another Pv than the one at Tr 0.7
 
 RGAS = 0.08314472
 # Definir el significado fisicoquímico
 
 A0, B0, C0 = 0.0017, 1.9681, -2.7238
-
 # Definir el significado fisicoquímico
+
 A1, B1, C1 = -2.4407, 7.4513, 12.504
 # Definir el significado fisicoquímico
 
 D = np.array([0.428363, 18.496215, 0.338426, 0.660, 789.723105, 2.512392])
 
-# METHANE (1)
-Tc, Pc, ohm, vc, zrat = 190.564, 45.99, 0.01155, 0.115165, 1.00000173664
-ac, b, d, rk = 2.3277, 0.029962, 0.932475, 1.49541
-#   Tr = 0.7 # Change here to use another Pv than the one at Tr 0.7
-Tr = 0.7
+ICALC = 3
 
-delta_1 = d
-delta_1 = 2.0
+# Carbon Dioxide
+Tc, Pc, omega = 304.21,  73.83,  0.2236  # Tc, Pc, omega
+T_especific, RHOLSat_esp = 270.0,   21.4626 # T(K), RhoLsat (L/mol)
 
+# delta_1 = d
+delta_1 = 0.5
 
-print ("delta_1 = {0}".format(delta_1))
+print("delta_1 = {0}".format(delta_1))
 
-#dc = 1 / vc
-OM = ohm
-
-
-d1 = (1 + delta_1 ** 2) / (1 + delta_1)
-y = 1 + (2 * (1 + delta_1)) ** (1.0 / 3) + (4 / (1 + delta_1)) ** (1.0 / 3)
-OMa = (3 * y * y + 3 * y * d1 + d1 ** 2 + d1 - 1.0) / (3 * y + d1 - 1.0) ** 2
-OMb = 1 / (3 * y + d1 - 1.0)
-Zc = y / (3 * y + d1 - 1.0)
-
-#dc = Pc / Zc / (RGAS * Tc)
-#Vceos = 1.0 / dc
-
-RT = RGAS * Tc*Tr
-
-ac = OMa * RT**2 / Pc
-b = OMb * RT / Pc
-
-print("Zc = {0}".format(Zc))
-print("ac = {0}".format(ac))
-print("b = {0}".format(b))
+class Eos_initialisation(object):
+    """docstring for Eos_initialisation"""
+    def __init__(self, arg):
+        super(Eos_initialisation, self).__init__()
+        self.arg = arg
 
 
+def initial_data(omega, delta_1):
 
-# initial guess for k parameter
-rk = (A1 * Zc + A0) * OM**2 + (B1 * Zc + B0) * OM + (C1 * Zc + C0)
-rk = rk * 1.2
-Pvdat = Pc * 10 ** -(1.0 + OM)
+    d1 = (1 + delta_1 ** 2) / (1 + delta_1)
+    y = 1 + (2 * (1 + delta_1)) ** (1.0 / 3) + (4 / (1 + delta_1)) ** (1.0 / 3)
+    OMa = (3 * y * y + 3 * y * d1 + d1 ** 2 + d1 - 1.0) \
+    / (3 * y + d1 - 1.0) ** 2    
+    OMb = 1 / (3 * y + d1 - 1.0)
+    Zc = y / (3 * y + d1 - 1.0)
+
+    # initial guess for k parameter
+    rk = (A1 * Zc + A0) * omega**2 + (B1 * Zc + B0) * omega + (C1 * Zc + C0)
+    rk = rk * 3.2
+
+    if ICALC == 1 or ICALC == 2:
+        Tr = 0.7
+        Pvdat = Pc * 10 ** -(1.0 + omega)
+    else:
+        Tr_calculada = T_especific/Tc
+        Tr = Tr_calculada
+        Pvdat = Pc * 10 ** -((1.0 / Tr - 1.0) * 7 * (1.0 + omega) / 3)
+    
+    return rk, Pvdat, Tr
+
+rk, Pvdat, Tr = initial_data(omega, delta_1)
+
+RT = RGAS * Tc * Tr
+
 print("Pvdat = {0}".format(Pvdat))
+print("rk_in = {0}".format(rk))
+print("Tr = {0}".format(Tr))
 
 
 class Parameter_eos(object):
-    """Parameter_eos contains the methods to adjust the parameters delta 1 rk for the energy parameter to a function of temperature and setting the parameter to represent a point of density - temperature curve """
+    """
+    Parameter_eos contains the methods to adjust the parameters
+    delta 1 rk for the energy parameter to a function of temperature and
+    setting the parameter to represent a point of density - temperature curve
+    """
 
-    def __init__(self, *arg):
-        #self.T = arg[0]
-        #self.V = arg[1]
-        #self.P = arg[2]
-        #self.rk= arg[0]
-        self.d = arg[0]        
+    def energetic_parameter_cal(self, rk, delta_1_initial):
 
-    
-    def parametro_a_cal(self, ac, rk, delta_1):
+        self.ac = self.parameter_ab_cal(delta_1_initial)[0]
+        self.a = self.ac * (3 / (2 + Tr)) ** rk
 
-        #ac_calculado = self.recalcular_parametros_cal(delta_1)[0]
-        self.a = ac * (3 / (2 + Tr)) ** rk
         return self.a
 
+    def gvdW_Derivatives_cal(self, NDER, Volume, a, b, delta_1_initial):
+        """
+        gvdW_Derivatives_cal: calculate the derivatives from Generalized van
+        der Waals equation of state
+        """
+        self.d = delta_1_initial
 
-    def vdWg_Derivs_cal(self, NDER, V, b):
-
-        C = (1 - self.d) / (1 + self.d)
-        aRT = self.a / (RGAS * self.T)
-        ETA = 0.25 * b / V
-        SUMC = C * b + V
-        SUMD = self.d * b + V
-        REP = -np.log(1 - 4 * ETA)
-        ATT = aRT * np.log(SUMD / SUMC) / (b * (C - self.d))
+        c = (1 - self.d) / (1 + self.d)
+        aRT = self.a / (RGAS * T_especific)
+        relation_covolume = 0.25 * b / Volume
+        SUMC = c * b + Volume
+        SUMD = self.d * b + Volume
+        REP = -np.log(1 - 4 * relation_covolume)
+        ATT = aRT * np.log(SUMD / SUMC) / (b * (c - self.d))
         ATTV = aRT / SUMC / SUMD
-        REPV = 1 / (1 - 4 * ETA) - 1
-        REP2V = 1 / (1 - 4 * ETA) ** 2 - 1
-        ATT2V = aRT * V ** 2 * (1 / SUMD ** 2 - 1 / SUMC ** 2) / (b * (C - self.d))
+        REPV = 1 / (1 - 4 * relation_covolume) - 1
+        REP2V = 1 / (1 - 4 * relation_covolume) ** 2 - 1
+        ATT2V = aRT * Volume ** 2 * (1 / SUMD ** 2 - 1 / SUMC ** 2) \
+        / (b * (c - self.d))
         F = REP + ATT
-        F_V = (- REPV / V + ATTV)
+        F_V = (- REPV / Volume + ATTV)
 
         if NDER == 1:
             F_2V = REP2V - ATT2V
@@ -109,155 +123,169 @@ class Parameter_eos(object):
             calculo_2 = "F_2V"
             return F, F_V, F_2V, calculo_1, calculo_2
         else:
-            F_N = REP + ATT - V * F_V
+            F_N = REP + ATT - Volume * F_V
             calculo = "F_N"
             return F_N, calculo
 
-
-    def VCALC(self, ITYP, T, P, b):
- 
+    def volume_cal(self, ITYP, T, P, a, b, delta_1_initial):
         volume_iteration = 0
         VCP = b
         S3R = 1.0 / VCP
-        zeta_min, zeta_max = 0.00, 0.99
+        zrelation_covolume_min, zrelation_covolume_max = 0.00, 0.99
         P_sur = P
         if ITYP >= 0.0:
-            zeta = 0.5
+            zrelation_covolume = 0.5
         else:
             # IDEAL GAS ESTIMATE
-            zeta = min(0.5, (VCP * P_sur) / (RGAS * self.T))
+            zrelation_covolume = min(0.5, (VCP * P_sur) / (RGAS * T))
         while True:
-            V = VCP / zeta
+            Volume = VCP / zrelation_covolume
 
-            vdWg = self.vdWg_Derivs_cal(1, V, b)
+            vdWg = self.gvdW_Derivatives_cal(1, Volume, a, b, delta_1_initial)
             F = vdWg[0]
             F_V = vdWg[1]
             F_2V = vdWg[2]
-            pressure_cal_eos = RGAS * self.T * (1 / V - F_V)
+            pressure_cal_eos = RGAS * T * (1 / Volume - F_V)
             if pressure_cal_eos > P_sur:
-                zeta_max = zeta
+                zrelation_covolume_max = zrelation_covolume
             else:
-                zeta_min = zeta
-            AT = F - np.log(V) + V * P_sur / (self.T * RGAS)
-            DER = RGAS * self.T * (F_2V + 1.0) * S3R
+                zrelation_covolume_min = zrelation_covolume
+            AT = F - np.log(Volume) + Volume * P_sur / (T * RGAS)
+            DER = RGAS * T * (F_2V + 1.0) * S3R
             DEL = - (pressure_cal_eos - P_sur) / DER
-            zeta = zeta + 1.0 * max(min(DEL, 0.1), -0.1)
-            if zeta > zeta_max or zeta < zeta_min:
-                zeta = 0.5 * (zeta_max + zeta_min)
-            if abs(DEL) < 1e-10 or volume_iteration >= 50:
+            zrelation_covolume = zrelation_covolume + 1.0 * max(min(DEL, 0.1), -0.1)
+            if zrelation_covolume > zrelation_covolume_max or zrelation_covolume < zrelation_covolume_min:
+                zrelation_covolume = 0.5 * (zrelation_covolume_max + zrelation_covolume_min)
+            if abs(DEL) < 1e-10 or volume_iteration >= 20:
                 break
             volume_iteration += 1
-        return V, pressure_cal_eos
+        return Volume, pressure_cal_eos
 
+    def phi_fagacity_cal(self, T, P, Volume, delta_1_initial):
 
-    def phi_fagacity_cal(self, T, P, V):
-        RT = RGAS * self.T
-        P_sur = P
-        print("self.vol = {0}".format(V))
-        print("self.P = {0}".format(P))
-        print("self.P_sur = {0}".format(P_sur))
-
-        Z = P_sur * V / RT
-        vdWg = self.vdWg_Derivs_cal(2, V, b)
+        Z = P * Volume / RT
+        vdWg = self.gvdW_Derivatives_cal(2, Volume, self.a, self.b, delta_1_initial)
         F_N = vdWg[0]
         phi_fugacity = np.exp(F_N) / Z
         return phi_fugacity
 
-
-    def saturation_pressure_cal(self, PV_supuesta, ac_inicial, rk_inicial):
-        self.T = Tr * Tc
+    def saturation_pressure_cal(self, PV_supuesta, rk_inicial, delta_1_initial):
+        self.Tsat = Tr * Tc
         P_sur = PV_supuesta
-        print(self.T, Tr, P_sur)
         
-        self.a = self.parametro_a_cal(ac, rk_inicial, delta_1)
-        self.volume_liquid = self.VCALC(1, self.T, P_sur, b)[0]
-        print("liquid_volume = {0}".format(self.volume_liquid))
+        self.a = self.energetic_parameter_cal(rk_inicial, delta_1_initial)
+        self.b = self.parameter_ab_cal(delta_1_initial)[1]
 
-        phi_fugacity_liquid = self.phi_fagacity_cal(self.T, P_sur, self.volume_liquid)
-        print("phi_fugacity_liquid = {0}".format(phi_fugacity_liquid))
+        self.volume_liquid = self.volume_cal(1, self.Tsat, P_sur, self.a,
+        self.b, delta_1_initial)[0]
 
-        self.volume_vapor = self.VCALC(-1, self.T, P_sur, b)[0]
-        print("vapor_volume = {0}".format(self.volume_vapor))        
+        phi_fugacity_liquid = self.phi_fagacity_cal(self.Tsat, P_sur,
+        self.volume_liquid, delta_1_initial)
+
+        self.volume_vapor = self.volume_cal(-1, self.Tsat, P_sur, self.a,
+        self.b, delta_1_initial)[0]
         
-        phi_fugacity_vapor = self.phi_fagacity_cal(self.T, P_sur, self.volume_vapor)
-
-        print("phi_fugacity_vapor = {0}".format(phi_fugacity_vapor))
+        phi_fugacity_vapor = self.phi_fagacity_cal(self.Tsat, P_sur,
+        self.volume_vapor, delta_1_initial)
         
-        phase_equilibrium = abs(phi_fugacity_vapor - phi_fugacity_liquid)
-        print("phase_equilibrium (phi_l - phi_v) = {0}".format(
-            phase_equilibrium))
-        return phase_equilibrium
+        self.phase_equilibrium = abs(phi_fugacity_vapor - phi_fugacity_liquid)
+        
+        return self.phase_equilibrium
 
-    def resolver_fases_cal(self, rk_inicial, ac_inicial):
-        PV_experimental = Pvdat
-        PV_inicial = PV_experimental * 1.1
-        print("PV_experimental  = {0}".format(PV_experimental))
-        print("PV_inicial = {0}".format(PV_inicial))
+    def phase_equilibrium_cal(self, rk_inicial, delta_1_initial):
+        PV_inicial = Pvdat
+
         rk_class = rk_inicial
-        ac_class = ac_inicial
 
-        PV_calculada = fsolve(self.saturation_pressure_cal, PV_inicial, args=(ac_class, rk_class), xtol=1e-4)
+        self.PV_calculed = fsolve(self.saturation_pressure_cal, PV_inicial,
+        args=(rk_class, delta_1_initial), xtol=1e-4)
 
-        print("Presion de saturación = {0} Bar".format(PV_calculada[0]))
+        return self.PV_calculed
 
-        return PV_calculada
+    def funcion_saturacion_cal(self, rk_inicial, delta_1_initial):
 
-    def funcion_saturacion_cal(self, rk_inicial, ac_inicial):
+        presion_saturada_modelo = self.phase_equilibrium_cal(rk_inicial, delta_1_initial)
+        self.saturation_function = abs(presion_saturada_modelo - Pvdat) / Pvdat
+        
+        return self.saturation_function
 
-        self.a = self.parametro_a_cal(ac, rk_inicial, delta_1)
-        presion_saturada_modelo = self.resolver_fases_cal(rk_inicial, ac_inicial)
-        funcion_saturacion = abs(presion_saturada_modelo - Pvdat) / Pvdat
-        print("error_presion_relativo = {0}".format(funcion_saturacion))
+    def resolver_rk_cal(self, rk_inicial, delta_1_initial):
+        
+        self.rk_calculated = fsolve(self.funcion_saturacion_cal, rk_inicial,
+        args = (delta_1_initial), xtol=1e-4)
 
-        return funcion_saturacion
+        return self.rk_calculated
 
-    def resolver_rk_cal(self, rk_inicial, ac_inicial):
-
-        rk_cls = rk_inicial
-        ac_cls = ac_inicial
-        self.rk_calculado = fsolve(self.funcion_saturacion_cal, rk_cls, args=(ac_cls), xtol=1e-4)
-        print ("rk_calculado = {0}".format(self.rk_calculado))
-
-        return self.rk_calculado
-
-    def recalcular_parametros_cal(self, delta_1):
-        RT = RGAS * self.T
-
-        d1 = (1 + delta_1 ** 2) / (1 + delta_1)
-        y = 1 + (2 * (1 + delta_1)) ** (1.0 / 3) + (4 / (1 + delta_1)) ** (1.0 / 3)
-        OMa = (3 * y * y + 3 * y * d1 + d1 ** 2 + d1 - 1.0) / (3 * y + d1 - 1.0) ** 2
+    def parameter_ab_cal(self, delta_1_initial):
+        RT = RGAS * T_especific
+        d1 = (1 + delta_1_initial ** 2) / (1 + delta_1_initial)
+        y = 1 + (2 * (1 + delta_1_initial)) ** (1.0 / 3) \
+        + (4.0 / (1 + delta_1_initial)) ** (1.0 / 3.0)
+        OMa = (3 * y * y + 3 * y * d1 + d1 ** 2 + d1 - 1.0) \
+        / (3 * y + d1 - 1.0) ** 2
         OMb = 1 / (3 * y + d1 - 1.0)
         Zc = y / (3 * y + d1 - 1.0)
         dc = Pc / Zc / (RGAS * Tc)
         Vceos = 1.0 / dc
 
-        ac = OMa * RT**2 / Pc
-        b = OMb * RT / Pc
+        self.ac = OMa * RT**2 / Pc
+        self.b = OMb * RT / Pc
 
-        print("Zc = {0}".format(Zc))
-        print("ac = {0}".format(ac))
-        print("b = {0}".format(b))
+        return self.ac, self.b
 
-        return ac, b
+    def density_cal(self, delta_1_initial, rk_inicial, Pvdat):
 
-    def density_cal(self, ac_inicial, rk_inicial, Pvdat):       
+        self.b = self.parameter_ab_cal(delta_1_initial)[1]
+        self.a = self.energetic_parameter_cal(rk_inicial, delta_1_initial)
+        self.rk_calculated = self.resolver_rk_cal(rk_inicial, delta_1_initial)
 
-        rk_inicial = self.resolver_rk_cal(rk_inicial, ac_inicial)
-        print("rk_inicial ______= {0}".format(rk_inicial))
-
-        self.volume_liquid = self.VCALC(1, self.T, Pvdat, b)[0]
-        print("volume_liquid = {0}".format(self.volume_liquid))
-        self.density_liquid = 1 / self.volume_liquid
-        print("density_liquid = {0}".format(self.density_liquid))
+        self.volume_liquid_delta = self.volume_liquid
+        self.density_liquid = 1 / self.volume_liquid_delta        
 
         return self.density_liquid
 
-            
+    def density_function_cal(self, delta_1_initial, rk_inicial, Pvdat, RHOLSat_esp):
 
-calculo_1 = Parameter_eos(delta_1)
-calculo_1.resolver_fases_cal(rk, ac)
-calculo_1.resolver_rk_cal(rk, ac)
-#calculo_1.recalcular_parametros_cal(delta_1)
-#calculo_1.density_cal(ac, rk, Pvdat)
+        RHOLSat_cal = self.density_cal(delta_1_initial, rk_inicial, Pvdat)
+        self.density_function = abs(RHOLSat_cal - RHOLSat_esp)
+        self.density_function = self.density_function / RHOLSat_esp        
 
-#print("Parametro rk_calculado = {0}".format(calculo_1.rk_calculado))
+        return self.density_function
+
+    def resolver_delta_1_cal(self, delta_1_initial, rk_inicial, Pvdat, RHOLSat_esp):
+        
+        self.delta_1_calculated = fsolve(self.density_function_cal, delta_1_initial, args = (rk_inicial, Pvdat, RHOLSat_esp),
+            xtol=1e-3)
+
+        return self.delta_1_calculated
+
+
+eos_calculation = Parameter_eos()
+eos_calculation.phase_equilibrium_cal(rk, delta_1)
+
+print("eos_calculation.resolver_rk_cal = {0}".format(eos_calculation.resolver_rk_cal(rk, delta_1)))
+
+
+eos_calculation.parameter_ab_cal(delta_1)
+
+eos_calculation.density_cal(delta_1, rk, Pvdat)
+
+eos_calculation.density_function_cal(delta_1, rk, Pvdat, RHOLSat_esp)
+print("density_function = {0}".format(eos_calculation.density_function))
+
+
+eos_calculation.resolver_delta_1_cal(delta_1, rk, Pvdat, RHOLSat_esp)
+
+print("-"*80)
+
+print("Relative Error saturation pressure = {0}".format(eos_calculation.saturation_function))
+print("phase_equilibrium (phi_l - phi_v) = {0}".format(eos_calculation.phase_equilibrium))
+
+print("Density_function = {0}".format(eos_calculation.density_function))
+print("delta_1_calculated = {0}".format(eos_calculation.delta_1_calculated))
+print("rk_calculated = {0}".format(eos_calculation.rk_calculated))
+
+print("volume_liquid_delta = {0}".format(eos_calculation.volume_liquid_delta))
+print("density_liquid = {0}".format(eos_calculation.density_liquid))
+
+
