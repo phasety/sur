@@ -117,12 +117,12 @@ class Parameter_eos(object):
         F = REP + ATT
         F_V = (- REPV / Volume + ATTV)
 
-        if NDER == 1:
+        if NDER == "Derivatives_of_V":
             F_2V = REP2V - ATT2V
             calculo_1 = "F_V"
             calculo_2 = "F_2V"
             return F, F_V, F_2V, calculo_1, calculo_2
-        else:
+        elif NDER == "Derivatives_of_N":
             F_N = REP + ATT - Volume * F_V
             calculo = "F_N"
             return F_N, calculo
@@ -141,7 +141,7 @@ class Parameter_eos(object):
         while True:
             Volume = VCP / zrelation_covolume
 
-            vdWg = self.gvdW_Derivatives_cal(1, Volume, a, b, delta_1_initial)
+            vdWg = self.gvdW_Derivatives_cal("Derivatives_of_V", Volume, a, b, delta_1_initial)
             F = vdWg[0]
             F_V = vdWg[1]
             F_2V = vdWg[2]
@@ -164,7 +164,7 @@ class Parameter_eos(object):
     def phi_fagacity_cal(self, T, P, Volume, delta_1_initial):
 
         Z = P * Volume / RT
-        vdWg = self.gvdW_Derivatives_cal(2, Volume, self.a, self.b, delta_1_initial)
+        vdWg = self.gvdW_Derivatives_cal("Derivatives_of_N", Volume, self.a, self.b, delta_1_initial)
         F_N = vdWg[0]
         phi_fugacity = np.exp(F_N) / Z
         return phi_fugacity
